@@ -28,7 +28,7 @@ config.mongo = {
 };
 
 config.seedDB = false;
-config.useUserEmailVerification = true;
+config.useUserEmailVerify = true;
 config.siteEmail = 'sharelinky@gmail.com';
 
 
