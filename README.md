@@ -7,8 +7,8 @@
 
 ## features
 
--  MongoDB, Expressjs, Reduxjs, Mithriljs
--  Universal ( Server-side rendering )
+-  MongoDB, Expressjs, Reduxjs, Mithriljs ( in progress )
+-  Universal ( Server-side rendering ) ( in progress )
 -  Quick & easy to get started
 -  Mithril rocks. Faster to load & render than react. It's clean & small, and does it's job well.
 -  Express middleware efficiently handles building CSS & javascript, so no grunt/gulp!
