@@ -12,7 +12,8 @@
 
 ## setup
 
--  [download](https://github.com/konsumer/mithril-quickstart/archive/master.zip)
+-  [download](https://github.com/whatifif/mithril-quickstart/archive/master.zip)
+-  `git clone https://github.com/whatifif/mithril-quickstart.git`
 -  `npm install`
 -  `npm start`
 
