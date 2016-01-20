@@ -33,9 +33,16 @@ var Auth = module.exports = {
   },
 
   // ensure verify token is correct
+  // verify: function(token){
+  //   return m.request({
+  //     method: 'POST',
+  //     url: '/auth/verify',
+  //     data: {token: token}
+  //   });
+  // },
   verify: function(token){
     return m.request({
-      method: 'POST',
+      method: 'GET',
       url: '/auth/verify',
       data: {token: token}
     });

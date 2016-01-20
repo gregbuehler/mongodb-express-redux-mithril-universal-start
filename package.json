@@ -1,49 +1,50 @@
 {
-    "name": "mongodb-express-redux-mithril-universal-start",
-    "version": "1.0.0",
-    "description": "Project template for mithril, with JWT auth, themed bootstrap & easy animations",
-    "main": "index.js",
-    "scripts": {
-        "start": "node ./server"
-    },
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git"
-    },
-    "keywords": [
-        "mongodb",
-        "expressjs",
-        "reduxjs",
-        "mithriljs",
-        "universal",
-        "start",
-        "bootstrap",
-        "bootswatch",
-        "authentication",
-        "jwt"
-    ],
-    "author": "whatifif <whatifif@yahoo.com>",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/issues"
-    },
-    "homepage": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start",
-    "dependencies": {
-        "animate.less": "git://github.com/whatifif/animate.less",
-        "body-parser": "^1.11.0",
-        "bootstrap": "^3.3.2",
-        "bootswatch": "^3.3.2",
-        "browserify-middleware": "^4.1.0",
-        "dotenv": "^0.5.1",
-        "express": "^4.11.2",
-        "jwt-async": "^1.0.1",
-        "less-middleware": "^1.0.4",
-        "mithril": "^0.2.2-rc.1",
-        "mongoose": "^4.3.6",
-        "mongoose-bcrypt": "^1.0.1"
-    },
-    "devDependencies": {},
-    "engines": {
-        "node": "5.4.1"
-    }
+  "name": "mongodb-express-redux-mithril-universal-start",
+  "version": "1.0.0",
+  "description": "Project template for mithril, with JWT auth, themed bootstrap & easy animations",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git"
+  },
+  "keywords": [
+    "mongodb",
+    "expressjs",
+    "reduxjs",
+    "mithriljs",
+    "universal",
+    "start",
+    "bootstrap",
+    "bootswatch",
+    "authentication",
+    "jwt"
+  ],
+  "author": "whatifif <whatifif@yahoo.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/issues"
+  },
+  "homepage": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start",
+  "dependencies": {
+    "animate.less": "git://github.com/whatifif/animate.less",
+    "body-parser": "^1.11.0",
+    "bootstrap": "^3.3.2",
+    "bootswatch": "^3.3.2",
+    "browserify-middleware": "^4.1.0",
+    "dotenv": "^0.5.1",
+    "express": "^4.11.2",
+    "jwt-async": "^1.0.1",
+    "less-middleware": "^1.0.4",
+    "mithril": "^0.2.2-rc.1",
+    "mongoose": "^4.3.6",
+    "mongoose-bcrypt": "^1.0.1",
+    "nodemailer": "^2.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "5.4.1"
+  }
 }
