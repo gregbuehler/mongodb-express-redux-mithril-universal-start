@@ -16,9 +16,9 @@ if (fs.existsSync(envFile)){
 
 var mongo_url = process.env.MONGO_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || process.env.MONGOSOUP_URL;
 if (!mongo_url){
-  var mockgoose = require('mockgoose');
-  mockgoose(mongoose);
-  mockgoose.reset();
+  // var mockgoose = require('mockgoose');
+  // mockgoose(mongoose);
+  // mockgoose.reset();
   mongo_url = 'mongodb://localhost/quickstart';
 }
 
