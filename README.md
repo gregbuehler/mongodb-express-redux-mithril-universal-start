@@ -16,6 +16,7 @@
 -  Easily themable using [bootswatch](http://bootswatch.com/)
 -  Slick & efficient JWT+bcrypt+mongodb authentication
 -  User Email verification when registered.
+-  Userid is used to login instead of email.
 
 ## setup
 
