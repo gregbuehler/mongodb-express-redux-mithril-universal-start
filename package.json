@@ -20,7 +20,8 @@
     "bootstrap",
     "bootswatch",
     "authentication",
-    "jwt"
+    "jwt",
+    "email verification"
   ],
   "author": "whatifif <whatifif@yahoo.com>",
   "license": "MIT",

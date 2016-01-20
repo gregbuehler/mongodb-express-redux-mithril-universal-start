@@ -15,6 +15,7 @@
 -  Comment widgets/animations you don't need from bootstrap and [animation.less](https://github.com/machito/animate.less)
 -  Easily themable using [bootswatch](http://bootswatch.com/)
 -  Slick & efficient JWT+bcrypt+mongodb authentication
+-  User Email verification when registered.
 
 ## setup
 
