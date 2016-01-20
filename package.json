@@ -1,5 +1,5 @@
 {
-    "name": "mithril-quickstart",
+    "name": "mongodb-express-redux-mithril-universal-start",
     "version": "1.0.0",
     "description": "Project template for mithril, with JWT auth, themed bootstrap & easy animations",
     "main": "index.js",
@@ -8,22 +8,26 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/whatifif/mithril-quickstart.git"
+        "url": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git"
     },
     "keywords": [
-        "mithril",
+        "mongodb",
+        "expressjs",
+        "reduxjs",
+        "mithriljs",
+        "universal",
+        "start",
         "bootstrap",
         "bootswatch",
-        "mongodb",
         "authentication",
         "jwt"
     ],
     "author": "whatifif <whatifif@yahoo.com>",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/whatifif/mithril-quickstart/issues"
+        "url": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/issues"
     },
-    "homepage": "https://github.com/whatifif/mithril-quickstart",
+    "homepage": "https://github.com/whatifif/mongodb-express-redux-mithril-universal-start",
     "dependencies": {
         "animate.less": "git://github.com/whatifif/animate.less",
         "body-parser": "^1.11.0",
