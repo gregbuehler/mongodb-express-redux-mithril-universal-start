@@ -4,11 +4,11 @@ var Auth = module.exports = {
   token: m.prop(localStorage.token),
   
   // trade credentials for a token
-  login: function(email, password){
+  login: function(userid, password){
     return m.request({
       method: 'POST',
       url: '/auth/login',
-      data: {email:email, password:password},
+      data: {userid:userid, password:password},
       unwrapSuccess: function(res) {
         localStorage.token = res.token;
         return res.token;
@@ -24,11 +24,11 @@ var Auth = module.exports = {
   },
 
   // signup on the server for new login credentials
-  register: function(email, password){
+  register: function(userid, email, password){
     return m.request({
       method: 'POST',
       url: '/auth/register',
-      data: {email:email, password:password}
+      data: { userid: userid, email: email, password: password }
     });
   },
 

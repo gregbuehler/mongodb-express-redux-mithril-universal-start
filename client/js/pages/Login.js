@@ -10,7 +10,7 @@ var Login = module.exports = {
     ctrl.error = m.prop('');
     this.login = function(e){
       e.preventDefault();
-      Auth.login(e.target.email.value, e.target.password.value)
+      Auth.login(e.target.userid.value, e.target.password.value)
         .then(function(){
           m.route(Auth.originalRoute || '/', null, true);
         }, function(err){
@@ -26,9 +26,13 @@ var Login = module.exports = {
           m("h1", "login"),
           ctrl.error(),
           m('.form-group', [
-            m("label.sr-only[for='inputEmail']", "Email address"),
-            m("input.form-control[name='email'][autofocus][id='inputEmail'][placeholder='Email address'][required][type='email']"),
-          ]),
+            m("label.sr-only[for='inputUserid']", "Userid"),
+            m("input.form-control[name='userid'][autofocus][id='inputUserid'][placeholder='Userid'][required][type='string']"),
+          ]),          
+          // m('.form-group', [
+          //   m("label.sr-only[for='inputEmail']", "Email address"),
+          //   m("input.form-control[name='email'][autofocus][id='inputEmail'][placeholder='Email address'][required][type='email']"),
+          // ]),
           m('.form-group', [
             m("label.sr-only[for='inputPassword']", "Password"),
             m("input.form-control[name='password'][autocomplete='off'][id='inputPassword'][placeholder='Password'][required][type='password']"),

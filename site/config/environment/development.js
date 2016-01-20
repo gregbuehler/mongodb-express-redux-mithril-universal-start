@@ -21,7 +21,7 @@ config.mongo = {
 };
 
 config.seedDB = true;
-config.useUserEmailVerification = true;
+config.useUserEmailVerify = true;
 config.siteEmail = 'sharelinky@gmail.com';
 
 module.exports = config;

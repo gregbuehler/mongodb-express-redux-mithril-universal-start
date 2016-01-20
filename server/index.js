@@ -7,7 +7,8 @@ var path = require('path'),
   envFile = path.join(__dirname, '..', '.env'),
   lessMiddleware = require('less-middleware'),
   mongoose = require('mongoose'),
-  browserify = require('browserify-middleware');
+  browserify = require('browserify-middleware'),
+  config = require('../site/config');
 
 // load up .env file
 if (fs.existsSync(envFile)){
@@ -19,7 +20,7 @@ if (!mongo_url){
   // var mockgoose = require('mockgoose');
   // mockgoose(mongoose);
   // mockgoose.reset();
-  mongo_url = 'mongodb://localhost/quickstart';
+  mongo_url = config.mongo.uri;
 }
 
 mongoose.connect(mongo_url);

@@ -13,7 +13,7 @@ var express = require('express'),
     jsonParse = bodyParser.json(),
     config = require('../site/config');
 
-if (config.useUserEmailVerification === true) {
+if (config.useUserEmailVerify === true) {
     var nodemailer = require('nodemailer');
     var transporter = nodemailer.createTransport();
 }
@@ -63,7 +63,7 @@ auth.requireToken = function(req, res, next) {
 // get JWT token for login credentials
 auth.post('/login', [urlParse, jsonParse], function(req, res) {
     User.findOne({
-            email: req.body.email
+            userid: req.body.userid
         }).exec()
         .then(function(user) {
             if (user) {
@@ -115,6 +115,7 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
 // register new login credentials
 auth.post('/register', [urlParse, jsonParse], function(req, res) {
     var user = new User({
+        userid: req.body.userid,
         email: req.body.email,
         password: req.body.password
     });
@@ -130,13 +131,13 @@ auth.post('/register', [urlParse, jsonParse], function(req, res) {
         verify.save();
 
         // TODO: implement a user email here
-        if (config.useUserEmailVerification === true) {
+        if (config.useUserEmailVerify === true) {
 
             transporter.sendMail({
                 from: config.siteEmail,
                 to: user.email,
                 subject: 'Verify your email',
-                text: 'Welcome! ' + user.id + '. Copy and paste the following link into your browser to verify your email \n\r ' + config.baseUrl + '/auth/verify/' + verify.code
+                text: 'Welcome! ' + user.userid + '. Copy and paste the following link into your browser to verify your email \n\r ' + config.baseUrl + '/auth/verify/' + verify.code
             });
         } else {
             console.log('User ' + user.email + ' signed up. Verify with /verify/' + verify.code);
