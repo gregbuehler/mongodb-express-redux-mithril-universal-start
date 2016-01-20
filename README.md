@@ -1,5 +1,9 @@
-# mithril-quickstart
+# mongodb-express-redux-mithril-universal-start
 
+## In progress
+   This project is in progress.
+
+   This project is forked from [https://github.com/konsumer/mithril-quickstart]
 
 ## features
 
