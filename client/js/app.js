@@ -2,7 +2,7 @@ var m = require('mithril');
 
 m.route.mode = 'pathname';
 
-m.route(document.body, "/", {
+m.route(document.getElementById('root'), "/", {
   "/": require('./pages/Home.js'),
   "/login": require('./pages/Login.js'),
   "/logout": require('./pages/Logout.js'),
