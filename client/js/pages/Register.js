@@ -32,7 +32,7 @@ var Register = module.exports = {
                 return;
             }
 
-            Auth.register(e.target.userid.value, e.target.email.value, e.target.password.value)
+            Auth.register(e.target.userid.value, e.target.email.value, e.target.password.value, e.target.password2.value)
                 .then(function() {
                     ctrl.error(m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
                 }, function(err) {

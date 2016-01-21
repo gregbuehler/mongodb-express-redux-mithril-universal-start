@@ -24,11 +24,11 @@ var Auth = module.exports = {
   },
 
   // signup on the server for new login credentials
-  register: function(userid, email, password){
+  register: function(userid, email, password, password2){
     return m.request({
       method: 'POST',
       url: '/auth/register',
-      data: { userid: userid, email: email, password: password }
+      data: { userid: userid, email: email, password: password, password2: password2 }
     });
   },
 
