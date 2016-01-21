@@ -11,7 +11,10 @@ var express = require('express'),
     User = require('./models/User.js'),
     Verify = require('./models/Verify.js'),
     jsonParse = bodyParser.json(),
-    config = require('../site/config');
+    config = require('../site/config'),
+    userid_validation = require('../shared/utils/userid_validation'),
+    email_validation = require('../shared/utils/email_validation'),
+    password_validation = require('../shared/utils/password_validation');
 
 if (config.useUserEmailVerify === true) {
     var nodemailer = require('nodemailer');
@@ -62,6 +65,19 @@ auth.requireToken = function(req, res, next) {
 
 // get JWT token for login credentials
 auth.post('/login', [urlParse, jsonParse], function(req, res) {
+    if (!userid_validation(req.body.userid)) {
+        var err = {
+            'error': 'Userid should be alphanumeric 4 ~ 20 length.'
+        };
+        return res.status(500).send(err);
+    };
+    if (!password_validation(req.body.password)) {
+        var err = {
+            'error': 'Password should be any character 4 ~ 20 length.'
+        };
+        return res.status(500).send(err);
+    };
+
     User.findOne({
             userid: req.body.userid
         }).exec()
@@ -114,6 +130,31 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
 
 // register new login credentials
 auth.post('/register', [urlParse, jsonParse], function(req, res) {
+
+    if (!userid_validation(req.body.userid)) {
+        var err = {
+            'error': 'Userid should be alphanumeric 4 ~ 20 length.'
+        };
+        return res.status(500).send(err);
+    };
+    if (!email_validation(req.body.email)) {
+        var err = {
+            'error': 'Email is not valid.'
+        };
+        return res.status(500).send(err);
+    };
+    if (!password_validation(req.body.password)) {
+        var err = {
+            'error': 'Password should be any character 4 ~ 20 length.'
+        };
+        return res.status(500).send(err);
+    };
+    if (req.body.password !== req.body.password2) {
+        var err = {
+            'error': 'Password must match.'
+        };
+        return res.status(500).send(err);
+    }
     var user = new User({
         userid: req.body.userid,
         email: req.body.email,
