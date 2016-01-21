@@ -20,8 +20,8 @@
 
 ## setup
 
--  [download](https://github.com/whatifif/mithril-quickstart/archive/master.zip)
--  `git clone https://github.com/whatifif/mithril-quickstart.git`
+-  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip)
+-  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
 -  `npm install`
 -  `npm start`
 
