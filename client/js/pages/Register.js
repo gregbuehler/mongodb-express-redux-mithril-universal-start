@@ -1,26 +1,44 @@
 var m = require('mithril');
 
 var Navbar = require('../components/Navbar.js');
-var Auth = require('../models/Auth.js');
+var Auth = require('../models/Auth.js'),
+    userid_validation = require('../../../shared/utils/userid_validation'),
+    email_validation = require('../../../shared/utils/email_validation'),
+    password_validation = require('../../../shared/utils/password_validation');
 
 var Register = module.exports = {
     controller: function() {
         ctrl = this;
         ctrl.navbar = new Navbar.controller();
         ctrl.error = m.prop('');
+
         ctrl.register = function(e) {
             e.preventDefault();
+
+            if (!userid_validation(e.target.userid.value)) {
+                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
+                return;
+            };
+            if (!email_validation(e.target.email.value)) {
+                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Email is not valid.'));
+                return;
+            };
+            if (!password_validation(e.target.password.value)) {
+                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Password should be any character 4 ~ 20 length.'));
+                return;
+            };
             if (e.target.password.value !== e.target.password2.value) {
                 ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Passwords must match.'));
                 return;
             }
+
             Auth.register(e.target.userid.value, e.target.email.value, e.target.password.value)
                 .then(function() {
                     ctrl.error(m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
                 }, function(err) {
                     var message = 'An error occurred.';
                     if (err && err.code && err.code === 11000) {
-                        message = 'There is already a user with that email address.';
+                        message = 'There is already a user with that userid or email address.';
                     }
                     ctrl.error(m(".alert.alert-danger.animated.fadeInUp", message));
                 });
