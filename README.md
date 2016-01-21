@@ -19,11 +19,12 @@
 -  Userid is used to login instead of email.
 
 ## setup
-
--  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip)
+-   MongoDB is required.
+-  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip) or
 -  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
 -  `npm install`
 -  `npm start`
+-  `go to [http://localhost:3000]`
 
 ## configuration
 
