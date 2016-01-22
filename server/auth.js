@@ -65,11 +65,7 @@ auth.requireToken = function(req, res, next) {
 
 // get JWT token for login credentials
 auth.post('/login', [urlParse, jsonParse], function(req, res) {
-// auth.get('/login', [urlParse, jsonParse], function(req, res) {
 
-//     req.body.userid = req.query.userid;
-//     req.body.password = req.query.password;
-//     console.log(req.body.password);
     if (!userid_validation(req.body.userid)) {
         var err = {
             'error': 'Userid should be alphanumeric 4 ~ 20 length.'
