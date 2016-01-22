@@ -1,21 +1,37 @@
 var express = require('express'),
-    render = require('mithril-node-render');
-var home = require('../client/js/pages/Home');
+    render = require('mithril-node-render'),
+    home = require('../client/js/pages/Home'),
+    login = require('../client/js/pages/Login'),
+    logout = require('../client/js/pages/Logout'),
+    register = require('../client/js/pages/Register'),
+    tasty = require('../client/js/pages/Tasty'),
+    verify = require('../client/js/pages/Verify');
 
 var router = module.exports = express();
 
 router.get('/', function(req, res) {
-    console.log('router6');
-    // var content = render(home);
-    var content = render(home);
-    var path = '/';
-    var state = {
-        theme: ''
-    };
-    res.type('html');
-    res.end(base(content, path, state));
+    sendPage(res, home);
 });
 
+router.get('/login', function(req, res) {
+    sendPage(res, login);
+});
+
+router.get('/logout', function(req, res) {
+    sendPage(res, logout);
+});
+
+router.get('/register', function(req, res) {
+    sendPage(res, register);
+});
+
+router.get('/verify/:code', function(req, res) {
+    sendPage(res, verify);
+});
+
+router.get('/tasty', function(req, res) {
+    sendPage(res, tasty);
+});
 
 // router.get('/', function(req, res) {
 //     console.log('router6');
@@ -73,6 +89,7 @@ router.get('/', function(req, res) {
 // }
 
 function base(content) {
+    var scrpt = (global.__client__ ? '<script src = "/app.js"></script>' : '');
     return [
         '<!DOCTYPE html>',
         '<html lang = "en">',
@@ -88,8 +105,13 @@ function base(content) {
         content,
         '</div>',
         '<script src = "https://cdn.polyfill.io/v1/polyfill.min.js"></script>',
-        // '<script src = "/app.js"></script>',
+        scrpt,
         '</body>',
         '</html>'
     ].join('');
+}
+
+function sendPage(res, page) {
+    res.type('html');
+    res.end(base(render(page)));
 }

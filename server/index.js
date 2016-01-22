@@ -11,6 +11,9 @@ var path = require('path'),
     config = require('../site/config'),
     router = require('./router');
 
+global.__server__ = config.useServerRender;
+global.__client__ = config.useClientRender;
+
 // load up .env file
 if (fs.existsSync(envFile)) {
     dotenv.load();
@@ -36,9 +39,6 @@ app.use(lessMiddleware(pubDir, {
     }
 }));
 
-// // browserify the entry-point. this is efficiently cached if NODE_ENV=production
-// app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
-
 // // static server
 app.use(express.static(pubDir));
 
@@ -50,13 +50,30 @@ app.get('/api/tasty', auth.requireToken, function(req, res) {
     res.send(req.user);
 });
 
-//server-side render
-app.use(router);
+
 
 // TODO: implement server-side parsing for initial page-load
-app.get('/*', function(req, res) {
-    res.sendFile(path.join(pubDir, 'index.html'));
-});
+// app.get('/*', function(req, res) {
+//     res.sendFile(path.join(pubDir, 'index.html'));
+// });
+if (global.__server__) {
+    if (global.__client__) {
+        // browserify the entry-point. this is efficiently cached if NODE_ENV=production
+        app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+    }
+    //server-side render
+    app.use(router);
+    app.get('/*', function(req, res) {
+        res.redirect('/');
+    });
+
+} else {
+    // browserify the entry-point. this is efficiently cached if NODE_ENV=production
+    app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+    app.get('/*', function(req, res) {
+        res.sendFile(path.join(__dirname, 'index.html'));
+    });
+}
 
 if (require.main === module) {
     var port = process.env.PORT || 3000;
