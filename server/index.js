@@ -8,7 +8,8 @@ var path = require('path'),
     lessMiddleware = require('less-middleware'),
     mongoose = require('mongoose'),
     browserify = require('browserify-middleware'),
-    config = require('../site/config');
+    config = require('../site/config'),
+    router = require('./router');
 
 // load up .env file
 if (fs.existsSync(envFile)) {
@@ -35,10 +36,10 @@ app.use(lessMiddleware(pubDir, {
     }
 }));
 
-// browserify the entry-point. this is efficiently cached if NODE_ENV=production
-app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+// // browserify the entry-point. this is efficiently cached if NODE_ENV=production
+// app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
 
-// static server
+// // static server
 app.use(express.static(pubDir));
 
 // keep all auth-related routes at /auth/whatevs
@@ -48,6 +49,9 @@ app.use('/auth', auth);
 app.get('/api/tasty', auth.requireToken, function(req, res) {
     res.send(req.user);
 });
+
+//server-side render
+app.use(router);
 
 // TODO: implement server-side parsing for initial page-load
 app.get('/*', function(req, res) {
