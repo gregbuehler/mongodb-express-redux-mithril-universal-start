@@ -1,7 +1,16 @@
 var m = require('mithril');
 
+var storage;
+if (!storage) {
+    try {
+        storage = localStorage;
+    } catch (e) {
+        storage = {};
+    }
+}
+
 var Auth = module.exports = {
-  token: m.prop(localStorage.token),
+  token: m.prop(storage.token),
   
   // trade credentials for a token
   login: function(userid, password){
@@ -10,7 +19,7 @@ var Auth = module.exports = {
       url: '/auth/login',
       data: {userid:userid, password:password},
       unwrapSuccess: function(res) {
-        localStorage.token = res.token;
+        storage.token = res.token;
         return res.token;
       }
     })
@@ -20,7 +29,7 @@ var Auth = module.exports = {
   // forget token
   logout: function(){
     this.token(false);
-    delete localStorage.token;
+    delete storage.token;
   },
 
   // signup on the server for new login credentials
