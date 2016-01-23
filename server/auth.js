@@ -117,7 +117,8 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
                             });
                         }
                         return res.send({
-                            token: token
+                            token: token,
+                            userid: user.userid
                         });
                     });
                 });

@@ -11,6 +11,7 @@ if (!storage) {
 
 var Auth = module.exports = {
     token: storage.token,
+    userid: storage.userid,
 
     // trade credentials for a token
     login: function(userid, password) {
@@ -23,19 +24,22 @@ var Auth = module.exports = {
                 },
                 unwrapSuccess: function(res) {
                     Auth.token = storage.token = res.token;
-                    return res.token;
+                    Auth.userid = storage.userid = res.userid;
+                    return { token: res.token, userid: res.userid };
                 } 
             })
-            .then(function(token) {
+            .then(function(data) {
                 // Auth.token = storage.token = token;// duplicate as above
-                console.log('auth31-Auth.token', token);
+                console.log('auth31-data', data);
             });
     },
 
-    // forget token
+    // delete token and storage
     logout: function() {
         this.token = false;
+        this.userid = false;
         delete storage.token;
+        delete storage.userid;
     },
 
     // signup on the server for new login credentials

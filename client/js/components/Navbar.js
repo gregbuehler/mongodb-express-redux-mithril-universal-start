@@ -8,7 +8,7 @@ var Navbar = module.exports = {
 
         if (!global.__server__) {
             links = (Auth.token ? [{
-                    label: 'Tasty',
+                    label: Auth.userid,
                     href: '/tasty'
                 }, {
                     label: 'Logout',
