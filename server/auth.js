@@ -68,13 +68,13 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
 
     if (!userid_validation(req.body.userid)) {
         var err = {
-            'error': 'Userid should be alphanumeric 4 ~ 20 length.'
+            errmsg: 'Userid should be alphanumeric 4 ~ 20 length.'
         };
         return res.status(500).send(err);
     };
     if (!password_validation(req.body.password)) {
         var err = {
-            'error': 'Password should be any character 4 ~ 20 length.'
+            errmsg: 'Password should be any character 4 ~ 20 length.'
         };
         return res.status(500).send(err);
     };
@@ -110,7 +110,7 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
                         if (err) {
                             return res.status(500).send({
                                 status: 500,
-                                message: err.message
+                                message: err.msg
                             });
                         }
                         return res.send({
@@ -131,28 +131,29 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
 
 // register new login credentials
 auth.post('/register', [urlParse, jsonParse], function(req, res) {
+    var err;
 
     if (!userid_validation(req.body.userid)) {
-        var err = {
-            'error': 'Userid should be alphanumeric 4 ~ 20 length.'
+        err = {
+            errmsg: 'Userid should be alphanumeric 4 ~ 20 length.'
         };
         return res.status(500).send(err);
     };
     if (!email_validation(req.body.email)) {
-        var err = {
-            'error': 'Email is not valid.'
+        err = {
+            errmsg: 'Email is not valid.'
         };
         return res.status(500).send(err);
     };
     if (!password_validation(req.body.password)) {
-        var err = {
-            'error': 'Password should be any character 4 ~ 20 length.'
+        err = {
+            errmsg: 'Password should be any character 4 ~ 20 length.'
         };
         return res.status(500).send(err);
     };
     if (req.body.password !== req.body.password2) {
-        var err = {
-            'error': 'Password must match.'
+        err = {
+            errmsg: 'Password must match.'
         };
         return res.status(500).send(err);
     }

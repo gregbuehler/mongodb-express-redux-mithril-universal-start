@@ -9,17 +9,17 @@ var Login = module.exports = {
     controller: function() {
         var ctrl = this;
         ctrl.navbar = new Navbar.controller();
-        ctrl.error = m.prop('');
+        ctrl.errmsg = m.prop('');
 
         this.login = function(e) {
             e.preventDefault();
             
             if (!userid_validation(e.target.userid.value)) {
-                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
+                ctrl.errmsg(m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
                 return;
             };
             if (!password_validation(e.target.password.value)) {
-                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Password should be any character 4 ~ 20 length.'));
+                ctrl.errmsg(m(".alert.alert-danger.animated.fadeInUp", 'Password should be any character 4 ~ 20 length.'));
                 return;
             };
 
@@ -27,7 +27,7 @@ var Login = module.exports = {
                 .then(function() {
                     m.route(Auth.originalRoute || '/', null, true);
                 }, function(err) {
-                    ctrl.error(m(".alert.alert-danger.animated.fadeInUp", err.message));
+                    ctrl.errmsg(m(".alert.alert-danger.animated.fadeInUp", err.msg));
                 });
         };
     },
@@ -39,7 +39,7 @@ var Login = module.exports = {
                 },
                 m('.col-sm-6.col-sm-offset-3', [
                     m("h1", "login"),
-                    ctrl.error(),
+                    ctrl.errmsg(),
                     m('.form-group', [
                         m("label.sr-only[for='inputUserid']", "Userid"),
                         m("input.form-control[name='userid'][autofocus][id='inputUserid'][placeholder='Userid'][required][type='string']"),

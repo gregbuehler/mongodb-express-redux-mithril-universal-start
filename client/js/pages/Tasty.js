@@ -11,6 +11,7 @@ var Tasty = module.exports = {
         if (!global.__server__) {
 
             Auth.req('/api/tasty').then(function(user) {
+                console.log('tasty14-user', user);
                 ctrl.user(m('pre.json', JSON.stringify(user, null, 2)));
             });
 

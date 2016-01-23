@@ -10,37 +10,42 @@ var Register = module.exports = {
     controller: function() {
         ctrl = this;
         ctrl.navbar = new Navbar.controller();
-        ctrl.error = m.prop('');
 
         ctrl.register = function(e) {
             e.preventDefault();
+            ctrl.errmsg = '';
 
             if (!userid_validation(e.target.userid.value)) {
-                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
+                ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
                 return;
             };
             if (!email_validation(e.target.email.value)) {
-                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Email is not valid.'));
+                ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Email is not valid.'));
                 return;
             };
             if (!password_validation(e.target.password.value)) {
-                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Password should be any character 4 ~ 20 length.'));
+                ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Password should be any character 4 ~ 20 length.'));
                 return;
             };
             if (e.target.password.value !== e.target.password2.value) {
-                ctrl.error(m(".alert.alert-danger.animated.fadeInUp", 'Passwords must match.'));
+                ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Passwords must match.'));
                 return;
             }
 
             Auth.register(e.target.userid.value, e.target.email.value, e.target.password.value, e.target.password2.value)
                 .then(function() {
-                    ctrl.error(m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
+                    // ctrl.errmsg(m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
+                    ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
                 }, function(err) {
-                    var message = 'An error occurred.';
-                    if (err && err.code && err.code === 11000) {
-                        message = 'There is already a user with that userid or email address.';
+                    var errmsg = err.errmsg;
+
+                    if(errmsg.indexOf(e.target.userid.value) > -1){
+                        errmsg = 'There is already a user with that userid.';
+                    }else if(errmsg.indexOf(e.target.email.value) > -1){
+                        errmsg = 'There is already a user with that email address.';
                     }
-                    ctrl.error(m(".alert.alert-danger.animated.fadeInUp", message));
+
+                    ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
                 });
         };
     },
@@ -52,26 +57,31 @@ var Register = module.exports = {
                 },
                 m('.col-sm-6.col-sm-offset-3', [
                     m("h1", "register"),
-                    ctrl.error(),
-                    m('.form-group', [
-                        m("label.sr-only[for='inputUserid']", "Userid"),
-                        m("input.form-control[name='userid'][autofocus][id='inputUserid'][placeholder='Userid'][required][type='string']"),
-                    ]),
-                    m('.form-group', [
-                        m("label.sr-only[for='inputEmail']", "Email address"),
-                        m("input.form-control[name='email'][id='inputEmail'][placeholder='Email address'][required][type='email']"),
-                    ]),
-                    m('.form-group', [
-                        m("label.sr-only[for='inputPassword']", "Password"),
-                        m("input.form-control[name='password'][autocomplete='off'][id='inputPassword'][placeholder='Password'][required][type='password']"),
-                    ]),
-                    m('.form-group', [
-                        m("label.sr-only[for='inputPassword2']", "Password (again)"),
-                        m("input.form-control[name='password2'][autocomplete='off'][id='inputPassword2'][placeholder='Password (again)'][required][type='password']"),
-                    ]),
-                    m('.form-group',
-                        m("button.btn.btn-lg.btn-primary.btn-block[type='submit']", "Sign in")
-                    )
+                    ctrl.errmsg,
+                    ctrl.msg ?
+                    ctrl.msg :
+                    m('', [
+                        m('.form-group', [
+                            m("label.sr-only[for='inputUserid']", "Userid"),
+                            m("input.form-control[name='userid'][autofocus][id='inputUserid'][placeholder='Userid'][required][type='string']"),
+                        ]),
+                        m('.form-group', [
+                            m("label.sr-only[for='inputEmail']", "Email address"),
+                            m("input.form-control[name='email'][id='inputEmail'][placeholder='Email address'][required][type='email']"),
+                        ]),
+                        m('.form-group', [
+                            m("label.sr-only[for='inputPassword']", "Password"),
+                            m("input.form-control[name='password'][autocomplete='off'][id='inputPassword'][placeholder='Password'][required][type='password']"),
+                        ]),
+                        m('.form-group', [
+                            m("label.sr-only[for='inputPassword2']", "Password (again)"),
+                            m("input.form-control[name='password2'][autocomplete='off'][id='inputPassword2'][placeholder='Password (again)'][required][type='password']"),
+                        ]),
+                        m('.form-group',
+                            m("button.btn.btn-lg.btn-primary.btn-block[type='submit']", "Sign in")
+                        )
+                    ])
+
                 ])
             )
         ])];
