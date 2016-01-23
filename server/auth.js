@@ -186,7 +186,7 @@ auth.post('/register', [urlParse, jsonParse], function(req, res) {
                 text: 'Welcome! ' + user.userid + '. Copy and paste the following link into your browser to verify your email \n\r ' + config.baseUrl + '/auth/verify/' + verify.code
             });
         } else {
-            console.log('User ' + user.email + ' signed up. Verify with /verify/' + verify.code);
+            console.log('User ' + user.userid + ' signed up. Verify with /verify/' + verify.code);
         }
 
 
