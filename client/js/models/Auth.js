@@ -20,15 +20,15 @@ var Auth = module.exports = {
                 data: {
                     userid: userid,
                     password: password
-                }
-                // ,
-                // unwrapSuccess: function(res) {
-                //     Auth.token = storage.token = res.token;
-                //     return res.token;
-                // } //duplicate
+                },
+                unwrapSuccess: function(res) {
+                    Auth.token = storage.token = res.token;
+                    return res.token;
+                } 
             })
             .then(function(token) {
-                Auth.token = storage.token = token;
+                // Auth.token = storage.token = token;// duplicate as above
+                console.log('auth31-Auth.token', Auth.token);
             });
     },
 

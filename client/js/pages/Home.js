@@ -6,7 +6,6 @@ var Auth = require('../models/Auth.js');
 var Home = module.exports = {
   controller: function(){
     var ctrl = this;
-    ctrl.navbar = new Navbar.controller();
     ctrl.msg = '';
     
     if (!Auth.token){
@@ -32,7 +31,7 @@ var Home = module.exports = {
   },
   
   view: function(ctrl){
-    return [Navbar.view(ctrl.navbar), m('.container', [
+    return [ m.component(Navbar), m('.container', [
       m('h1', 'home'),
       m('p', ctrl.msg),
       m('p', 'You can edit this file in ', [

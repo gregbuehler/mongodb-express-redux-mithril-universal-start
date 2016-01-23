@@ -8,12 +8,11 @@ var Auth = require('../models/Auth.js'),
 var Login = module.exports = {
     controller: function() {
         var ctrl = this;
-        ctrl.navbar = new Navbar.controller();
-        ctrl.errmsg = '';
 
         this.login = function(e) {
             e.preventDefault();
-            
+            ctrl.errmsg = '';
+
             if (!userid_validation(e.target.userid.value)) {
                 ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
                 return;
@@ -33,7 +32,7 @@ var Login = module.exports = {
     },
 
     view: function(ctrl) {
-        return [Navbar.view(ctrl.navbar), m(".container", [
+        return [m.component(Navbar), m(".container", [
             m("form.text-center.row.form-signin", {
                     onsubmit: ctrl.login.bind(ctrl)
                 },

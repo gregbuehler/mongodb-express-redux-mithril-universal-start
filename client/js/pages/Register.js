@@ -9,7 +9,6 @@ var Auth = require('../models/Auth.js'),
 var Register = module.exports = {
     controller: function() {
         ctrl = this;
-        ctrl.navbar = new Navbar.controller();
 
         ctrl.register = function(e) {
             e.preventDefault();
@@ -51,7 +50,7 @@ var Register = module.exports = {
     },
 
     view: function(ctrl) {
-        return [Navbar.view(ctrl.navbar), m(".container", [
+        return [m.component(Navbar), m(".container", [
             m("form.text-center.row.form-signin", {
                     onsubmit: ctrl.register.bind(ctrl)
                 },

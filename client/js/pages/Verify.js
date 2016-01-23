@@ -6,8 +6,8 @@ var Auth = require('../models/Auth.js');
 var Verify = module.exports = {
     controller: function() {
         var ctrl = this;
-        ctrl.navbar = new Navbar.controller();
         ctrl.msg = '';
+
         if (!global.__server__) {
 
             Auth.verify(m.route.param("code")).then(function() {
@@ -27,7 +27,7 @@ var Verify = module.exports = {
     },
 
     view: function(ctrl) {
-        return [Navbar.view(ctrl.navbar), m('.container', [
+        return [m.component(Navbar), m('.container', [
             m('h1', 'verify'),
             ctrl.msg
         ])];
