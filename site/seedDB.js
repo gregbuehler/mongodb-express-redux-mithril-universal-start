@@ -11,13 +11,19 @@ var seed = function() {
         // console.log('this callback is needed for proper remove operation.')
     });
 
-    //userid is 'tasty', password is '1111'
-    userModel.create({
-        "userid": "tasty",
-        "email": "tasty@tasty.com",
+    userModel.create([{
+        "userid": "test",
+        "email": "test@test.com",
         "password": "1111",
         "verified": true,
-    });
+        "role": "member"
+    }, {
+        "userid": "admin",
+        "email": "admin@admin.com",
+        "password": "1111",
+        "verified": true,
+        "role": "admin"
+    }]);
 }
 
 module.exports = seed;

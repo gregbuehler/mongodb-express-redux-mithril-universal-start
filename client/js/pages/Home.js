@@ -23,7 +23,7 @@ var Home = module.exports = {
     }else{
       ctrl.msg = ([
         'You are logged in, so go check out ',
-        m('a[href="/tasty"]', {config: m.route}, 'tasty'),
+        m('a[href="/profile"]', {config: m.route}, 'profile'),
         '.'
       ]);
     }

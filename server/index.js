@@ -53,7 +53,7 @@ app.use(express.static(pubDir));
 app.use('/auth', auth);
 
 // DEMO: Lock API routes down, like this
-app.get('/api/tasty', auth.requireToken, function(req, res) {
+app.get('/api/profile', auth.requireToken, function(req, res) {
     res.send(req.user);
 });
 

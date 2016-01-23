@@ -4,7 +4,7 @@ var express = require('express'),
     login = require('../client/js/pages/Login'),
     logout = require('../client/js/pages/Logout'),
     register = require('../client/js/pages/Register'),
-    tasty = require('../client/js/pages/Tasty'),
+    profile = require('../client/js/pages/Profile'),
     verify = require('../client/js/pages/Verify'),
     User = require('./models/User.js');
 
@@ -32,9 +32,8 @@ router.get('/verify/:code', function(req, res) {
 });
 
 //example of async server-side rendering
-router.get('/tasty', function(req, res) {
+router.get('/profile', function(req, res) {
     User.findOne({
-            userid: 'tasty'
         }).exec()
         .then(function(user) {
             if (user) {
@@ -48,9 +47,9 @@ router.get('/tasty', function(req, res) {
                         errmsg: 'User not verified.'
                     });
                 } else {
-                    var ctrl = new tasty.controller();
+                    var ctrl = new profile.controller();
                     ctrl.user = user;
-                    sendPage(res, tasty.view(ctrl));
+                    sendPage(res, profile.view(ctrl));
                 }
 
             } else {

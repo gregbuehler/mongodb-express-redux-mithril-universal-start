@@ -8,5 +8,5 @@ m.route(document.getElementById('root'), "/", {
   "/logout": require('./pages/Logout.js'),
   "/register": require('./pages/Register.js'),
   "/verify/:code": require('./pages/Verify.js'),
-  "/tasty": require('./pages/Tasty.js')
+  "/profile": require('./pages/Profile.js')
 });

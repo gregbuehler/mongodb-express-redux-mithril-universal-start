@@ -6,10 +6,31 @@ var Navbar = module.exports = {
         var ctrl = this;
         var links = '';
 
-        if (!global.__server__) {
+        if (global.__server__ && !global.__client__) {
+            links = ([{
+                    label: 'profile',
+                    href: '/profile'
+                }, {
+                    label: 'Logout',
+                    href: '/logout'
+                }, {
+                    label: 'Login',
+                    href: '/login'
+                }, {
+                    label: 'Register',
+                    href: '/register'
+                }])
+                .map(function(l) {
+                    return m("li" + (m.route() === l.href ? '.active' : ''), m("a[href='" + l.href + "']", {
+                        config: m.route
+                    }, l.label));
+                });
+
+
+        } else {
             links = (Auth.token ? [{
                     label: Auth.userid,
-                    href: '/tasty'
+                    href: '/profile'
                 }, {
                     label: 'Logout',
                     href: '/logout'
@@ -25,9 +46,8 @@ var Navbar = module.exports = {
                         config: m.route
                     }, l.label));
                 });
+        }
 
-        } 
-        
         ctrl.links = links;
 
         ctrl.iconDirection = 'down';
