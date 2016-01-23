@@ -7,9 +7,10 @@ var Home = module.exports = {
   controller: function(){
     var ctrl = this;
     ctrl.navbar = new Navbar.controller();
-    ctrl.msg = m.prop();
-    if (!Auth.token()){
-      ctrl.msg([
+    ctrl.msg = '';
+    
+    if (!Auth.token){
+      ctrl.msg = ([
         'Ok! Things seem cool, so go check out the files in ',
         m('code', 'public/'),
         " to see how it's all put together. Your're going to have to ",
@@ -21,7 +22,7 @@ var Home = module.exports = {
         '.'
       ]);
     }else{
-      ctrl.msg([
+      ctrl.msg = ([
         'You are logged in, so go check out ',
         m('a[href="/tasty"]', {config: m.route}, 'tasty'),
         '.'
@@ -33,7 +34,7 @@ var Home = module.exports = {
   view: function(ctrl){
     return [Navbar.view(ctrl.navbar), m('.container', [
       m('h1', 'home'),
-      m('p', ctrl.msg()),
+      m('p', ctrl.msg),
       m('p', 'You can edit this file in ', [
         m('code', 'public/js/pages/Home.js'),
         '.'

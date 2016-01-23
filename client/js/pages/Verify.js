@@ -7,11 +7,11 @@ var Verify = module.exports = {
     controller: function() {
         var ctrl = this;
         ctrl.navbar = new Navbar.controller();
-        ctrl.msg = m.prop();
+        ctrl.msg = '';
         if (!global.__server__) {
 
             Auth.verify(m.route.param("code")).then(function() {
-                ctrl.msg([
+                ctrl.msg = ([
                     'Sweet. Now, you can ',
                     m('a[href="/login"]', {
                         config: m.route
@@ -19,7 +19,7 @@ var Verify = module.exports = {
                     '.'
                 ]);
             }, function() {
-                ctrl.msg('Hmm, there was something wrong with that code. Check your email again.');
+                ctrl.msg = ('Hmm, there was something wrong with that code. Check your email again.');
             });
         }
 
@@ -29,7 +29,7 @@ var Verify = module.exports = {
     view: function(ctrl) {
         return [Navbar.view(ctrl.navbar), m('.container', [
             m('h1', 'verify'),
-            ctrl.msg()
+            ctrl.msg
         ])];
     }
 };
