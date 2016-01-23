@@ -5,10 +5,12 @@ var express = require('express'),
     logout = require('../client/js/pages/Logout'),
     register = require('../client/js/pages/Register'),
     tasty = require('../client/js/pages/Tasty'),
-    verify = require('../client/js/pages/Verify');
+    verify = require('../client/js/pages/Verify'),
+    User = require('./models/User.js');
 
 var router = module.exports = express();
 
+//example of sync server-side rendering
 router.get('/', function(req, res) {
     sendPage(res, home);
 });
@@ -29,25 +31,43 @@ router.get('/verify/:code', function(req, res) {
     sendPage(res, verify);
 });
 
+//example of async server-side rendering
 router.get('/tasty', function(req, res) {
-    sendPage(res, tasty);
+    User.findOne({
+            userid: 'tasty'
+        }).exec()
+        .then(function(user) {
+            if (user) {
+                
+                user = user.toObject();
+                delete user.password;
+
+                if (!user.verified) {
+                    return res.status(401).send({
+                        status: 401,
+                        errmsg: 'User not verified.'
+                    });
+                } else {
+                    var ctrl = new tasty.controller();
+                    ctrl.user = user;
+                    sendPage(res, tasty.view(ctrl));
+                }
+
+            } else {
+                return res.status(401).send({
+                    status: 401,
+                    errmsg: 'User not found.'
+                });
+            }
+        }, function(err) {
+            return res.status(500).send(err);
+        });
 });
 
 // router.get('/', function(req, res) {
 //     console.log('router6');
 //     // var content = render(home);
 //     var content = 'content';
-//     var path = '/';
-//     var state = {
-//         theme: ''
-//     };
-//     res.type('html');
-//     res.end(base(content, path, state));
-// });
-
-// router.get('/home', function(req, res) {
-//     console.log('router6');
-//     var content = 'hi home';
 //     var path = '/';
 //     var state = {
 //         theme: ''

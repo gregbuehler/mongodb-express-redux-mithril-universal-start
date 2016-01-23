@@ -46,7 +46,7 @@ auth.requireToken = function(req, res, next) {
     if (!token) {
         return res.status(401).send({
             status: 401,
-            message: 'Token not set.'
+            errmsg: 'Token not set.'
         });
     }
 
@@ -54,7 +54,7 @@ auth.requireToken = function(req, res, next) {
         if (err) {
             return res.status(401).send({
                 status: 401,
-                message: err
+                errmsg: err
             });
         }
         req.user = data.claims.user;
@@ -87,30 +87,33 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
                 if (!user.verified) {
                     return res.status(401).send({
                         status: 401,
-                        message: 'User not verified.'
+                        errmsg: 'User not verified.'
                     });
                 }
                 user.verifyPassword(req.body.password, function(err, isMatch) {
                     if (err) {
                         return res.status(500).send({
                             status: 500,
-                            message: 'Database error.'
+                            errmsg: 'Database error.'
                         });
                     }
                     if (!isMatch) {
                         return res.status(401).send({
                             status: 401,
-                            message: 'Bad password.'
+                            errmsg: 'Bad password.'
                         });
                     }
+
+                    user = user.toObject();
                     delete user.password;
+
                     jwt.sign({
                         user: user
                     }, function(err, token) {
                         if (err) {
                             return res.status(500).send({
                                 status: 500,
-                                message: err.msg
+                                errmsg: err.errmsg
                             });
                         }
                         return res.send({
@@ -121,7 +124,7 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
             } else {
                 return res.status(401).send({
                     status: 401,
-                    message: 'User not found.'
+                    errmsg: 'User not found.'
                 });
             }
         }, function(err) {
@@ -188,7 +191,7 @@ auth.post('/register', [urlParse, jsonParse], function(req, res) {
 
 
         return res.send({
-            'message': 'OK'
+            'msg': 'OK'
         });
     });
 });
@@ -203,7 +206,7 @@ auth.post('/register', [urlParse, jsonParse], function(req, res) {
 //             if (!verify) {
 //                 return res.status(500).send({
 //                     status: 500,
-//                     message: 'Code not found.'
+//                     errmsg: 'Code not found.'
 //                 });
 //             }
 //             User.findOneAndUpdate({
@@ -214,7 +217,7 @@ auth.post('/register', [urlParse, jsonParse], function(req, res) {
 //                 .then(function() {
 //                     verify.remove();
 //                     return res.send({
-//                         'message': 'OK'
+//                         'msg': 'OK'
 //                     });
 //                 }, function(err) {
 //                     return res.status(500).send(err);
@@ -234,7 +237,7 @@ auth.get('/verify/:code', [urlParse, jsonParse], function(req, res) {
             if (!verify) {
                 return res.status(500).send({
                     status: 500,
-                    message: 'Code not found.'
+                    errmsg: 'Code not found.'
                 });
             }
             User.findOneAndUpdate({
@@ -245,7 +248,7 @@ auth.get('/verify/:code', [urlParse, jsonParse], function(req, res) {
                 .then(function(user) {
                     verify.remove();
                     // return res.send({
-                    //     'message': 'OK'
+                    //     'msg': 'OK'
                     // });
                     // res.sendFile(path.join(buildDir, 'index.html'));
                     res.redirect('/login');

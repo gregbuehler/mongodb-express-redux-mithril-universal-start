@@ -8,11 +8,13 @@ var path = require('path'),
     lessMiddleware = require('less-middleware'),
     mongoose = require('mongoose'),
     browserify = require('browserify-middleware'),
-    config = require('../site/config'),
-    router = require('./router');
+    config = require('../site/config');
 
 global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
+
+var router = require('./router');
+
 
 // load up .env file
 if (fs.existsSync(envFile)) {
@@ -28,6 +30,11 @@ if (!mongo_url) {
 }
 
 mongoose.connect(mongo_url);
+
+if (config.seedDB) {
+    require('../site/seedDB')();
+    config.seedDB = false;
+}
 
 // use models after potential mockgoose
 var auth = require('./auth.js');

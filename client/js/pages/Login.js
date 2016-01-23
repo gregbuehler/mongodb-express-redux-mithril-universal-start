@@ -27,7 +27,7 @@ var Login = module.exports = {
                 .then(function() {
                     m.route(Auth.originalRoute || '/', null, true);
                 }, function(err) {
-                    ctrl.errmsg(m(".alert.alert-danger.animated.fadeInUp", err.msg));
+                    ctrl.errmsg(m(".alert.alert-danger.animated.fadeInUp", err.errmsg));
                 });
         };
     },
