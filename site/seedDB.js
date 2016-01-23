@@ -15,7 +15,7 @@ var seed = function() {
     userModel.create({
         "userid": "tasty",
         "email": "tasty@tasty.com",
-        "password": "$2a$10$.ZT9B.nfQ76kXoCX7b8lNOddfYRB4AaL.ImaTNjXzeuO.gTfpascC",
+        "password": "1111",
         "verified": true,
     });
 }

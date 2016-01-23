@@ -28,7 +28,7 @@ var Auth = module.exports = {
             })
             .then(function(token) {
                 // Auth.token = storage.token = token;// duplicate as above
-                console.log('auth31-Auth.token', Auth.token);
+                console.log('auth31-Auth.token', token);
             });
     },
 
