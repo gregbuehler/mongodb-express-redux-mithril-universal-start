@@ -5,22 +5,31 @@ var Navbar = module.exports = {
     controller: function() {
         var ctrl = this;
         var links = '';
+        var blogLink = {
+            label: 'Blog',
+            href: '/blog'
+        };
 
         if (global.__server__ && !global.__client__) {
-            links = ([{
-                    label: 'profile',
-                    href: '/profile'
-                }, {
-                    label: 'Logout',
-                    href: '/logout'
-                }, {
-                    label: 'Login',
-                    href: '/login'
-                }, {
-                    label: 'Register',
-                    href: '/register'
-                }])
+            links = ([
+                    blogLink, {
+                        label: 'profile',
+                        href: '/profile'
+                    }, {
+                        label: 'Logout',
+                        href: '/logout'
+                    }, {
+                        label: 'Login',
+                        href: '/login'
+                    }, {
+                        label: 'Register',
+                        href: '/register'
+                    }
+                ])
                 .map(function(l) {
+                    if (!l) {
+                        return;
+                    }
                     return m("li" + (m.route() === l.href ? '.active' : ''), m("a[href='" + l.href + "']", {
                         config: m.route
                     }, l.label));
@@ -28,20 +37,27 @@ var Navbar = module.exports = {
 
 
         } else {
-            links = (Auth.token ? [{
-                    label: Auth.userid,
-                    href: '/profile'
-                }, {
-                    label: 'Logout',
-                    href: '/logout'
-                }] : [{
-                    label: 'Login',
-                    href: '/login'
-                }, {
-                    label: 'Register',
-                    href: '/register'
-                }])
+            links = (Auth.token ? [
+                    blogLink, {
+                        label: Auth.userid,
+                        href: '/profile'
+                    }, {
+                        label: 'Logout',
+                        href: '/logout'
+                    }
+                ] : [
+                    blogLink, {
+                        label: 'Login',
+                        href: '/login'
+                    }, {
+                        label: 'Register',
+                        href: '/register'
+                    }
+                ])
                 .map(function(l) {
+                    if (!l) {
+                        return;
+                    }
                     return m("li" + (m.route() === l.href ? '.active' : ''), m("a[href='" + l.href + "']", {
                         config: m.route
                     }, l.label));

@@ -6,6 +6,7 @@ var express = require('express'),
     register = require('../client/js/pages/Register'),
     profile = require('../client/js/pages/Profile'),
     verify = require('../client/js/pages/Verify'),
+    // blog = require('../client/js/pages/blog'),
     User = require('./models/User.js');
 
 var router = module.exports = express();

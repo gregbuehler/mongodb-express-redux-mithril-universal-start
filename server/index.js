@@ -12,6 +12,7 @@ var path = require('path'),
 
 global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
+global.__useBlog__ = config.useBlog;
 
 var router = require('./router');
 

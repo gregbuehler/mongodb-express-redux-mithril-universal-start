@@ -35,3 +35,9 @@ MONGO_URI=mongodb://localhost/myfarkensweetapp
 TOKEN_SECRET=kittyonth4keyb04rdME0W!ksjdhfwpeoir
 PORT=3000
 ```
+## To change the bootstrap theme:
+Open style/bootstap.less. Change the theme name 'paper' to others.
+
+## When the bootstap style is not applied:
+check if the style is not commented out in style/bootstrap.less.
+If so, remove the comment line of what you want to use.

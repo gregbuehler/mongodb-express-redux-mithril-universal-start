@@ -30,7 +30,7 @@ var Auth = module.exports = {
             })
             .then(function(data) {
                 // Auth.token = storage.token = token;// duplicate as above
-                console.log('auth31-data', data);
+                // console.log('auth31-data', data);
             });
     },
 
