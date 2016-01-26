@@ -4,7 +4,7 @@
   "description": "Project template for mithril, with JWT auth, themed bootstrap & easy animations",
   "main": "./server",
   "scripts": {
-    "start": "NODE_ENV=production node ./server",
+    "start": "node ./server",
     "dev": "nodemon --watch ./client --watch ./server --watch ./site --watch ./utils ./server"
   },
   "repository": {
