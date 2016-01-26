@@ -17,14 +17,24 @@
 -  Slick & efficient JWT+bcrypt+mongodb authentication
 -  User Email verification when registered.
 -  Userid is used to login instead of email.
+-  Browser-sync and nodemon are used for easy development.
 
-## setup
+## requirement
 -   MongoDB is required.
+
+## setup for production 
 -  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip) or
 -  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
 -  `npm install`
 -  `npm start`
 -  `go to` [http://localhost:3000](http://localhost:3000)
+
+## setup for development with browsersync and nodemon  
+-  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip) or
+-  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
+-  `npm install`
+-  `npm run dev`
+-  `go to` [http://localhost:3001](http://localhost:3001)
 
 ## configuration
 

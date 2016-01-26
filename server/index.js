@@ -92,4 +92,22 @@ if (require.main === module) {
     console.log('Listening on http://localhost:' + port);
 }
 
+if (config.env === 'development' && config.useBrowsersync === true) {
+    /**
+     * Require Browsersync
+     */
+    var browserSync = require('browser-sync');
+
+    /**
+     * Run Browsersync with proxy config
+     * Proxy is the main server of this app 
+     */
+    browserSync({
+        //Use the main server as proxy
+        proxy: config.baseUrl,
+        //The client-side files are watched by browsersync. The server-related files are watched by nodemon
+        files: ["./client"]
+    });
+}
+
 module.exports = app;

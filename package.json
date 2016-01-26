@@ -2,9 +2,10 @@
   "name": "mongodb-express-redux-mithril-universal-start",
   "version": "1.0.0",
   "description": "Project template for mithril, with JWT auth, themed bootstrap & easy animations",
-  "main": "index.js",
+  "main": "./server",
   "scripts": {
-    "start": "node ./server"
+    "start": "node ./server",
+    "dev": "nodemon --watch ./client --watch ./server --watch ./site --watch ./utils ./server"
   },
   "repository": {
     "type": "git",
@@ -12,16 +13,18 @@
   },
   "keywords": [
     "mongodb",
-    "expressjs",
-    "reduxjs",
-    "mithriljs",
+    "express",
+    "redux",
+    "mithril",
     "universal",
     "start",
     "bootstrap",
     "bootswatch",
     "authentication",
     "jwt",
-    "email verification"
+    "email verification",
+    "browser-sync",
+    "nodemon"
   ],
   "author": "whatifif <whatifif@yahoo.com>",
   "license": "MIT",
@@ -43,9 +46,13 @@
     "mithril-node-render": "^0.4.2",
     "mongoose": "^4.3.6",
     "mongoose-bcrypt": "^1.0.1",
-    "nodemailer": "^2.0.0"
+    "nodemailer": "^2.0.0",
+    "nodemon": "^1.8.1",
+    "webpack": "^1.12.12"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.11.1"
+  },
   "engines": {
     "node": "5.4.1"
   }
