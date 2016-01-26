@@ -32,11 +32,14 @@ if (!mongo_url) {
 
 mongoose.connect(mongo_url);
 
-if (config.seedDB) {
-    require('../site/seedDB')();
-    config.seedDB = false;
+if (config.seedUser) {
+    require('../site/seedUser')();
+    config.seedUser = false;
 }
-
+if (config.seedPost) {
+    require('../site/seedPost')();
+    config.seedPost = false;
+}
 // use models after potential mockgoose
 var auth = require('./auth.js');
 

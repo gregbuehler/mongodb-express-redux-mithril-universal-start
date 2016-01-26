@@ -1,33 +1,43 @@
-const LOADALL   = 'my-app/widgets/LOADALL';
-const LOAD   = 'my-app/widgets/LOAD';
-const CREATE = 'my-app/widgets/CREATE';
-const UPDATE = 'my-app/widgets/UPDATE';
-const REMOVE = 'my-app/widgets/REMOVE';
+const LOADALL   = 'my-app/post/LOADALL';
+const LOAD   = 'my-app/post/LOAD';
+const CREATE = 'my-app/post/CREATE';
+const UPDATE = 'my-app/post/UPDATE';
+const REMOVE = 'my-app/post/REMOVE';
 
-export default function reducer(state = {}, action = {}) {
+
+function reducer(state, action) {
   switch (action.type) {
     // do reducer stuff
     default: return state;
   }
 }
 
-export function loadWidgets() {
+function loadPosts() {
   return { type: LOADALL };
 }
 
-export function loadWidget(id) {
+function loadPost(id) {
   return { type: LOAD, id };
 }
 
-export function createWidget(widget) {
-  return { type: CREATE, widget: widget };
+function createPost(post) {
+  return { type: CREATE, post: post };
 }
 
-export function updateWidget(widget) {
-  return { type: UPDATE, widget: widget };
+function updatePost(post) {
+  return { type: UPDATE, post: post };
 }
 
-export function removeWidget(id) {
+function removePost(id) {
   return { type: REMOVE, id };
+}
+
+modules.exports = {
+	reducer: reducer,
+	loadPosts: loadPosts,
+	loadPost: loadPost,
+	createPost: createPost,
+	updatePost: updatePost,
+	removePost: removePost
 }
 

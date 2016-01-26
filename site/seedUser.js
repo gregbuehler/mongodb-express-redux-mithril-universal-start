@@ -1,6 +1,6 @@
 /**
  * Populate DB with sample data on server start.
- * To disable, edit site/config/environment/development.js, and set `config.seedDB = false`
+ * To disable, edit site/config/environment/development.js, and set `config.seedUser = false`
  */
 'use strict';
 var userModel = require('../server/models/User');

@@ -21,7 +21,8 @@ config.mongo = {
     }
 };
 
-config.seedDB = true;
+config.seedUser = true;
+config.seedPost = true;
 config.useUserEmailVerify = true;
 config.useServerRender = true;
 config.useClientRender = true;

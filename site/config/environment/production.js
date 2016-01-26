@@ -29,7 +29,7 @@ config.mongo = {
     }
 };
 
-config.seedDB = false;
+config.seedUser = false;
 config.useUserEmailVerify = true;
 config.useServerRender = true;
 config.useClientRender = true;
