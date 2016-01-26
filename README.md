@@ -17,7 +17,7 @@
 -  Slick & efficient JWT+bcrypt+mongodb authentication
 -  User Email verification when registered.
 -  Userid is used to login instead of email.
--  Browser-sync and nodemon are used for easy development.
+-  Browser-sync and nodemon are used for live reloading the browser in development.
 
 ## requirement
 -   MongoDB is required.

@@ -29,11 +29,14 @@ config.mongo = {
     }
 };
 
-config.seedUser = false;
+// config.seedUser = true;
+// config.seedPost = true;
 config.useUserEmailVerify = true;
 config.useServerRender = true;
 config.useClientRender = true;
-config.siteEmail = 'sharelinky@gmail.com';
+// config.useBrowsersync = true; //for development purpose only
+config.useBlog = true;
+config.siteEmail = 'your-email@gmail.com';
 config.userid_regex = /^[a-z][a-z0-9]{3,19}$/i;
 config.email_regex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
 config.password_regex = /^[a-zA-Z0-9!@#\$%\^&\*\(\)_\+\|\{\}:"<>\?\-=\\\[\];',\.\/]{4,20}$/;
