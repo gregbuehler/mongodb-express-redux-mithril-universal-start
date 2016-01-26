@@ -33,35 +33,6 @@ pages.get('/verify/:code', function(req, res) {
     sendPage(res, verify);
 });
 
-pages.get('/blog', function(req, res) {
-    blogResource.then(function(posts) {
-
-        sendPage(res, blog.view({
-            state: {
-                posts: posts
-            }
-        }));
-
-    }, function(err) {
-        res.status(500).send(err)
-    });
-});
-
-
-// pages.get('/blog', function(req, res) {
-//     blogResource.exec().then(function(posts) {
-//         console.log(posts);
-//         sendPage(res, blog.view({
-//             state: {
-//                 posts: posts
-//             }
-//         }));
-
-//     }, function(err) {
-//         res.status(500).send(err)
-//     });
-// });
-
 //example of async server-side rendering
 pages.get('/profile', function(req, res) {
     User.findOne({}).exec()
@@ -91,6 +62,19 @@ pages.get('/profile', function(req, res) {
         }, function(err) {
             return res.status(500).send(err);
         });
+});
+
+pages.get('/blog', function(req, res) {
+    blogResource.then(function(posts) {
+        sendPage(res, blog.view({
+            state: {
+                posts: posts
+            }
+        }));
+
+    }, function(err) {
+        res.status(500).send(err)
+    });
 });
 
 function base(content) {
