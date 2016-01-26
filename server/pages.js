@@ -7,6 +7,7 @@ var express = require('express'),
     profile = require('../client/js/pages/Profile'),
     verify = require('../client/js/pages/Verify'),
     blog = require('../client/js/pages/blog'),
+    blogResource = require('./pages/blog/resource'),
     User = require('./models/User.js');
 
 var pages = module.exports = express();
@@ -33,16 +34,40 @@ pages.get('/verify/:code', function(req, res) {
 });
 
 pages.get('/blog', function(req, res) {
-    sendPage(res, blog);
+    blogResource.then(function(posts) {
+
+        sendPage(res, blog.view({
+            state: {
+                posts: posts
+            }
+        }));
+
+    }, function(err) {
+        res.status(500).send(err)
+    });
 });
+
+
+// pages.get('/blog', function(req, res) {
+//     blogResource.exec().then(function(posts) {
+//         console.log(posts);
+//         sendPage(res, blog.view({
+//             state: {
+//                 posts: posts
+//             }
+//         }));
+
+//     }, function(err) {
+//         res.status(500).send(err)
+//     });
+// });
 
 //example of async server-side rendering
 pages.get('/profile', function(req, res) {
-    User.findOne({
-        }).exec()
+    User.findOne({}).exec()
         .then(function(user) {
             if (user) {
-                
+
                 user = user.toObject();
                 delete user.password;
 
