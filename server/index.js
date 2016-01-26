@@ -14,7 +14,8 @@ global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
 
-var pages = require('./pages');
+var pages = require('./pages'),
+    api = require('./api');
 
 
 // load up .env file
@@ -61,7 +62,7 @@ app.get('/api/profile', auth.requireToken, function(req, res) {
     res.send(req.user);
 });
 
-
+app.use('/api', api);
 
 // TODO: implement server-side parsing for initial page-load
 // app.get('/*', function(req, res) {
@@ -88,26 +89,29 @@ if (global.__server__) {
 
 if (require.main === module) {
     var port = process.env.PORT || 3000;
-    app.listen(port);
-    console.log('Listening on http://localhost:' + port);
-}
+    app.listen(port, function() {
+        console.log('Listening on http://localhost:' + port);
+        if (config.env === 'development' && config.useBrowsersync === true) {
+            /**
+             * Require Browsersync
+             */
+            var browserSync = require('browser-sync');
 
-if (config.env === 'development' && config.useBrowsersync === true) {
-    /**
-     * Require Browsersync
-     */
-    var browserSync = require('browser-sync');
+            /**
+             * Run Browsersync with proxy config
+             * Proxy is the main server of this app 
+             */
+            browserSync({
+                //Use the main server as proxy
+                proxy: config.baseUrl,
+                //The client-side files are watched by browsersync. The server-related files are watched by nodemon
+                files: ["./client"]
+            });
+        }
 
-    /**
-     * Run Browsersync with proxy config
-     * Proxy is the main server of this app 
-     */
-    browserSync({
-        //Use the main server as proxy
-        proxy: config.baseUrl,
-        //The client-side files are watched by browsersync. The server-related files are watched by nodemon
-        files: ["./client"]
     });
 }
+
+
 
 module.exports = app;
