@@ -2,7 +2,9 @@
 
 // Production specific configuration
 // =================================
+
 var config = {};
+config.env = 'production';
 config.ip = process.env.OPENSHIFT_NODEJS_IP ||
     process.env.IP ||
     undefined;

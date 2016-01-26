@@ -6,34 +6,38 @@ var express = require('express'),
     register = require('../client/js/pages/Register'),
     profile = require('../client/js/pages/Profile'),
     verify = require('../client/js/pages/Verify'),
-    // blog = require('../client/js/pages/blog'),
+    blog = require('../client/js/pages/blog'),
     User = require('./models/User.js');
 
-var router = module.exports = express();
+var pages = module.exports = express();
 
 //example of sync server-side rendering
-router.get('/', function(req, res) {
+pages.get('/', function(req, res) {
     sendPage(res, home);
 });
 
-router.get('/login', function(req, res) {
+pages.get('/login', function(req, res) {
     sendPage(res, login);
 });
 
-router.get('/logout', function(req, res) {
+pages.get('/logout', function(req, res) {
     sendPage(res, logout);
 });
 
-router.get('/register', function(req, res) {
+pages.get('/register', function(req, res) {
     sendPage(res, register);
 });
 
-router.get('/verify/:code', function(req, res) {
+pages.get('/verify/:code', function(req, res) {
     sendPage(res, verify);
 });
 
+pages.get('/blog', function(req, res) {
+    sendPage(res, blog);
+});
+
 //example of async server-side rendering
-router.get('/profile', function(req, res) {
+pages.get('/profile', function(req, res) {
     User.findOne({
         }).exec()
         .then(function(user) {

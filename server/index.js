@@ -14,7 +14,7 @@ global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
 
-var router = require('./router');
+var pages = require('./pages');
 
 
 // load up .env file
@@ -70,7 +70,7 @@ if (global.__server__) {
         app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
     }
     //server-side render
-    app.use(router);
+    app.use(pages);
     app.get('/*', function(req, res) {
         res.redirect('/');
     });
