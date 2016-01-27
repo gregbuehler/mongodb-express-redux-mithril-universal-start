@@ -7,10 +7,25 @@ var blog = module.exports = {
         var ctrl = this;
 
         if (!global.__server__) {
-            resource.then(function(posts) {
-                ctrl.state = {};
-                ctrl.state.posts = posts;
-            })
+
+            window.__state__ = window.__state__ || {};
+            var key = m.route();
+
+            if (window.__state__[key]) {
+
+                ctrl.state = window.__state__[key];
+
+            } else {
+
+                resource.then(function(posts) {
+                    ctrl.state = {
+                        key: key,
+                        posts: posts
+                    };
+                    window.__state__[key] = ctrl.state;
+                })
+            };
+
         }
 
     },
@@ -23,7 +38,7 @@ var blog = module.exports = {
                     m('h1', post.title),
                     m('p', post.summary),
                     // m('p', post.content),
-                    m('p', 'Written by ' + post.author),
+                    m('p', 'Written by ' + post.author.userid),
                     m('', [
                         m('span.badge', 'Posted ' + post.created),
                         m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
@@ -34,4 +49,3 @@ var blog = module.exports = {
         ]
     }
 };
-

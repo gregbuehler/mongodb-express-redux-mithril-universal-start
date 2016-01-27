@@ -48,9 +48,14 @@ pages.get('/profile', function(req, res) {
                         errmsg: 'User not verified.'
                     });
                 } else {
+
+                    var state = {
+                        key: req.path,
+                        user: user
+                    }
                     var ctrl = new profile.controller();
-                    ctrl.user = user;
-                    sendPage(res, profile.view(ctrl));
+                    ctrl.state = state;
+                    sendPage(res, profile.view(ctrl), state);
                 }
 
             } else {
@@ -65,20 +70,29 @@ pages.get('/profile', function(req, res) {
 });
 
 pages.get('/blog', function(req, res) {
+
     blogResource.then(function(posts) {
-        sendPage(res, blog.view({
-            state: {
-                posts: posts
-            }
-        }));
+
+        var state = {
+            key: req.path,
+            posts: posts
+        };
+        var ctrl = new blog.controller();
+        ctrl.state = state;
+        sendPage(res, blog.view(ctrl), state);
 
     }, function(err) {
         res.status(500).send(err)
     });
 });
 
-function base(content) {
-    var scrpt = (global.__client__ ? '<script src = "/app.js"></script>' : '');
+function base(content, state) {
+    var stateToSend =
+        state ?
+        '<script>window.__state__ = window.__state__ || {}; window.__state__[\"' + state.key + '\"] = ' + JSON.stringify(state) + ';</script>' :
+        null;
+
+    var scriptToSend = (global.__client__ ? '<script src = "/app.js"></script>' : null);
     return [
         '<!DOCTYPE html>',
         '<html lang = "en">',
@@ -88,19 +102,20 @@ function base(content) {
         '<meta name = "viewport" content = "width=device-width, initial-scale=1"> ',
         '<title> app title </title>',
         '<link href = "/style/app.css" rel = "stylesheet" /> ',
+        stateToSend,
         '</head>',
         '<body>',
         '<div id = "root">',
         content,
         '</div>',
         '<script src = "https://cdn.polyfill.io/v1/polyfill.min.js"></script>',
-        scrpt,
+        scriptToSend,
         '</body>',
         '</html>'
     ].join('');
 }
 
-function sendPage(res, page) {
+function sendPage(res, page, state) {
     res.type('html');
-    res.end(base(render(page)));
+    res.end(base(render(page), state));
 }
