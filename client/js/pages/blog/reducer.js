@@ -32,7 +32,7 @@ function removePost(id) {
   return { type: REMOVE, id };
 }
 
-modules.exports = {
+module.exports = {
 	reducer: reducer,
 	loadPosts: loadPosts,
 	loadPost: loadPost,
