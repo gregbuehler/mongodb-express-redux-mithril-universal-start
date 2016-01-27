@@ -9,5 +9,6 @@ m.route(document.getElementById('root'), "/", {
   "/register": require('./pages/Register.js'),
   "/verify/:code": require('./pages/Verify.js'),
   "/profile": require('./pages/Profile.js'),
-  "/blog": require('./pages/blog')
+  "/blog": require('./pages/blog'),
+  "/post/:id": require('./pages/blog/post')
 });

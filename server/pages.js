@@ -7,7 +7,9 @@ var express = require('express'),
     profile = require('../client/js/pages/Profile'),
     verify = require('../client/js/pages/Verify'),
     blog = require('../client/js/pages/blog'),
-    blogResource = require('./pages/blog/resource'),
+    blogResource = require('./pages/blog/blogResource'),
+    postPage = require('../client/js/pages/blog/post'),
+    postResource = require('./pages/blog/postResource'),
     User = require('./models/User.js');
 
 var pages = module.exports = express();
@@ -79,12 +81,31 @@ pages.get('/blog', function(req, res) {
         };
         var ctrl = new blog.controller();
         ctrl.state = state;
+
         sendPage(res, blog.view(ctrl), state);
 
     }, function(err) {
         res.status(500).send(err)
     });
 });
+
+pages.get('/post/:id', function(req, res) {
+    
+    postResource(req.params.id).then(function(post) {
+
+        var state = {
+            key: req.path,
+            post: post
+        };
+        var ctrl = new postPage.controller();
+        ctrl.state = state;
+
+        sendPage(res, postPage.view(ctrl), state);
+
+    }, function(err) {
+        res.status(500).send(err)
+    })
+})
 
 function base(content, state) {
     var stateToSend =

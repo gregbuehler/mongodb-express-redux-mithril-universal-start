@@ -20,6 +20,7 @@ var seed = function() {
     author.save();
 
     mockaroo.forEach(function(post){
+        post.id = post.title.replace(/\s/g, '_');
         post.author = author._id;
     })
 
