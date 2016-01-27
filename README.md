@@ -50,4 +50,4 @@ Open style/bootstap.less. Change the theme name 'paper' to others.
 
 ## When the bootstap style is not applied:
 check if the style is not commented out in style/bootstrap.less.
-If so, remove the comment line of what you want to use.
+If so, remove the comment line of the style you want to use.
