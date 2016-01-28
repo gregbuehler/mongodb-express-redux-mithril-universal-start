@@ -51,10 +51,16 @@ var postForm = {
                 ])
             ]),
             m('p', m('textarea', {
-                style: 'width: 100%; min-height: 200px'
+                style: 'width: 100%; min-height: 200px',
+                onchange: function(e){
+                    post.summary = e.target.value;
+                }
             }, post.summary)),
             m('p', m('textarea', {
-                style: 'width: 100%; min-height: 500px'
+                style: 'width: 100%; min-height: 500px',
+                onchange: function(e){
+                    post.content = e.target.value;
+                }
             }, post.content)),
             // m('p', 'Written by ' + post.author.userid),
             m('hr')
