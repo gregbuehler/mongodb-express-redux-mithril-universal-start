@@ -8,12 +8,6 @@ const REMOVE = 'my-app/post/REMOVE';
 function reducer(state, action) {
     switch (action.type) {
         // do reducer stuff
-        case CREATE:
-                console.log('post created');
-                var newState = JSON.parse(JSON.stringify(state))
-                newState.key = 'newPost';
-                newState.id = null;
-            return newState;
         case UPDATE:
             if (state.post.id === action.post.id) {
                 state.post = action.post;

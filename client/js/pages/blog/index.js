@@ -2,7 +2,7 @@ var m = require('mithril');
 var Navbar = require('../../components/Navbar.js');
 var resource = !global.__server__ ? require('./resource') : null;
 var redux = require('redux');
-var reducer = require('./postReducer');
+var postsReducer = require('./postsReducer');
 
 var blog = module.exports = {
     controller: function() {
@@ -18,7 +18,7 @@ var blog = module.exports = {
             if (window.__store__[key]) {
 
                 ctrl.state = window.__state__[key];
-                window.__store__[key] = redux.createStore(reducer.reducer, window.__state__[key]);
+                window.__store__[key] = redux.createStore(postsReducer.reducer, window.__state__[key]);
 
             } else {
 
@@ -28,7 +28,7 @@ var blog = module.exports = {
                         posts: posts
                     };
                     window.__state__[key] = ctrl.state;
-                    window.__store__[key] = redux.createStore(reducer.reducer, window.__state__[key]);
+                    window.__store__[key] = redux.createStore(postsReducer.reducer, window.__state__[key]);
                 })
             };
 
