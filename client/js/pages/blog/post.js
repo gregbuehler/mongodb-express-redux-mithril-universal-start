@@ -39,57 +39,38 @@ var post = {
                 ctrl.state = window.__store__[key].getState();
             };
 
-
-
             ctrl.isEdit = false;
 
             ctrl.edit = function() {
-                return function() {
-                    ctrl.isEdit = !ctrl.isEdit;
-                }
+                ctrl.isEdit = true;
             }
-            // ctrl.save = function() {
-            //     return function(post) {
-            //     	console.log('post53-post', post);
-            //     	console.log('post54-post', postForm.controller.getPost());
-            //         ctrl.isEdit = false;
-            //         window.__store__[key].dispatch(reducer.updatePost(post))
-            //         ctrl.state = window.__store__[key].getState();
-            //         console.log(ctrl.state);
-            //     }
-            // }
+
 
             ctrl.save = function(post) {
-                // confirm('Save this post?');
-                console.log(post);
                 ctrl.isEdit = false;
                 window.__store__[key].dispatch(reducer.updatePost(post))
                 ctrl.state = window.__store__[key].getState();
-                console.log(ctrl.state);
             }
 
             ctrl.remove = function() {
-                return function() {
-                    if (confirm('Delete this post?')) {
+                if (confirm('Delete this post?')) {
 
-                        ctrl.isEdit = false;
-                        var postId = ctrl.state.post.id;
-                        //remove post from state
-                        window.__store__[key].dispatch(reducer.removePost(postId))
+                    ctrl.isEdit = false;
+                    var postId = ctrl.state.post.id;
+                    
+                    //remove post from state
+                    window.__store__[key].dispatch(reducer.removePost(postId))
 
-                        //also remove post from the post list state
-                        // if (window.__store__['/blog']) {
-                        //     window.__store__['/blog'].dispatch(reducer.removePost(postId))
-                        // }
-                        m.route('/blog')
-
-                    }
+                    //also remove post from the post list state
+                    // if (window.__store__['/blog']) {
+                    //     window.__store__['/blog'].dispatch(reducer.removePost(postId))
+                    // }
+                    m.route('/blog')
                 }
             }
+
             ctrl.cancel = function() {
-                return function() {
-                    ctrl.isEdit = !ctrl.isEdit;
-                }
+                ctrl.isEdit = false;
             }
 
         }
@@ -110,9 +91,9 @@ var post = {
                             " - ",
                             m("span", post.created),
                             m('.pull-right', [m('span.label.label-default', {
-                                onclick: ctrl.edit()
-                            }, 'edit'), m('span.label.label-danger', {
-                                onclick: ctrl.remove()
+                                onclick: ctrl.edit.bind(this)
+                            }, 'edit'),'  ', m('span.label.label-danger', {
+                                onclick: ctrl.remove.bind(this)
                             }, 'delete')])
                         ]),
                         m('p', post.summary),
