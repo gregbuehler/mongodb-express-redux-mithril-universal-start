@@ -1,7 +1,7 @@
 var m = require('mithril');
 var Navbar = require('../../components/Navbar.js');
 var redux = require('redux');
-var reducer = require('./reducer');
+var reducer = require('./postReducer');
 var postResource = !global.__server__ ? require('./postResource') : null;
 var postForm = require('./postForm');
 
@@ -16,12 +16,15 @@ var post = {
 
             var key = m.route();
 
-            if (window.__store__[key]) {
-                console.log('from store');
+            if (window.__state__[key]) {
+
+                console.log('from window');
                 ctrl.state = window.__state__[key];
                 window.__store__[key] = redux.createStore(reducer.reducer, window.__state__[key]);
+                window.__state__[key] = null;
 
-            } else {
+            } else if (!window.__store__[key]) {
+
                 console.log('from server', m.route.param('id'));
 
                 postResource(m.route.param('id')).then(function(post) {
@@ -30,14 +33,45 @@ var post = {
                         key: key,
                         post: post
                     };
-                    window.__state__[key] = ctrl.state;
-                    window.__store__[key] = redux.createStore(reducer.reducer, window.__state__[key]);
+                    window.__store__[key] = redux.createStore(reducer.reducer, ctrl.state);
                 })
+            } else {
+                ctrl.state = window.__store__[key].getState();
             };
+
+
 
             ctrl.isEdit = false;
 
             ctrl.edit = function() {
+                return function() {
+                    ctrl.isEdit = !ctrl.isEdit;
+                }
+            }
+            ctrl.save = function() {
+                return function() {
+                    ctrl.isEdit = !ctrl.isEdit;
+                }
+            }
+            ctrl.remove = function() {
+                return function() {
+                    if (confirm('Delete this post?')) {
+
+                        ctrl.isEdit = false;
+                        var postId = ctrl.state.post.id;
+                        //remove post from state
+                        window.__store__[key].dispatch(reducer.removePost(postId))
+
+                        //also remove post from the post list state
+                        // if (window.__store__['/blog']) {
+                        //     window.__store__['/blog'].dispatch(reducer.removePost(postId))
+                        // }
+                        m.route('/blog')
+
+                    }
+                }
+            }
+            ctrl.cancel = function() {
                 return function() {
                     ctrl.isEdit = !ctrl.isEdit;
                 }
@@ -53,31 +87,31 @@ var post = {
         return [
             m.component(Navbar),
             m('.container',
-                m('.col-md-12', !ctrl.isEdit ?
+                m('.col-md-12', (!ctrl.isEdit ?
                     m('', [
-                        m('h1', m('a', {
-                            href: '/post/' + post.id,
-                            config: m.route
-                        }, post.title)),
+                        m('h1', m('div', post.title)),
                         m("h5", [
                             m("span", post.author.userid),
                             " - ",
                             m("span", post.created),
                             m('.pull-right', [m('span.label.label-default', {
                                 onclick: ctrl.edit()
-                            }, 'edit'), m('span.label.label-danger', 'delete')])
+                            }, 'edit'), m('span.label.label-danger', {
+                                onclick: ctrl.remove()
+                            }, 'delete')])
                         ]),
                         m('p', post.summary),
                         m('p', post.content),
                         // m('p', 'Written by ' + post.author.userid),
                         m('hr')
                     ]) :
-                     m.component(postForm, {
+                    m.component(postForm, {
                         post: JSON.parse(JSON.stringify(post)),
-                        edit: ctrl.edit
+                        save: ctrl.save,
+                        remove: ctrl.remove,
+                        cancel: ctrl.cancel
                     })
-
-                )
+                ))
             )
         ]
     }

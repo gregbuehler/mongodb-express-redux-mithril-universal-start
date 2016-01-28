@@ -2,7 +2,7 @@ var m = require('mithril');
 var Navbar = require('../../components/Navbar.js');
 var resource = !global.__server__ ? require('./resource') : null;
 var redux = require('redux');
-var reducer = require('./reducer');
+var reducer = require('./postReducer');
 
 var blog = module.exports = {
     controller: function() {
