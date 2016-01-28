@@ -3,6 +3,7 @@ var redux = require('redux');
 var reducer = require('./postReducer');
 
 
+
 var postForm = {
     controller: function(arg) {
         var ctrl = this;
