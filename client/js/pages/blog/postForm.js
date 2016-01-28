@@ -20,6 +20,8 @@ var postForm = {
             ctrl.post = JSON.parse(JSON.stringify(arg.post));
             arg.cancel();
         }
+
+        ctrl.remove = arg.remove;
         
     },
 
@@ -47,7 +49,7 @@ var postForm = {
                         onclick: ctrl.cancel.bind(this)
                     }, 'cancel'),
                     m('span.label.label-danger', {
-                        onclick: arg.remove.bind(this)
+                        onclick: ctrl.remove.bind(this)
                     }, 'delete')
                 ])
             ]),

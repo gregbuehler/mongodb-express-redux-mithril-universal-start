@@ -91,9 +91,10 @@ var post = {
                     window.__store__[key].dispatch(postReducer.removePost(postId))
 
                     //also remove post from the post list state
-                    if (window.__store__['/blog']) {
-                        window.__store__['/blog'].dispatch(postsReducer.removePost(postId))
-                    }
+                    // TODO: after remove, m.route('/blog') is not working.
+                    // if (window.__store__['/blog']) {
+                    //     window.__store__['/blog'].dispatch(postsReducer.removePost(postId))
+                    // }
                     m.route('/blog')
                 }
             }
