@@ -6,15 +6,25 @@ var reducer = require('./postReducer');
 var postForm = {
     controller: function(arg) {
         var ctrl = this;
+        
+        ctrl.post = JSON.parse(JSON.stringify(arg.post));
+
+        ctrl.save = function(post) {
+            arg.post = post;
+            arg.save(arg.post);
+        }
+        
     },
 
     view: function(ctrl, arg) {
-        var post = arg.post;
+
+        var post = ctrl.post;
+        
         return m('', [
             m('h1', m('input', {
                 style: 'width: 100%',
                 value: post.title,
-                onchange: function(e){
+                onchange: function(e) {
                     post.title = e.target.value;
                     console.log('postForm16-post.title', post.title);
                 }
@@ -25,7 +35,7 @@ var postForm = {
                 m("span", post.created + post.title),
                 m('.pull-right', [
                     m('span.label.label-default', {
-                        onclick: arg.save.bind(this, post)
+                        onclick: ctrl.save.bind(this, post)
                     }, 'save'),
                     m('span.label.label-default', {
                         onclick: arg.cancel()

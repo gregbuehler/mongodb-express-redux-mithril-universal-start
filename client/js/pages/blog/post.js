@@ -59,11 +59,11 @@ var post = {
             //     }
             // }
 
-            ctrl.save = function(po) {
+            ctrl.save = function(post) {
                 // confirm('Save this post?');
-                console.log(po);
+                console.log(post);
                 ctrl.isEdit = false;
-                window.__store__[key].dispatch(reducer.updatePost(po))
+                window.__store__[key].dispatch(reducer.updatePost(post))
                 ctrl.state = window.__store__[key].getState();
                 console.log(ctrl.state);
             }
@@ -121,7 +121,6 @@ var post = {
                         m('hr')
                     ]) :
                     m.component(postForm, {
-                        // post: JSON.parse(JSON.stringify(post)),
                         post: post,
                         save: ctrl.save,
                         remove: ctrl.remove,
