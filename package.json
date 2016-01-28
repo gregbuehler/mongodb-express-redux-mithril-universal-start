@@ -42,7 +42,7 @@
     "express": "^4.11.2",
     "jwt-async": "^1.0.1",
     "less-middleware": "^1.0.4",
-    "mithril": "^0.2.2-rc.1",
+    "mithril": "^0.2.0",
     "mithril-node-render": "^0.4.2",
     "mongoose": "^4.3.6",
     "mongoose-bcrypt": "^1.0.1",

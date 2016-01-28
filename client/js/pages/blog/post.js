@@ -48,11 +48,26 @@ var post = {
                     ctrl.isEdit = !ctrl.isEdit;
                 }
             }
-            ctrl.save = function() {
-                return function() {
-                    ctrl.isEdit = !ctrl.isEdit;
-                }
+            // ctrl.save = function() {
+            //     return function(post) {
+            //     	console.log('post53-post', post);
+            //     	console.log('post54-post', postForm.controller.getPost());
+            //         ctrl.isEdit = false;
+            //         window.__store__[key].dispatch(reducer.updatePost(post))
+            //         ctrl.state = window.__store__[key].getState();
+            //         console.log(ctrl.state);
+            //     }
+            // }
+
+            ctrl.save = function(po) {
+                // confirm('Save this post?');
+                console.log(po);
+                ctrl.isEdit = false;
+                window.__store__[key].dispatch(reducer.updatePost(po))
+                ctrl.state = window.__store__[key].getState();
+                console.log(ctrl.state);
             }
+
             ctrl.remove = function() {
                 return function() {
                     if (confirm('Delete this post?')) {
@@ -106,7 +121,8 @@ var post = {
                         m('hr')
                     ]) :
                     m.component(postForm, {
-                        post: JSON.parse(JSON.stringify(post)),
+                        // post: JSON.parse(JSON.stringify(post)),
+                        post: post,
                         save: ctrl.save,
                         remove: ctrl.remove,
                         cancel: ctrl.cancel
