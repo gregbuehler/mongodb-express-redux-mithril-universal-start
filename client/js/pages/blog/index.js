@@ -56,7 +56,7 @@ var blog = module.exports = {
                         m("span", post.author.userid),
                         " - ",
                         m("span", post.created),
-                        m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
+                        // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                     ]),
                     m('hr')
                 ]);
