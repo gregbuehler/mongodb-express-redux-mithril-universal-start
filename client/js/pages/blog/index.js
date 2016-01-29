@@ -96,7 +96,7 @@ var blog = module.exports = {
             }
 
             ctrl.remove = function() {
-                
+
                 if(!Auth.authorized()){
                      return;
                 };
@@ -109,8 +109,6 @@ var blog = module.exports = {
                     //remove post from state
                     window.__store__[key].dispatch(postsReducer.removePost(postId))
 
-                    // TODO: go to previous page
-                    // m.route('/blog')
                     m.route(key);
                 }
             }

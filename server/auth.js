@@ -63,6 +63,18 @@ auth.requireToken = function(req, res, next) {
     });
 };
 
+//require 'admin' role
+auth.authorized = function(req, res, next) {
+    if (!(req.user && req.user.role === 'admin')) {
+        console.log('auth69-Not admin');
+        return res.status(401).send({
+            status: 401,
+            errmsg: 'You are not admin.'
+        });
+    }
+    next();
+}
+
 // get JWT token for login credentials
 auth.post('/login', [urlParse, jsonParse], function(req, res) {
 

@@ -26,7 +26,7 @@ var Auth = module.exports = {
     },
 
     // trade credentials for a token
-        login: function(userid, password) {
+    login: function(userid, password) {
         return m.request({
                 method: 'POST',
                 url: '/auth/login',
@@ -46,11 +46,6 @@ var Auth = module.exports = {
             .then(function(data) {
                 // Auth.token = storage.token = token;// duplicate as above
                 // console.log('auth31-data', data);
-                // if(Auth.originalRoute){
-                //     m.route(Auth.originalRoute);
-                // }else{
-                //     m.route('/');
-                // }
             });
     },
 
