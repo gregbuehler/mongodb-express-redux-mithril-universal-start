@@ -8,7 +8,12 @@ var path = require('path'),
     lessMiddleware = require('less-middleware'),
     mongoose = require('mongoose'),
     browserify = require('browserify-middleware'),
-    config = require('../site/config');
+    config = require('../site/config'),
+    bodyParser = require('body-parser'),
+    urlParse = bodyParser.urlencoded({
+        extended: true
+    }),
+    jsonParse = bodyParser.json();
 
 global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
@@ -62,7 +67,8 @@ app.get('/api/profile', auth.requireToken, function(req, res) {
     res.send(req.user);
 });
 
-app.use('/api', api);
+// app.use('/api', api);
+app.use('/api', [urlParse, jsonParse], api);
 
 // TODO: implement server-side parsing for initial page-load
 // app.get('/*', function(req, res) {

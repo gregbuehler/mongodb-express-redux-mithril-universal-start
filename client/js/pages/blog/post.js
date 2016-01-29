@@ -6,6 +6,7 @@ var postsReducer = require('./postsReducer');
 var postResource = !global.__server__ ? require('./postResource') : null;
 var postForm = require('./postForm');
 var uuid = require('../../../../utils/uuid');
+var remoteActionMiddleware = require('./remoteActionMiddleware');
 
 
 var post = {
@@ -13,6 +14,13 @@ var post = {
         var ctrl = this;
 
         if (!global.__server__) {
+            //-----------------------------
+            var modelName = 'post';
+            const createStoreWithMiddleware = redux.applyMiddleware(
+                remoteActionMiddleware(modelName)
+            )(redux.createStore);
+
+            //=============================
 
             window.__state__ = window.__state__ || {};
             window.__store__ = window.__store__ || {};
@@ -25,7 +33,8 @@ var post = {
                 console.log('from window');
                 // ctrl.state = window.__state__[key];
                 initialState = window.__state__[key];
-                window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
+                // window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
+                window.__store__[key] = createStoreWithMiddleware(postReducer.reducer, initialState);
                 ctrl.state = window.__store__[key].getState();
                 window.__state__[key] = null;
 
@@ -39,7 +48,8 @@ var post = {
                         key: key,
                         post: post
                     };
-                    window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
+                    // window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
+                    window.__store__[key] = createStoreWithMiddleware(postReducer.reducer, initialState);
                     ctrl.state = window.__store__[key].getState();
 
                 }, function(err) {

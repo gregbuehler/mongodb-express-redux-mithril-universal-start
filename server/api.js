@@ -38,3 +38,11 @@ api.get('/post/:id', function(req, res) {
             return res.status(500).send(err);
         });
 })
+
+api.post('/post', function(req, res){
+    res.status(200).send({msg:'ok'})
+    console.log('api43-req.body', req.body);
+    console.log('api43-req.body', req.params);
+    console.log('api43-req.body', req.path);
+    console.log('api43-req.body', req.data);
+})
