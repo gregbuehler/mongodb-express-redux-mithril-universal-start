@@ -103,14 +103,22 @@ var post = {
                 if (post.id) {
                     console.log('index67-update');
                     //update
-                    window.__store__[key].dispatch(postReducer.updatePost(post))
-
+                    window.__store__[key].dispatch(postReducer.updatePost(post));
+                    //also remove post from the post list state
+                    // TODO: after remove, m.route('/blog') is not working.
+                    if (window.__store__['/blog']) {
+                        window.__store__['/blog'].dispatch(postsReducer.updatePost(post));
+                    }
                 } else {
                     console.log('index70-create');
                     //create
                     post.id = uuid();
-                    window.__store__[key].dispatch(postReducer.createPost(post))
-
+                    window.__store__[key].dispatch(postReducer.createPost(post));
+                    //also remove post from the post list state
+                    // TODO: after remove, m.route('/blog') is not working.
+                    if (window.__store__['/blog']) {
+                        window.__store__['/blog'].dispatch(postsReducer.createPost(post));
+                    }
                 }
                 ctrl.state = window.__store__[key].getState();
             }
@@ -122,13 +130,13 @@ var post = {
                     var postId = ctrl.state.post.id;
 
                     //remove post from state
-                    window.__store__[key].dispatch(postReducer.removePost(postId))
+                    window.__store__[key].dispatch(postReducer.removePost(postId));
 
                     //also remove post from the post list state
                     // TODO: after remove, m.route('/blog') is not working.
-                    // if (window.__store__['/blog']) {
-                    //     window.__store__['/blog'].dispatch(postsReducer.removePost(postId))
-                    // }
+                    if (window.__store__['/blog']) {
+                        window.__store__['/blog'].dispatch(postsReducer.removePost(postId));
+                    }
                     m.route('/blog')
                 }
             }
@@ -147,7 +155,7 @@ var post = {
                 m('.col-md-12', (!ctrl.isEdit ?
                     m('', [
                         m('h1', m('div', post.title)),
-                        m("h5", [
+                        m("h3", [
                             m("span", post.author.userid),
                             " - ",
                             m("span", post.created),

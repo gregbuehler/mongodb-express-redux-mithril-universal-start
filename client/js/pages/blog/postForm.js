@@ -31,7 +31,7 @@ var postForm = {
         var post = arg.postCopied;
 
         return m('', [
-            m("h1", [
+            m("h2", [
                 m("span", post.author.userid),
                 " - ",
                 m("span", post.created),

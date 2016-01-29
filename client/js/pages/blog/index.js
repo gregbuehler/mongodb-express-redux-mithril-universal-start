@@ -129,12 +129,8 @@ var blog = module.exports = {
                     m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
-                        }, 'new') : [m('button.btn.btn-default', {
-                            onclick: ctrl.cancel.bind(this)
-                        }, 'cancel'), m('button.btn.btn-primary', {
-                            // onclick: ctrl.save.bind(this, ctrl.postCopied)
-                            onclick: ctrl.save.bind(this)
-                        }, 'save')])]),
+                        }, 'new') : null)
+                    ]),
 
                     !ctrl.isEdit ?
                     ctrl.state.posts.map(function(post) {

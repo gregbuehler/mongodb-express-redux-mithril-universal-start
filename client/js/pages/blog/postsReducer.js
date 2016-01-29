@@ -16,26 +16,28 @@ function reducer(state, action) {
             console.log('postsReducer16-state', state);
             return state;
         case UPDATE:
-            state.posts.map(function(post){
-                if(post.id === action.post.id){
-                    return action.post;
-                }
-                return post;
-            })
-            // if (state.post.id === action.post.id) {
-            //     state.post = action.post;
+            state.posts = state.posts.map(function(post) {
+                    if (post.id === action.post.id) {
+                        return action.post;
+                    }
+                    return post;
+                })
+                // if (state.post.id === action.post.id) {
+                //     state.post = action.post;
 
-                console.log('post updated');
+            console.log('post updated');
             // }
             return state;
         case REMOVE:
-            state.posts.filter(function(post) {
+            state.posts = state.posts.filter(function(post) {
                     return post.id !== action.id
                 })
                 // if (state.post.id === action.id) {
                 //     state.post = null;
 
-            console.log('post removed');
+            console.log('postsReducer38-post removed');
+            console.log('postsReducer39-state', state);
+            console.log('postsReducer39-action.id', action.id);
             // }
             return state;
         default:
