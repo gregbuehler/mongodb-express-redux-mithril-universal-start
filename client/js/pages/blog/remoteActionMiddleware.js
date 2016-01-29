@@ -6,6 +6,10 @@ var middleware = function(modelName) {
         return function(next) {
             return function(action) {
                 if (action) {
+                    if (!Auth.token) {
+                        m.route('/login')
+                    }
+
                     Auth.req({
                         method: 'POST',
                         url: '/apiauth/' + modelName,
@@ -17,9 +21,6 @@ var middleware = function(modelName) {
                         return next(action);
                     }, function(err) {
                         console.log('middleware-err', err);
-                        if (!Auth.token) {
-                            m.route('/login')
-                        }
                         return;
                     });
                 }

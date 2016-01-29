@@ -62,9 +62,8 @@ var blog = module.exports = {
                     title: 'newTitle',
                     summary: 'newSummary',
                     content: 'newContent',
-                    created: 'newDate',
                     author: {
-                        userid: 'new_Author'
+                        userid: Auth.userid
                     }
                 }
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));

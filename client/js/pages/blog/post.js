@@ -87,9 +87,8 @@ var post = {
                     title: 'newTitle',
                     summary: 'newSummary',
                     content: 'newContent',
-                    created: 'newDate',
                     author: {
-                        userid: 'newAuthor'
+                        userid: Auth.userid
                     }
                 }
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));

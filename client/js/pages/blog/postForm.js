@@ -8,7 +8,7 @@ var postForm = {
 
         return m('', [
             m("h2", [
-                m("span", post.author.userid),
+                m("span", 'Author: '+post.author.userid),
                 " - ",
                 m("span", post.created),
                 m('.pull-right', [
