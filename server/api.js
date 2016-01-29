@@ -1,5 +1,7 @@
 var express = require('express'),
     Post = require('./models/Post');
+var postReducer = require('../client/js/pages/blog/postReducer');
+
 
 var api = module.exports = express();
 
@@ -39,10 +41,49 @@ api.get('/post/:id', function(req, res) {
         });
 })
 
-api.post('/post', function(req, res){
-    res.status(200).send({msg:'ok'})
-    console.log('api43-req.body', req.body);
-    console.log('api43-req.body', req.params);
-    console.log('api43-req.body', req.path);
-    console.log('api43-req.body', req.data);
+api.post('/post', function(req, res) {
+    if (req.body.action) {
+
+        var action = req.body.action;
+        var types = postReducer.types;
+
+            console.log('api53-action', action);
+        switch (action.type) {
+
+            case types.CREATE:
+                Post.create(action.post, function(err, result) {
+                    if (err) res.status(500).send(err);
+                    res.status(200).send(result);
+                })
+                break;
+            case types.UPDATE:
+                Post.update({
+                    id: action.post.id
+                }, action.post, function(err, result) {
+                    if (err) res.status(500).send(err);
+                    res.status(200).send(result);
+                })
+                break;
+
+            case types.REMOVE:
+                Post.remove({
+                    id: action.id
+                }, function(err) {
+                    if (err) res.status(500).send(err);
+                    res.status(200).send({
+                        msg: 'Post deleted.'
+                    });
+                })
+                break;
+            default:
+                res.status(500).send({
+                    errmsg: 'Action is invalid.'
+                })
+        }
+    } else {
+
+        res.status(500).send({
+            errmsg: 'Action not found.'
+        })
+    }
 })

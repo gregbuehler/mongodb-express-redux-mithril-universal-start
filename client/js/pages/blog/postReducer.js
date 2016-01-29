@@ -70,5 +70,12 @@ module.exports = {
     loadPost: loadPost,
     createPost: createPost,
     updatePost: updatePost,
-    removePost: removePost
+    removePost: removePost,
+    types: {
+        LOADALL: LOADALL,
+        LOAD : LOAD,
+        CREATE : CREATE,
+        UPDATE : UPDATE,
+        REMOVE : REMOVE        
+    }
 }
