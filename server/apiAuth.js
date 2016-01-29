@@ -47,10 +47,13 @@ api.post('/post', function(req, res) {
         var action = req.body.action;
         var types = postReducer.types;
 
-            console.log('api53-action', action);
+            console.log('apiAuth50-action', action);
         switch (action.type) {
 
             case types.CREATE:
+                
+                action.post.author = req.user._id;
+
                 Post.create(action.post, function(err, result) {
                     if (err) res.status(500).send(err);
                     res.status(200).send(result);

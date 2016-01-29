@@ -5,6 +5,7 @@ var redux = require('redux');
 var postsReducer = require('./postsReducer');
 var uuid = require('../../../../utils/uuid');
 var postForm = require('./postForm');
+var remoteActionMiddleware = require('./remoteActionMiddleware');
 var Auth = require('../../models/Auth.js');
 
 
@@ -13,7 +14,13 @@ var blog = module.exports = {
         var ctrl = this;
 
         if (!global.__server__) {
+            //-----------------------------
+            var modelName = 'post';
+            const createStoreWithMiddleware = redux.applyMiddleware(
+                remoteActionMiddleware(modelName)
+            )(redux.createStore);
 
+            //=============================
             window.__state__ = window.__state__ || {};
             window.__store__ = window.__store__ || {};
 
@@ -23,7 +30,8 @@ var blog = module.exports = {
             if (window.__state__[key]) {
 
                 initialState = window.__state__[key];
-                window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
+                // window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
+                window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
                 ctrl.state = window.__store__[key].getState();
                 window.__state__[key] = null;
 
@@ -35,7 +43,8 @@ var blog = module.exports = {
                         key: key,
                         posts: posts
                     };
-                    window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
+                    // window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
+                    window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
                     ctrl.state = window.__store__[key].getState();
 
                 })
@@ -142,7 +151,7 @@ var blog = module.exports = {
                             //     m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                             // ]),
                             m("h5", [
-                                m("span", post.author.userid),
+                                m("span", post.author? post.author.userid : 'unknown'),
                                 " - ",
                                 m("span", post.created),
                                 // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
