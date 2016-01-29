@@ -5,6 +5,7 @@ var redux = require('redux');
 var postsReducer = require('./postsReducer');
 var uuid = require('../../../../utils/uuid');
 var postForm = require('./postForm');
+var Auth = require('../../models/Auth.js');
 
 
 var blog = module.exports = {
@@ -45,10 +46,17 @@ var blog = module.exports = {
             ctrl.isEdit = false;
 
             ctrl.cancel = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
                 ctrl.isEdit = false;
+
             }
 
             ctrl.create = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
                 ctrl.isEdit = true;
                 ctrl.post = {
                     title: 'newTitle',
@@ -63,6 +71,9 @@ var blog = module.exports = {
             }
 
             ctrl.save = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
                 if (post.id) {
@@ -81,6 +92,10 @@ var blog = module.exports = {
             }
 
             ctrl.remove = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
+
                 if (confirm('Delete this post?')) {
 
                     ctrl.isEdit = false;
@@ -106,8 +121,7 @@ var blog = module.exports = {
                     m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
-                        }, 'new') : null)
-                    ]),
+                        }, 'new') : null)]),
 
                     !ctrl.isEdit ?
                     ctrl.state.posts.map(function(post) {

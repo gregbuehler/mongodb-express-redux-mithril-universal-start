@@ -1,23 +1,29 @@
 var m = require('mithril');
+var Auth = require('../../models/Auth.js');
 
 var middleware = function(modelName) {
     return function(store) {
         return function(next) {
             return function(action) {
                 if (action) {
-                    m.request({
+                    Auth.req({
                         method: 'POST',
-                        url: '/api/' + modelName,
+                        url: '/apiauth/' + modelName,
                         data: {
                             action: action
                         }
                     }).then(function(result) {
                         console.log('middleware-result', result);
+                        return next(action);
                     }, function(err) {
                         console.log('middleware-err', err);
+                        if (!Auth.token) {
+                            m.route('/login')
+                        }
+                        return;
                     });
                 }
-                return next(action);
+
             }
         }
     }
@@ -25,6 +31,37 @@ var middleware = function(modelName) {
 }
 
 module.exports = middleware;
+//--------------------------------------
+// var m = require('mithril');
+
+// var middleware = function(modelName) {
+//     return function(store) {
+//         return function(next) {
+//             return function(action) {
+//                 if (action) {
+//                     m.request({
+//                         method: 'POST',
+//                         url: '/apiauth/' + modelName,
+//                         data: {
+//                             action: action
+//                         }
+//                     }).then(function(result) {
+//                         console.log('middleware-result', result);
+//                         return next(action);
+//                     }, function(err) {
+//                         console.log('middleware-err', err);
+//                         m.route('/login')
+//                         return;
+//                     });
+//                 }
+
+//             }
+//         }
+//     }
+
+// }
+
+// module.exports = middleware;
 //-----------------------------------------------
 // var middleware = function(socket) {
 //     return function(store) {

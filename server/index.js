@@ -20,7 +20,8 @@ global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
 
 var pages = require('./pages'),
-    api = require('./api');
+    api = require('./api'),
+    apiAuth = require('./apiAuth');
 
 
 // load up .env file
@@ -68,7 +69,9 @@ app.get('/api/profile', auth.requireToken, function(req, res) {
 });
 
 // app.use('/api', api);
-app.use('/api', [urlParse, jsonParse], api);
+// app.use('/api', [urlParse, jsonParse], api);
+app.use('/api', api);
+app.use('/apiauth', [auth.requireToken, urlParse, jsonParse], apiAuth);
 
 // TODO: implement server-side parsing for initial page-load
 // app.get('/*', function(req, res) {

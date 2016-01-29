@@ -7,6 +7,7 @@ var postResource = !global.__server__ ? require('./postResource') : null;
 var postForm = require('./postForm');
 var uuid = require('../../../../utils/uuid');
 var remoteActionMiddleware = require('./remoteActionMiddleware');
+var Auth = require('../../models/Auth.js');
 
 
 var post = {
@@ -63,15 +64,24 @@ var post = {
             ctrl.isEdit = false;
 
             ctrl.edit = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
                 ctrl.isEdit = true;
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.state.post));
             }
 
             ctrl.cancel = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
                 ctrl.isEdit = false;
             }
 
             ctrl.create = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
                 ctrl.isEdit = true;
                 ctrl.post = {
                     title: 'newTitle',
@@ -86,6 +96,9 @@ var post = {
             }
 
             ctrl.save = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
                 if (post.id) {
@@ -114,6 +127,10 @@ var post = {
             }
 
             ctrl.remove = function() {
+                if (!Auth.token) {
+                    m.route('/login');
+                }
+
                 if (confirm('Delete this post?')) {
 
                     ctrl.isEdit = false;
