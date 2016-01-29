@@ -105,8 +105,7 @@ if (require.main === module) {
                 //Use the main server as proxy
                 proxy: config.baseUrl,
                 //The client-side files are watched by browsersync. The server-related files are watched by nodemon
-                // files: ["./client"]
-                files: ["./client", './server', './site', './utils']
+                files: ["./client"]
             });
         }
 
