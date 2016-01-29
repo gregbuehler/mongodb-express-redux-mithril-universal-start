@@ -44,6 +44,10 @@ var blog = module.exports = {
 
             ctrl.isEdit = false;
 
+            ctrl.cancel = function() {
+                ctrl.isEdit = false;
+            }
+
             ctrl.create = function() {
                 ctrl.isEdit = true;
                 ctrl.post = {
@@ -96,9 +100,22 @@ var blog = module.exports = {
                 ctrl.state = window.__store__[key].getState();
             }
 
-            ctrl.remove = function() {}
-            ctrl.cancel = function() {
-                ctrl.isEdit = false;
+            ctrl.remove = function() {
+                if (confirm('Delete this post?')) {
+
+                    ctrl.isEdit = false;
+                    var postId = ctrl.postCopied.id;
+
+                    //remove post from state
+                    window.__store__[key].dispatch(postsReducer.removePost(postId))
+
+                    //also remove post from the post list state
+                    // TODO: after remove, m.route('/blog') is not working.
+                    // if (window.__store__['/blog']) {
+                    //     window.__store__['/blog'].dispatch(postsReducer.removePost(postId))
+                    // }
+                    m.route('/blog')
+                }
             }
 
         }

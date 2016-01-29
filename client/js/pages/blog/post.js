@@ -5,6 +5,8 @@ var postReducer = require('./postReducer');
 var postsReducer = require('./postsReducer');
 var postResource = !global.__server__ ? require('./postResource') : null;
 var postForm = require('./postForm');
+var uuid = require('../../../../utils/uuid');
+
 
 var post = {
     controller: function() {
@@ -56,29 +58,60 @@ var post = {
                 ctrl.isEdit = false;
             }
 
+            // ctrl.create = function() {
+            //     ctrl.isEdit = true;
+            //     // initialState = {
+            //     //     key: 'newPost',
+            //     //     post: {
+            //     //         title: '',
+            //     //         summary: '',
+            //     //         content: '',
+            //     //         created: Date.now(),
+            //     //         author: {
+            //     //             userid: 'tempAuthor'
+            //     //         }
+            //     //     }
+            //     // }
+            //     // window.__store__[initialState.key] = redux.createStore(postReducer.reducer, initialState);
+            //     window.__store__[key].dispatch(postReducer.createPost())
+
+            //     ctrl.state = window.__store__[key].getState();
+            // }
+
             ctrl.create = function() {
                 ctrl.isEdit = true;
-                // initialState = {
-                //     key: 'newPost',
-                //     post: {
-                //         title: '',
-                //         summary: '',
-                //         content: '',
-                //         created: Date.now(),
-                //         author: {
-                //             userid: 'tempAuthor'
-                //         }
-                //     }
-                // }
-                // window.__store__[initialState.key] = redux.createStore(postReducer.reducer, initialState);
-                window.__store__[key].dispatch(postReducer.createPost())
-
-                ctrl.state = window.__store__[key].getState();
+                ctrl.post = {
+                    title: 'newTitle',
+                    summary: 'newSummary',
+                    content: 'newContent',
+                    created: 'newDate',
+                    author: {
+                        userid: 'newAuthor'
+                    }
+                }
+                ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));
             }
 
-            ctrl.save = function(post) {
+            // ctrl.save = function(post) {
+            //     ctrl.isEdit = false;
+            //     window.__store__[key].dispatch(postReducer.updatePost(post))
+            //     ctrl.state = window.__store__[key].getState();
+            // }
+            ctrl.save = function() {
                 ctrl.isEdit = false;
-                window.__store__[key].dispatch(postReducer.updatePost(post))
+                var post = ctrl.postCopied;
+                if (post.id) {
+                    console.log('index67-update');
+                    //update
+                    window.__store__[key].dispatch(postReducer.updatePost(post))
+
+                } else {
+                    console.log('index70-create');
+                    //create
+                    post.id = uuid();
+                    window.__store__[key].dispatch(postReducer.createPost(post))
+
+                }
                 ctrl.state = window.__store__[key].getState();
             }
 
@@ -184,8 +217,8 @@ module.exports = post;
 
 //             ctrl.edit = function(post) {
 //                 return function(){
-//                 	console.log(post);
-//                 	ctrl.isEdit = true;
+//                  console.log(post);
+//                  ctrl.isEdit = true;
 //                 }
 //             }
 

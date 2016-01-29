@@ -1,6 +1,6 @@
 var m = require('mithril');
-var redux = require('redux');
-var reducer = require('./postReducer');
+// var redux = require('redux');
+// var reducer = require('./postReducer');
 
 
 
@@ -31,14 +31,7 @@ var postForm = {
         var post = arg.postCopied;
 
         return m('', [
-            m('h1', m('input', {
-                style: 'width: 100%',
-                value: post.title,
-                onchange: function(e) {
-                    post.title = e.target.value;
-                }
-            })),
-            m("h5", [
+            m("h1", [
                 m("span", post.author.userid),
                 " - ",
                 m("span", post.created),
@@ -55,6 +48,14 @@ var postForm = {
                     }, 'delete')
                 ])
             ]),
+            m('h1', m('input', {
+                style: 'width: 100%',
+                value: post.title,
+                onchange: function(e) {
+                    post.title = e.target.value;
+                }
+            })),
+
             m('p', m('textarea', {
                 style: 'width: 100%; min-height: 200px',
                 onchange: function(e) {

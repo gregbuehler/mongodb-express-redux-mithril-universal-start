@@ -10,24 +10,33 @@ function reducer(state, action) {
         // do reducer stuff
 
         case CREATE:
-                state.posts.unshift(action.post);
+            state.posts.unshift(action.post);
 
-                console.log('post created');
-                console.log('postsReducer16-state', state);
+            console.log('post created');
+            console.log('postsReducer16-state', state);
             return state;
         case UPDATE:
-            if (state.post.id === action.post.id) {
-                state.post = action.post;
+            state.posts.map(function(post){
+                if(post.id === action.post.id){
+                    return action.post;
+                }
+                return post;
+            })
+            // if (state.post.id === action.post.id) {
+            //     state.post = action.post;
 
                 console.log('post updated');
-            }
+            // }
             return state;
         case REMOVE:
-            if (state.post.id === action.id) {
-                state.post = null;
+            state.posts.filter(function(post) {
+                    return post.id !== action.id
+                })
+                // if (state.post.id === action.id) {
+                //     state.post = null;
 
-                console.log('post removed');
-            }
+            console.log('post removed');
+            // }
             return state;
         default:
             return state;
