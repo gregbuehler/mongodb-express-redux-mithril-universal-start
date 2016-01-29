@@ -49,6 +49,7 @@ var post = {
 
             ctrl.edit = function() {
                 ctrl.isEdit = true;
+                ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.state.post));
             }
 
             ctrl.cancel = function() {
@@ -131,7 +132,7 @@ var post = {
                         m('hr')
                     ]) :
                     m.component(postForm, {
-                        post: post,
+                        postCopied: ctrl.postCopied,
                         save: ctrl.save,
                         remove: ctrl.remove,
                         cancel: ctrl.cancel

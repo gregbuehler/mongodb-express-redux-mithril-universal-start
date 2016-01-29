@@ -12,7 +12,8 @@ function reducer(state, action) {
         case CREATE:
                 state.posts.unshift(action.post);
 
-                console.log('post updated');
+                console.log('post created');
+                console.log('postsReducer16-state', state);
             return state;
         case UPDATE:
             if (state.post.id === action.post.id) {

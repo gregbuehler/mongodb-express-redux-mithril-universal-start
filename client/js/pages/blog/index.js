@@ -47,25 +47,60 @@ var blog = module.exports = {
             ctrl.create = function() {
                 ctrl.isEdit = true;
                 ctrl.post = {
-                        title: 'newTitle',
-                        summary: 'newSummary',
-                        content: 'newContent',
-                        created: 'newDate',
-                        author: {
-                            userid: 'newAuthor'
-                        }
+                    title: 'newTitle',
+                    summary: 'newSummary',
+                    content: 'newContent',
+                    created: 'newDate',
+                    author: {
+                        userid: 'newAuthor'
                     }
-                    // window.__store__[key].dispatch(postsReducer.createPost(ctrl.post))
-                    // ctrl.state = window.__store__[key].getState();
-                console.log('index57-ctrl.state', ctrl.state);
+                }
+                ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));
+                // window.__store__[key].dispatch(postsReducer.createPost(ctrl.post))
+                // ctrl.state = window.__store__[key].getState();
+                // console.log('index57-ctrl.state', ctrl.state);
             }
 
-            ctrl.save = function() {}
+            // ctrl.save = function(post) {
+            //     ctrl.isEdit = false;
+            //     if (post.id) {
+            //         console.log('index67-update');
+            //         //update
+            //         window.__store__[key].dispatch(postsReducer.updatePost(post))
+
+            //     } else {
+            //         console.log('index70-create');
+            //         //create
+            //         post.id = uuid();
+            //         window.__store__[key].dispatch(postsReducer.createPost(post))
+
+            //     }
+            //     ctrl.state = window.__store__[key].getState();
+            // }
+
+            ctrl.save = function() {
+                ctrl.isEdit = false;
+                var post = ctrl.postCopied;
+                if (post.id) {
+                    console.log('index67-update');
+                    //update
+                    window.__store__[key].dispatch(postsReducer.updatePost(post))
+
+                } else {
+                    console.log('index70-create');
+                    //create
+                    post.id = uuid();
+                    window.__store__[key].dispatch(postsReducer.createPost(post))
+
+                }
+                ctrl.state = window.__store__[key].getState();
+            }
 
             ctrl.remove = function() {}
             ctrl.cancel = function() {
                 ctrl.isEdit = false;
             }
+
         }
 
     },
@@ -77,10 +112,12 @@ var blog = module.exports = {
                     m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
-                        }, 'new') :
-                        m('button.btn.btn-default', {
+                        }, 'new') : [m('button.btn.btn-default', {
                             onclick: ctrl.cancel.bind(this)
-                        }, 'cancel'))]),
+                        }, 'cancel'), m('button.btn.btn-primary', {
+                            // onclick: ctrl.save.bind(this, ctrl.postCopied)
+                            onclick: ctrl.save.bind(this)
+                        }, 'save')])]),
 
                     !ctrl.isEdit ?
                     ctrl.state.posts.map(function(post) {
@@ -108,7 +145,7 @@ var blog = module.exports = {
                     })
 
                     : m.component(postForm, {
-                        post: ctrl.post,
+                        postCopied: ctrl.postCopied,
                         save: ctrl.save,
                         remove: ctrl.remove,
                         cancel: ctrl.cancel

@@ -5,30 +5,31 @@ var reducer = require('./postReducer');
 
 
 var postForm = {
-    controller: function(arg) {
-        var ctrl = this;
+    // controller: function(arg) {
+    //     var ctrl = this;
 
-        ctrl.post = JSON.parse(JSON.stringify(arg.post));
+    //     // ctrl.post = JSON.parse(JSON.stringify(arg.post));
+    //     ctrl.post = arg.postCopied;
 
-        ctrl.save = function(post) {
-            arg.post = post;
-            arg.save(arg.post);
-        }
+    //     ctrl.save = function(post) {
+    //         arg.save(post);
+    //     }
 
-        ctrl.cancel = function() {
-            //Reset to original state
-            ctrl.post = JSON.parse(JSON.stringify(arg.post));
-            arg.cancel();
-        }
+    //     ctrl.cancel = function() {
+    //         //Reset to original state
+    //         // ctrl.post = JSON.parse(JSON.stringify(arg.post));
+    //         arg.cancel();
+    //     }
 
-        ctrl.remove = arg.remove;
-        
-    },
+    //     ctrl.remove = arg.remove;
+
+    // },
 
     view: function(ctrl, arg) {
 
-        var post = ctrl.post;
-        
+        // var post = ctrl.post;
+        var post = arg.postCopied;
+
         return m('', [
             m('h1', m('input', {
                 style: 'width: 100%',
@@ -43,25 +44,26 @@ var postForm = {
                 m("span", post.created),
                 m('.pull-right', [
                     m('span.label.label-default', {
-                        onclick: ctrl.save.bind(this, post)
+                        // onclick: arg.save.bind(this, post)
+                        onclick: arg.save.bind(this)
                     }, 'save'),
                     m('span.label.label-default', {
-                        onclick: ctrl.cancel.bind(this)
+                        onclick: arg.cancel.bind(this)
                     }, 'cancel'),
                     m('span.label.label-danger', {
-                        onclick: ctrl.remove.bind(this)
+                        onclick: arg.remove.bind(this)
                     }, 'delete')
                 ])
             ]),
             m('p', m('textarea', {
                 style: 'width: 100%; min-height: 200px',
-                onchange: function(e){
+                onchange: function(e) {
                     post.summary = e.target.value;
                 }
             }, post.summary)),
             m('p', m('textarea', {
                 style: 'width: 100%; min-height: 500px',
-                onchange: function(e){
+                onchange: function(e) {
                     post.content = e.target.value;
                 }
             }, post.content)),
@@ -72,4 +74,3 @@ var postForm = {
 }
 
 module.exports = postForm;
-
