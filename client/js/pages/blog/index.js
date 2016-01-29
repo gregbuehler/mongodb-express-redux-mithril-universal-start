@@ -60,27 +60,7 @@ var blog = module.exports = {
                     }
                 }
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));
-                // window.__store__[key].dispatch(postsReducer.createPost(ctrl.post))
-                // ctrl.state = window.__store__[key].getState();
-                // console.log('index57-ctrl.state', ctrl.state);
             }
-
-            // ctrl.save = function(post) {
-            //     ctrl.isEdit = false;
-            //     if (post.id) {
-            //         console.log('index67-update');
-            //         //update
-            //         window.__store__[key].dispatch(postsReducer.updatePost(post))
-
-            //     } else {
-            //         console.log('index70-create');
-            //         //create
-            //         post.id = uuid();
-            //         window.__store__[key].dispatch(postsReducer.createPost(post))
-
-            //     }
-            //     ctrl.state = window.__store__[key].getState();
-            // }
 
             ctrl.save = function() {
                 ctrl.isEdit = false;
@@ -109,12 +89,9 @@ var blog = module.exports = {
                     //remove post from state
                     window.__store__[key].dispatch(postsReducer.removePost(postId))
 
-                    //also remove post from the post list state
-                    // TODO: after remove, m.route('/blog') is not working.
-                    // if (window.__store__['/blog']) {
-                    //     window.__store__['/blog'].dispatch(postsReducer.removePost(postId))
-                    // }
-                    m.route('/blog')
+                    // TODO: go to previous page
+                    // m.route('/blog')
+                    m.route(key);
                 }
             }
 

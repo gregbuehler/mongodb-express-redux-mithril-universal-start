@@ -7,39 +7,26 @@ const REMOVE = 'my-app/post/REMOVE';
 
 function reducer(state, action) {
     switch (action.type) {
-        // do reducer stuff
 
         case CREATE:
             state.posts.unshift(action.post);
-
-            console.log('post created');
-            console.log('postsReducer16-state', state);
             return state;
+
         case UPDATE:
             state.posts = state.posts.map(function(post) {
-                    if (post.id === action.post.id) {
-                        return action.post;
-                    }
-                    return post;
-                })
-                // if (state.post.id === action.post.id) {
-                //     state.post = action.post;
-
-            console.log('post updated');
-            // }
+                if (post.id === action.post.id) {
+                    return action.post;
+                }
+                return post;
+            })
             return state;
+
         case REMOVE:
             state.posts = state.posts.filter(function(post) {
-                    return post.id !== action.id
-                })
-                // if (state.post.id === action.id) {
-                //     state.post = null;
-
-            console.log('postsReducer38-post removed');
-            console.log('postsReducer39-state', state);
-            console.log('postsReducer39-action.id', action.id);
-            // }
+                return post.id !== action.id
+            })
             return state;
+
         default:
             return state;
     }

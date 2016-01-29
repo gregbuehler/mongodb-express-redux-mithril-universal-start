@@ -42,6 +42,9 @@ var post = {
                     window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
                     ctrl.state = window.__store__[key].getState();
 
+                }, function(err) {
+                    console.log('post46-err', err);
+                    ctrl.err = err;
                 })
             } else {
                 ctrl.state = window.__store__[key].getState();
@@ -58,26 +61,6 @@ var post = {
                 ctrl.isEdit = false;
             }
 
-            // ctrl.create = function() {
-            //     ctrl.isEdit = true;
-            //     // initialState = {
-            //     //     key: 'newPost',
-            //     //     post: {
-            //     //         title: '',
-            //     //         summary: '',
-            //     //         content: '',
-            //     //         created: Date.now(),
-            //     //         author: {
-            //     //             userid: 'tempAuthor'
-            //     //         }
-            //     //     }
-            //     // }
-            //     // window.__store__[initialState.key] = redux.createStore(postReducer.reducer, initialState);
-            //     window.__store__[key].dispatch(postReducer.createPost())
-
-            //     ctrl.state = window.__store__[key].getState();
-            // }
-
             ctrl.create = function() {
                 ctrl.isEdit = true;
                 ctrl.post = {
@@ -92,30 +75,27 @@ var post = {
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));
             }
 
-            // ctrl.save = function(post) {
-            //     ctrl.isEdit = false;
-            //     window.__store__[key].dispatch(postReducer.updatePost(post))
-            //     ctrl.state = window.__store__[key].getState();
-            // }
             ctrl.save = function() {
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
                 if (post.id) {
-                    console.log('index67-update');
+                    console.log('post104-update');
                     //update
                     window.__store__[key].dispatch(postReducer.updatePost(post));
+
                     //also remove post from the post list state
-                    // TODO: after remove, m.route('/blog') is not working.
+                    // TODO: this should be blog key
                     if (window.__store__['/blog']) {
                         window.__store__['/blog'].dispatch(postsReducer.updatePost(post));
                     }
                 } else {
-                    console.log('index70-create');
+                    console.log('post113-create');
                     //create
                     post.id = uuid();
                     window.__store__[key].dispatch(postReducer.createPost(post));
+
                     //also remove post from the post list state
-                    // TODO: after remove, m.route('/blog') is not working.
+                    // TODO: this should be blog key
                     if (window.__store__['/blog']) {
                         window.__store__['/blog'].dispatch(postsReducer.createPost(post));
                     }
@@ -133,7 +113,7 @@ var post = {
                     window.__store__[key].dispatch(postReducer.removePost(postId));
 
                     //also remove post from the post list state
-                    // TODO: after remove, m.route('/blog') is not working.
+                    // TODO: this should be blog key
                     if (window.__store__['/blog']) {
                         window.__store__['/blog'].dispatch(postsReducer.removePost(postId));
                     }
@@ -147,7 +127,20 @@ var post = {
 
     },
     view: function(ctrl) {
+
+        //If error, show errmsg
+        if (ctrl.err) {
+            return [
+                m.component(Navbar),
+                m('.container',
+                    m('.col-md-12', m('', [
+                        m('h1', m('div', ctrl.err.errmsg))
+                    ]))
+                )
+            ];
+        }
         var post = ctrl.state.post;
+
 
         return [
             m.component(Navbar),
@@ -185,81 +178,3 @@ var post = {
 }
 
 module.exports = post;
-//------------------------------------------------
-
-// var m = require('mithril');
-// var Navbar = require('../../components/Navbar.js');
-// var redux = require('redux');
-// var postReducer = require('./reducer');
-// var postResource = !global.__server__ ? require('./postResource') : null;
-
-// var post = {
-//     controller: function() {
-//         var ctrl = this;
-
-//         if (!global.__server__) {
-
-//             window.__state__ = window.__state__ || {};
-//             window.__store__ = window.__store__ || {};
-
-//             var key = m.route();
-
-//             if (window.__store__[key]) {
-//                 console.log('from store');
-//                 ctrl.state = window.__state__[key];
-//                 window.__store__[key] = redux.createStore(postReducer.reducer, window.__state__[key]);
-
-//             } else {
-//                 console.log('from server', m.route.param('id'));
-
-//                 postResource(m.route.param('id')).then(function(post) {
-
-//                     ctrl.state = {
-//                         key: key,
-//                         post: post
-//                     };
-//                     window.__state__[key] = ctrl.state;
-//                     window.__store__[key] = redux.createStore(postReducer.reducer, window.__state__[key]);
-//                 })
-//             };
-
-//             ctrl.edit = function(post) {
-//                 return function(){
-//                  console.log(post);
-//                  ctrl.isEdit = true;
-//                 }
-//             }
-
-//         }
-//     },
-//     view: function(ctrl) {
-//         var post = ctrl.state.post;
-//         return [
-//             m.component(Navbar),
-//             m('.container',
-//                 m('.col-md-12',
-//                     m('', [
-//                         m('h1', m('a', {
-//                             href: '/post/' + post.id,
-//                             config: m.route
-//                         }, post.title)),
-//                         m("h5", [
-//                             m("span", post.author.userid),
-//                             " - ",
-//                             m("span", post.created),
-//                             m('.pull-right', [m('span.label.label-default', {
-//                                 onclick: ctrl.edit(post)
-//                             }, 'edit'), m('span.label.label-danger', 'delete')])
-//                         ]),
-//                         m('p', post.summary),
-//                         m('p', post.content),
-//                         // m('p', 'Written by ' + post.author.userid),
-//                         m('hr')
-//                     ])
-//                 )
-//             )
-//         ]
-//     }
-// }
-
-// module.exports = post;

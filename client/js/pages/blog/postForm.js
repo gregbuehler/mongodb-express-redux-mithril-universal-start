@@ -1,33 +1,9 @@
 var m = require('mithril');
-// var redux = require('redux');
-// var reducer = require('./postReducer');
-
-
 
 var postForm = {
-    // controller: function(arg) {
-    //     var ctrl = this;
-
-    //     // ctrl.post = JSON.parse(JSON.stringify(arg.post));
-    //     ctrl.post = arg.postCopied;
-
-    //     ctrl.save = function(post) {
-    //         arg.save(post);
-    //     }
-
-    //     ctrl.cancel = function() {
-    //         //Reset to original state
-    //         // ctrl.post = JSON.parse(JSON.stringify(arg.post));
-    //         arg.cancel();
-    //     }
-
-    //     ctrl.remove = arg.remove;
-
-    // },
 
     view: function(ctrl, arg) {
 
-        // var post = ctrl.post;
         var post = arg.postCopied;
 
         return m('', [
@@ -37,7 +13,6 @@ var postForm = {
                 m("span", post.created),
                 m('.pull-right', [
                     m('span.label.label-default', {
-                        // onclick: arg.save.bind(this, post)
                         onclick: arg.save.bind(this)
                     }, 'save'),
                     m('span.label.label-default', {
