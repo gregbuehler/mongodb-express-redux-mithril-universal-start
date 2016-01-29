@@ -130,7 +130,8 @@ auth.post('/login', [urlParse, jsonParse], function(req, res) {
                         }
                         return res.send({
                             token: token,
-                            userid: user.userid
+                            userid: user.userid,
+                            role: user.role
                         });
                     });
                 });

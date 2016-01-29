@@ -14,13 +14,13 @@ var seed = function() {
     userModel.create([{
         "userid": "test",
         "email": "test@test.com",
-        "password": "1111",
+        "password": "test",
         "verified": true,
         "role": "member"
     }, {
         "userid": "admin",
         "email": "admin@admin.com",
-        "password": "1111",
+        "password": "admin",
         "verified": true,
         "role": "admin"
     }]);

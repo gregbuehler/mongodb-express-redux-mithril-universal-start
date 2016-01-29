@@ -1,4 +1,5 @@
 var m = require('mithril');
+var config = require('../../../site/config');
 
 var storage;
 if (!storage) {
@@ -22,6 +23,13 @@ var Auth = module.exports = {
             }
             return false;
         }
+        if (config.useOnlyAdminCanPost) {
+
+            if (Auth.role !== 'admin') {
+                alert('You are not admin.');
+                return false;
+            }
+        }
         return true;
     },
 
@@ -37,9 +45,11 @@ var Auth = module.exports = {
                 unwrapSuccess: function(res) {
                     Auth.token = storage.token = res.token;
                     Auth.userid = storage.userid = res.userid;
+                    Auth.role = storage.role = res.role;
                     return {
                         token: res.token,
-                        userid: res.userid
+                        userid: res.userid,
+                        role: res.role
                     };
                 }
             })

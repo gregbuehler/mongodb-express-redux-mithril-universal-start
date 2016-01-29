@@ -23,6 +23,7 @@ config.mongo = {
 
 config.seedUser = true;
 config.seedPost = true;
+config.useOnlyAdminCanPost = true;
 config.useUserEmailVerify = true;
 config.useServerRender = true;
 config.useClientRender = true; //if commented out, only server-side rendering is used.
