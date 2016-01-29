@@ -64,24 +64,28 @@ var post = {
             ctrl.isEdit = false;
 
             ctrl.edit = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+
+                if(!Auth.authorized()){
+                     return;
+                };
+                
                 ctrl.isEdit = true;
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.state.post));
             }
 
             ctrl.cancel = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+                if(!Auth.authorized()){
+                     return;
+                };
                 ctrl.isEdit = false;
             }
 
             ctrl.create = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+
+                if(!Auth.authorized()){
+                     return;
+                };
+
                 ctrl.isEdit = true;
                 ctrl.post = {
                     title: 'newTitle',
@@ -95,9 +99,11 @@ var post = {
             }
 
             ctrl.save = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+
+                if(!Auth.authorized()){
+                     return;
+                };
+
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
                 if (post.id) {
@@ -126,9 +132,10 @@ var post = {
             }
 
             ctrl.remove = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+
+                if(!Auth.authorized()){
+                     return;
+                };
 
                 if (confirm('Delete this post?')) {
 

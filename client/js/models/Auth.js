@@ -13,8 +13,20 @@ var Auth = module.exports = {
     token: storage.token,
     userid: storage.userid,
 
+    //Place this inside of function which requires authorization.
+    authorized: function() {
+        if (!Auth.token) {
+            if (confirm('You need to login')) {
+                Auth.originalRoute = m.route();
+                m.route('/login');
+            }
+            return false;
+        }
+        return true;
+    },
+
     // trade credentials for a token
-    login: function(userid, password) {
+        login: function(userid, password) {
         return m.request({
                 method: 'POST',
                 url: '/auth/login',
@@ -25,12 +37,20 @@ var Auth = module.exports = {
                 unwrapSuccess: function(res) {
                     Auth.token = storage.token = res.token;
                     Auth.userid = storage.userid = res.userid;
-                    return { token: res.token, userid: res.userid };
-                } 
+                    return {
+                        token: res.token,
+                        userid: res.userid
+                    };
+                }
             })
             .then(function(data) {
                 // Auth.token = storage.token = token;// duplicate as above
                 // console.log('auth31-data', data);
+                // if(Auth.originalRoute){
+                //     m.route(Auth.originalRoute);
+                // }else{
+                //     m.route('/');
+                // }
             });
     },
 

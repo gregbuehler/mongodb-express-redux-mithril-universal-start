@@ -45,18 +45,21 @@ var blog = module.exports = {
 
             ctrl.isEdit = false;
 
+
             ctrl.cancel = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+                if(!Auth.authorized()){
+                     return;
+                };
                 ctrl.isEdit = false;
 
             }
 
             ctrl.create = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+
+                if(!Auth.authorized()){
+                     return;
+                };
+
                 ctrl.isEdit = true;
                 ctrl.post = {
                     title: 'newTitle',
@@ -70,9 +73,11 @@ var blog = module.exports = {
             }
 
             ctrl.save = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+
+                if(!Auth.authorized()){
+                     return;
+                };
+
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
                 if (post.id) {
@@ -91,9 +96,10 @@ var blog = module.exports = {
             }
 
             ctrl.remove = function() {
-                if (!Auth.token) {
-                    m.route('/login');
-                }
+                
+                if(!Auth.authorized()){
+                     return;
+                };
 
                 if (confirm('Delete this post?')) {
 

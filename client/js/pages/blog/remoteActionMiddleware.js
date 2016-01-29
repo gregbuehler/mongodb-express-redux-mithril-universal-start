@@ -6,9 +6,10 @@ var middleware = function(modelName) {
         return function(next) {
             return function(action) {
                 if (action) {
-                    if (!Auth.token) {
-                        m.route('/login')
-                    }
+                	
+                    if (!Auth.authorized()) {
+                        return;
+                    };
 
                     Auth.req({
                         method: 'POST',
