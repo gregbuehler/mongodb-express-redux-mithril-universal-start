@@ -14,7 +14,7 @@ function reducer(state, action) {
 
         case UPDATE:
             state.users = state.users.map(function(user) {
-                if (user.userid === action.user.userid) {
+                if (user.id === action.user.id) {
                     return action.user;
                 }
                 return user;
@@ -22,8 +22,9 @@ function reducer(state, action) {
             return state;
 
         case REMOVE:
+        console.log('usersReducer25-action', action);
             state.users = state.users.filter(function(user) {
-                return user.userid !== action.userid
+                return user.id !== action.id
             })
             return state;
 
@@ -72,5 +73,12 @@ module.exports = {
     loadUser: loadUser,
     createUser: createUser,
     updateUser: updateUser,
-    removeUser: removeUser
+    removeUser: removeUser,
+    types: {
+        LOADALL: LOADALL,
+        LOAD: LOAD,
+        CREATE: CREATE,
+        UPDATE: UPDATE,
+        REMOVE: REMOVE
+    }
 }

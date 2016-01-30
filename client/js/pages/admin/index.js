@@ -56,12 +56,19 @@ var admin = module.exports = {
 
             ctrl.edit = function(user) {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
-                
-                ctrl.isEdit = true;
+                // reset the previous user
+                if (ctrl.user) {
+                    ctrl.user.isEdit = false;
+                }
+
+                //assign this user to current ctrl.user
                 ctrl.user = user;
+                ctrl.user.isEdit = true;
+
+                //deliver a copied user to userForm 
                 ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));
             }
 
@@ -70,7 +77,11 @@ var admin = module.exports = {
                 if (!Auth.authorized()) {
                     return;
                 };
-                ctrl.isEdit = false;
+
+                // reset the previous user
+                if (ctrl.user) {
+                    ctrl.user.isEdit = false;
+                }
 
             }
 
@@ -80,14 +91,22 @@ var admin = module.exports = {
                     return;
                 };
 
-                ctrl.isEdit = true;
+                // reset the previous user
+                if (ctrl.user) {
+                    ctrl.user.isEdit = false;
+                }
+
+                // create new user.
                 ctrl.user = {
                     userid: 'newuser',
                     email: 'newuser@newuser.com',
                     verified: 'true',
                     role: 'member'
                 }
-                ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));
+                ctrl.user.isEdit = true;
+
+                 //deliver a copied user to userForm 
+                ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));               
             }
 
             ctrl.save = function() {
@@ -96,8 +115,14 @@ var admin = module.exports = {
                     return;
                 };
 
-                ctrl.isEdit = false;
+                // reset the previous user
+                if (ctrl.user) {
+                    ctrl.user.isEdit = false;
+                }
+
+                // save the editted ctrl.userCopied to state
                 var user = ctrl.userCopied;
+                
                 if (user.id) {
                     console.log('index67-update');
                     //update
@@ -114,20 +139,25 @@ var admin = module.exports = {
             }
 
             ctrl.remove = function(user) {
+                console.log('index122-user', user);
 
                 if (!Auth.authorized()) {
                     return;
                 };
 
                 if (confirm('Delete this user?')) {
-
-                    ctrl.isEdit = false;
+                    // if(ctrl.user){
+                    //     ctrl.user.isEdit = false;
+                    // }
+                    // ctrl.user = user;
+                    // ctrl.user.isEdit = false;
                     // var userId = ctrl.userCopied.userid;
-                    var userId = user.userid;
+                    // var userId = ctrl.user.id;
+                    var userId = user.id;
 
                     //remove user from state
                     window.__store__[key].dispatch(usersReducer.removeUser(userId))
-
+                    console.log('index135-key', key);
                     m.route(key);
                 }
             }
@@ -145,12 +175,12 @@ var admin = module.exports = {
                             onclick: ctrl.create.bind(this)
                         }, 'new') : null)]),
 
-                    !ctrl.isEdit ? [m('', [
+                    [m('', [
                             m("h4", [
-                                m("span.col-sm-4", m('strong', 'userid')),
-                                m("span.col-sm-4", m('strong', 'email')),
+                                m("span.col-sm-3", m('strong', 'userid')),
+                                m("span.col-sm-3", m('strong', 'email')),
                                 m("span.col-sm-1", m('strong', 'verified')),
-                                m("span.col-sm-1", m('strong', 'role')),
+                                m("span.col-sm-2", m('strong', 'role')),
                             ]),
                             m('p'),
                             m('hr', {
@@ -158,12 +188,12 @@ var admin = module.exports = {
                             })
                         ]),
                         ctrl.state.users.map(function(user) {
-                            return m('', [
+                            return !user.isEdit ? m('', [
                                 m("h4", [
-                                    m("span.col-sm-4", user.userid),
-                                    m("span.col-sm-4", user.email),
+                                    m("span.col-sm-3", user.userid),
+                                    m("span.col-sm-3", user.email),
                                     m("span.col-sm-1", user.verified),
-                                    m("span.col-sm-1", user.role),
+                                    m("span.col-sm-2", user.role),
                                     m('.pull-right', [m('span.label.label-default', {
                                         onclick: ctrl.edit.bind(this, user)
                                     }, 'edit'), m('span.label.label-danger', {
@@ -176,16 +206,16 @@ var admin = module.exports = {
                                 m('hr', {
                                     style: "width:100%;margin-top:10px"
                                 })
-                            ]);
+                            ]) : m.component(userForm, {
+                                userCopied: ctrl.userCopied,
+                                save: ctrl.save,
+                                remove: ctrl.remove,
+                                cancel: ctrl.cancel
+                            });
                         })
                     ]
 
-                    : m.component(userForm, {
-                        userCopied: ctrl.userCopied,
-                        save: ctrl.save,
-                        remove: ctrl.remove,
-                        cancel: ctrl.cancel
-                    })
+
 
                 ])
 

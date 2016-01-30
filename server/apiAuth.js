@@ -2,6 +2,7 @@ var express = require('express'),
     Post = require('./models/Post'),
     User = require('./models/User');
 var postReducer = require('../client/js/pages/blog/postReducer');
+var userReducer = require('../client/js/pages/admin/usersReducer');
 
 
 var api = module.exports = express();
@@ -48,7 +49,6 @@ api.post('/post', function(req, res) {
         var action = req.body.action;
         var types = postReducer.types;
 
-            console.log('apiAuth50-action', action);
         switch (action.type) {
 
             case types.CREATE:
@@ -95,7 +95,7 @@ api.post('/post', function(req, res) {
 api.get('/user', function(req, res) {
     User.find({}).sort({
             userid: 1
-        }).limit(10).select('userid email verified role').exec()
+        }).limit(10).select('-_id id userid email verified role').exec()
         .then(function(users) {
             if (users) {
                 res.json(users);
@@ -108,4 +108,50 @@ api.get('/user', function(req, res) {
         }, function(err) {
             return res.status(500).send(err);
         });
+})
+api.post('/user', function(req, res) {
+    if (req.body.action) {
+
+        var action = req.body.action;
+        var types = userReducer.types;
+
+        switch (action.type) {
+
+            case types.CREATE:
+                
+                User.create(action.user, function(err, result) {
+                    if (err) res.status(500).send(err);
+                    res.status(200).send(result);
+                })
+                break;
+            case types.UPDATE:
+                User.update({
+                    id: action.user.id
+                }, action.user, function(err, result) {
+                    if (err) res.status(500).send(err);
+                    res.status(200).send(result);
+                })
+                break;
+
+            case types.REMOVE:
+                User.remove({
+                    id: action.id
+                }, function(err) {
+                    if (err) res.status(500).send(err);
+                    res.status(200).send({
+                        msg: 'User deleted.'
+                    });
+                })
+                break;
+            default:
+                res.status(500).send({
+                    errmsg: 'Action is invalid.'
+                })
+        }
+    } else {
+
+        res.status(500).send({
+            errmsg: 'Action not found.'
+        })
+    }
 })
