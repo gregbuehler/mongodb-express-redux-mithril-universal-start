@@ -22,7 +22,6 @@ function reducer(state, action) {
             return state;
 
         case REMOVE:
-        console.log('usersReducer25-action', action);
             state.users = state.users.filter(function(user) {
                 return user.id !== action.id
             })

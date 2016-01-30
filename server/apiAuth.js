@@ -52,7 +52,7 @@ api.post('/post', function(req, res) {
         switch (action.type) {
 
             case types.CREATE:
-                
+
                 action.post.author = req.user._id;
 
                 Post.create(action.post, function(err, result) {
@@ -118,10 +118,17 @@ api.post('/user', function(req, res) {
         switch (action.type) {
 
             case types.CREATE:
-                
+
                 User.create(action.user, function(err, result) {
-                    if (err) res.status(500).send(err);
-                    res.status(200).send(result);
+                    if (err) {
+                        res.status(500).send({
+                            errmsg: 'User not saved'
+                        });
+                    } else {
+                        res.status(200).send({
+                            msg: 'User saved.'
+                        });
+                    }
                 })
                 break;
             case types.UPDATE:

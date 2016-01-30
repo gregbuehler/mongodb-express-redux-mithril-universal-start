@@ -52,7 +52,7 @@ var admin = module.exports = {
                 ctrl.state = window.__store__[key].getState();
             };
 
-            ctrl.isEdit = false;
+            // ctrl.isEdit = false;// not needed anymore
 
             ctrl.edit = function(user) {
 
@@ -82,6 +82,7 @@ var admin = module.exports = {
                 if (ctrl.user) {
                     ctrl.user.isEdit = false;
                 }
+                ctrl.isCreateUser = false;
 
             }
 
@@ -99,14 +100,18 @@ var admin = module.exports = {
                 // create new user.
                 ctrl.user = {
                     userid: 'newuser',
+                    password: 'newuser',
                     email: 'newuser@newuser.com',
                     verified: 'true',
                     role: 'member'
                 }
                 ctrl.user.isEdit = true;
 
-                 //deliver a copied user to userForm 
-                ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));               
+                //deliver a copied user to userForm 
+                ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));
+
+                //show this new user temporarily to the page 
+                ctrl.isCreateUser = true;
             }
 
             ctrl.save = function() {
@@ -115,7 +120,7 @@ var admin = module.exports = {
                     return;
                 };
                 console.log('index117-ctrl.user', ctrl.user);
-                
+
                 // reset the previous user
                 if (ctrl.user) {
                     ctrl.user.isEdit = false;
@@ -168,10 +173,10 @@ var admin = module.exports = {
         return [
             m.component(Navbar),
             m('.container', m('.col-md-12', [
-                    m('h1', ['Admin', m('.pull-right', !ctrl.isEdit ?
+                    m('h1', ['Admin', m('.pull-right',
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
-                        }, 'new') : null)]),
+                        }, 'new'))]),
 
                     [m('', [
                             m("h4", [
@@ -185,6 +190,13 @@ var admin = module.exports = {
                                 style: "width:100%"
                             })
                         ]),
+                        ctrl.isCreateUser?
+                        m.component(userForm, {
+                            userCopied: ctrl.userCopied,
+                            save: ctrl.save,
+                            remove: ctrl.remove,
+                            cancel: ctrl.cancel
+                        }): null,
                         ctrl.state.users.map(function(user) {
                             return !user.isEdit ? m('', [
                                 m("h4", [
