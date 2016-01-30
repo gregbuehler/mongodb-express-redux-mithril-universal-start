@@ -123,6 +123,7 @@ var admin = module.exports = {
 
                 // save the editted ctrl.userCopied to state
                 var user = ctrl.userCopied;
+
                 //delete this temporary attribute ( isEdit )
                 delete user.isEdit;
 
@@ -149,13 +150,7 @@ var admin = module.exports = {
                 };
 
                 if (confirm('Delete this user?')) {
-                    // if(ctrl.user){
-                    //     ctrl.user.isEdit = false;
-                    // }
-                    // ctrl.user = user;
-                    // ctrl.user.isEdit = false;
-                    // var userId = ctrl.userCopied.userid;
-                    // var userId = ctrl.user.id;
+
                     var userId = user.id;
 
                     //remove user from state
