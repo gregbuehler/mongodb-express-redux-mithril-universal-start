@@ -6,46 +6,69 @@ var userForm = {
 
         var user = arg.userCopied;
 
-        return m('', [
-            m("h2", [
-                m("span", 'Author: '+user.author.userid),
-                " - ",
-                m("span", user.created),
-                m('.pull-right', [
-                    m('span.label.label-default', {
-                        onclick: arg.save.bind(this)
-                    }, 'save'),
-                    m('span.label.label-default', {
-                        onclick: arg.cancel.bind(this)
-                    }, 'cancel'),
-                    m('span.label.label-danger', {
-                        onclick: arg.remove.bind(this)
-                    }, 'delete')
-                ])
-            ]),
-            m('h1', m('input', {
-                style: 'width: 100%',
-                value: user.title,
-                onchange: function(e) {
-                    user.title = e.target.value;
-                }
-            })),
+        return m('',
 
-            m('p', m('textarea', {
-                style: 'width: 100%; min-height: 200px',
-                onchange: function(e) {
-                    user.summary = e.target.value;
-                }
-            }, user.summary)),
-            m('p', m('textarea', {
-                style: 'width: 100%; min-height: 500px',
-                onchange: function(e) {
-                    user.content = e.target.value;
-                }
-            }, user.content)),
-            // m('p', 'Written by ' + user.author.userid),
-            m('hr')
-        ])
+            [m('', [
+                    m("h4", [
+                        m("span.col-sm-4", m('strong', 'userid')),
+                        m("span.col-sm-4", m('strong', 'email')),
+                        m("span.col-sm-1", m('strong', 'verified')),
+                        m("span.col-sm-1", m('strong', 'role')),
+                    ]),
+                    m('p'),
+                    m('hr', {
+                        style: "width:100%"
+                    })
+                ]),
+                //ctrl.state.users.map(function(user) {//
+                m('', [
+                    m("h4", [
+                        m("input.col-sm-4", {
+                            value: user.userid,
+                            onchange: function(e) {
+                                user.userid = e.target.value
+                            }
+                        }, user.userid),
+                        m("input.col-sm-4", {
+                            value: user.userid,
+                            onchange: function(e) {
+                                user.userid = e.target.value
+                            }
+                        }, user.email),
+                        m("input.col-sm-1", {
+                            value: user.userid,
+                            onchange: function(e) {
+                                user.userid = e.target.value
+                            }
+                        }, user.verified),
+                        m("input.col-sm-1", {
+                            value: user.userid,
+                            onchange: function(e) {
+                                user.userid = e.target.value
+                            }
+                        }, user.role),
+                        m('.pull-right', [
+                            m('span.label.label-default', {
+                                onclick: arg.save.bind(this)
+                            }, 'save'),
+                            m('span.label.label-default', {
+                                onclick: arg.cancel.bind(this)
+                            }, 'cancel'),
+                            m('span.label.label-danger', {
+                                onclick: arg.remove.bind(this)
+                            }, 'delete')
+                        ])
+                        // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
+                    ]),
+                    m('p'),
+                    m('hr', {
+                        style: "width:100%"
+                    })
+                ])
+                //})//
+            ]
+
+        )
     }
 }
 

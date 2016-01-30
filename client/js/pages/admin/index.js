@@ -54,6 +54,17 @@ var admin = module.exports = {
 
             ctrl.isEdit = false;
 
+            ctrl.edit = function(user) {
+
+                if(!Auth.authorized()){
+                     return;
+                };
+                
+                ctrl.isEdit = true;
+                ctrl.user = user;
+                ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));
+            }
+
 
             ctrl.cancel = function() {
                 if (!Auth.authorized()) {
@@ -71,12 +82,10 @@ var admin = module.exports = {
 
                 ctrl.isEdit = true;
                 ctrl.user = {
-                    title: 'newTitle',
-                    summary: 'newSummary',
-                    content: 'newContent',
-                    author: {
-                        userid: Auth.userid
-                    }
+                    userid: 'newuser',
+                    email: 'newuser@newuser.com',
+                    verified: 'true',
+                    role: 'member'
                 }
                 ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));
             }
@@ -104,7 +113,7 @@ var admin = module.exports = {
                 ctrl.state = window.__store__[key].getState();
             }
 
-            ctrl.remove = function() {
+            ctrl.remove = function(user) {
 
                 if (!Auth.authorized()) {
                     return;
@@ -113,7 +122,8 @@ var admin = module.exports = {
                 if (confirm('Delete this user?')) {
 
                     ctrl.isEdit = false;
-                    var userId = ctrl.userCopied.userid;
+                    // var userId = ctrl.userCopied.userid;
+                    var userId = user.userid;
 
                     //remove user from state
                     window.__store__[key].dispatch(usersReducer.removeUser(userId))
@@ -135,35 +145,39 @@ var admin = module.exports = {
                             onclick: ctrl.create.bind(this)
                         }, 'new') : null)]),
 
-                    !ctrl.isEdit ?
-                    [m('', [
-                        m("h4", [
-                            m("span.col-sm-4", m('strong', 'userid')),
-                            m("span.col-sm-4", m('strong', 'email')),
-                            m("span.col-sm-1", m('strong', 'verified')),
-                            m("span.col-sm-1", m('strong', 'role')),
-                        ]),
-                        m('p'),
-                        m('hr', {
-                            style: "width:100%"
-                        })
-                    ]),
-                    ctrl.state.users.map(function(user) {
-                        return m('', [
+                    !ctrl.isEdit ? [m('', [
                             m("h4", [
-                                m("span.col-sm-4", user.userid),
-                                m("span.col-sm-4", user.email),
-                                m("span.col-sm-1", user.verified),
-                                m("span.col-sm-1", user.role),
-
-                                m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
+                                m("span.col-sm-4", m('strong', 'userid')),
+                                m("span.col-sm-4", m('strong', 'email')),
+                                m("span.col-sm-1", m('strong', 'verified')),
+                                m("span.col-sm-1", m('strong', 'role')),
                             ]),
                             m('p'),
                             m('hr', {
                                 style: "width:100%"
                             })
-                        ]);
-                    })]
+                        ]),
+                        ctrl.state.users.map(function(user) {
+                            return m('', [
+                                m("h4", [
+                                    m("span.col-sm-4", user.userid),
+                                    m("span.col-sm-4", user.email),
+                                    m("span.col-sm-1", user.verified),
+                                    m("span.col-sm-1", user.role),
+                                    m('.pull-right', [m('span.label.label-default', {
+                                        onclick: ctrl.edit.bind(this, user)
+                                    }, 'edit'), m('span.label.label-danger', {
+                                        onclick: ctrl.remove.bind(this, user)
+                                    }, 'delete')])
+                                    // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
+                                ]),
+                                m('p'),
+                                m('hr', {
+                                    style: "width:100%"
+                                })
+                            ]);
+                        })
+                    ]
 
                     : m.component(userForm, {
                         userCopied: ctrl.userCopied,
