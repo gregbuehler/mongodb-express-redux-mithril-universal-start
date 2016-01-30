@@ -93,7 +93,7 @@ api.post('/post', function(req, res) {
 })
 
 api.get('/user', function(req, res) {
-    User.find({}).sort({
+    User.find().sort({
             userid: 1
         }).limit(10).select('-_id id userid email verified role').exec()
         .then(function(users) {
@@ -109,6 +109,7 @@ api.get('/user', function(req, res) {
             return res.status(500).send(err);
         });
 })
+
 api.post('/user', function(req, res) {
     if (req.body.action) {
 
@@ -131,13 +132,27 @@ api.post('/user', function(req, res) {
                     }
                 })
                 break;
+
             case types.UPDATE:
-                User.update({
-                    id: action.user.id
-                }, action.user, function(err, result) {
-                    if (err) res.status(500).send(err);
-                    res.status(200).send(result);
-                })
+                // bcrypt the changed password
+                if (action.user.password) {
+                    User.encryptPassword(action.user.password, function(err, newpassword) {
+                        action.user.password = newpassword;
+                        User.update({
+                            id: action.user.id
+                        }, action.user, function(err, result) {
+                            if (err) res.status(500).send(err);
+                            res.status(200).send(result);
+                        })
+                    })
+                } else {
+                    User.update({
+                        id: action.user.id
+                    }, action.user, function(err, result) {
+                        if (err) res.status(500).send(err);
+                        res.status(200).send(result);
+                    })
+                }
                 break;
 
             case types.REMOVE:
@@ -150,6 +165,7 @@ api.post('/user', function(req, res) {
                     });
                 })
                 break;
+                
             default:
                 res.status(500).send({
                     errmsg: 'Action is invalid.'

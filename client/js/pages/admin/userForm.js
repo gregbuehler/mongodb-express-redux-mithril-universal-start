@@ -5,16 +5,23 @@ var userForm = {
     view: function(ctrl, arg) {
 
         var user = arg.userCopied;
-        console.log('userForm8-user',user);
+        console.log('userForm8-user', user);
 
         return m('',
 
             [m('', [
                 m("h4", [
-                    m("input.col-sm-3", {
+                    m("input.col-sm-2", {
                         value: user.userid,
                         onchange: function(e) {
                             user.userid = e.target.value
+                        }
+                    }, user.userid),
+                    m("input.col-sm-2", {
+                        placeholder: 'change password',
+                        value: user.password || null,
+                        onchange: function(e) {
+                            user.password = e.target.value
                         }
                     }, user.userid),
                     m("input.col-sm-3", {

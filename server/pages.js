@@ -40,6 +40,9 @@ pages.get('/verify/:code', function(req, res) {
 pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
     sendPage(res, verify);
 });
+// pages.get('/admin', function(req, res) {
+//     sendPage(res, verify);
+// });
 
 //example of async server-side rendering
 pages.get('/profile', function(req, res) {

@@ -63,6 +63,7 @@ var admin = module.exports = {
                 if (ctrl.user) {
                     ctrl.user.isEdit = false;
                 }
+                ctrl.isCreateUser = false;
 
                 //assign this user to current ctrl.user
                 ctrl.user = user;
@@ -125,6 +126,7 @@ var admin = module.exports = {
                 if (ctrl.user) {
                     ctrl.user.isEdit = false;
                 }
+                ctrl.isCreateUser = false;
 
                 // save the editted ctrl.userCopied to state
                 var user = ctrl.userCopied;
@@ -180,7 +182,8 @@ var admin = module.exports = {
 
                     [m('', [
                             m("h4", [
-                                m("span.col-sm-3", m('strong', 'userid')),
+                                m("span.col-sm-2", m('strong', 'userid')),
+                                m("span.col-sm-2", m('strong', 'password')),
                                 m("span.col-sm-3", m('strong', 'email')),
                                 m("span.col-sm-1", m('strong', 'verified')),
                                 m("span.col-sm-2", m('strong', 'role')),
@@ -190,17 +193,18 @@ var admin = module.exports = {
                                 style: "width:100%"
                             })
                         ]),
-                        ctrl.isCreateUser?
+                        ctrl.isCreateUser ?
                         m.component(userForm, {
                             userCopied: ctrl.userCopied,
                             save: ctrl.save,
                             remove: ctrl.remove,
                             cancel: ctrl.cancel
-                        }): null,
+                        }) : null,
                         ctrl.state.users.map(function(user) {
                             return !user.isEdit ? m('', [
                                 m("h4", [
-                                    m("span.col-sm-3", user.userid),
+                                    m("span.col-sm-2", user.userid),
+                                    m("span.col-sm-2", user.password || null),
                                     m("span.col-sm-3", user.email),
                                     m("span.col-sm-1", user.verified),
                                     m("span.col-sm-2", user.role),
