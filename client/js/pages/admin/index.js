@@ -172,8 +172,9 @@ var admin = module.exports = {
                                     // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                                 ]),
                                 m('p'),
+                                m('br'),
                                 m('hr', {
-                                    style: "width:100%"
+                                    style: "width:100%;margin-top:10px"
                                 })
                             ]);
                         })
