@@ -167,6 +167,14 @@ var admin = module.exports = {
                 }
             }
 
+        }else{
+            //Server-side empty function definition
+            //If this is not defined, page-pending occurs on server-side.
+            ctrl.edit = function(){};
+            ctrl.create = function(){};
+            ctrl.save = function(){};
+            ctrl.remove = function(){};
+            ctrl.cancel = function(){};
         }
 
     },
