@@ -10,6 +10,11 @@ var Navbar = module.exports = {
             href: '/blog'
         };
 
+        var adminLink = (Auth.role === 'admin') ? {
+            label: 'Admin',
+            href: '/admin'
+        } : null;
+
         if (global.__server__ && !global.__client__) {
             links = ([
                     blogLink, {
@@ -38,6 +43,7 @@ var Navbar = module.exports = {
 
         } else {
             links = (Auth.token ? [
+                    adminLink,
                     blogLink, {
                         label: Auth.userid,
                         href: '/profile'

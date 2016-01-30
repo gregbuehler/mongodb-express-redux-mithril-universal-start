@@ -11,6 +11,8 @@ var express = require('express'),
     postPage = require('../client/js/pages/blog/post'),
     postResource = require('./pages/blog/postResource'),
     User = require('./models/User.js');
+var auth = require('./auth.js');
+var admin = require('./admin.js');
 
 var pages = module.exports = express();
 
@@ -32,6 +34,10 @@ pages.get('/register', function(req, res) {
 });
 
 pages.get('/verify/:code', function(req, res) {
+    sendPage(res, verify);
+});
+
+pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
     sendPage(res, verify);
 });
 
