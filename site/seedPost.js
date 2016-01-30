@@ -10,6 +10,7 @@ var userModel = require('../server/models/User');
 var seed = function() {
     // console.log('seedPost10-mockaroo', mockaroo);
     var author = new userModel({
+        "id": 'zxcvbn',
         "userid": "author",
         "email": "author@author.com",
         "password": "1111",

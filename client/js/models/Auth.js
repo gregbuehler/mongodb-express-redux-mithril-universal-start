@@ -13,6 +13,7 @@ if (!storage) {
 var Auth = module.exports = {
     token: storage.token,
     userid: storage.userid,
+    role: storage.role,
 
     //Place this inside of function which requires authorization.
     authorized: function() {

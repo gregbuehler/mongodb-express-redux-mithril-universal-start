@@ -12,12 +12,14 @@ var seed = function() {
     });
 
     userModel.create([{
+        "id": "qwerty",
         "userid": "test",
         "email": "test@test.com",
         "password": "test",
         "verified": true,
         "role": "member"
     }, {
+        "id": "asdfgh",
         "userid": "admin",
         "email": "admin@admin.com",
         "password": "admin",

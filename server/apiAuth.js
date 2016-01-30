@@ -1,5 +1,6 @@
 var express = require('express'),
-    Post = require('./models/Post');
+    Post = require('./models/Post'),
+    User = require('./models/User');
 var postReducer = require('../client/js/pages/blog/postReducer');
 
 
@@ -89,4 +90,22 @@ api.post('/post', function(req, res) {
             errmsg: 'Action not found.'
         })
     }
+})
+
+api.get('/user', function(req, res) {
+    User.find({}).sort({
+            userid: 1
+        }).limit(10).select('userid email verified role').exec()
+        .then(function(users) {
+            if (users) {
+                res.json(users);
+            } else {
+                return res.status(401).send({
+                    status: 401,
+                    errmsg: 'Post not found.'
+                });
+            }
+        }, function(err) {
+            return res.status(500).send(err);
+        });
 })

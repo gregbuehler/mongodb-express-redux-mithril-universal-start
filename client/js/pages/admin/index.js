@@ -1,21 +1,21 @@
 var m = require('mithril');
 var Navbar = require('../../components/Navbar.js');
-var postsResource = !global.__server__ ? require('../blog/postsResource') : null;
+var usersResource = !global.__server__ ? require('./usersResource') : null;
 var redux = require('redux');
-var postsReducer = require('../blog/postsReducer');
+var usersReducer = require('./usersReducer');
 var uuid = require('../../../../utils/uuid');
-var postForm = require('../blog/postForm');
-var remoteActionMiddleware = require('../blog/remoteActionMiddleware');
+var userForm = require('./userForm');
+var remoteActionMiddleware = require('./remoteActionMiddleware');
 var Auth = require('../../models/Auth.js');
 
 
-var blog = module.exports = {
+var admin = module.exports = {
     controller: function() {
         var ctrl = this;
 
         if (!global.__server__) {
             //-----------------------------
-            var modelName = 'post';
+            var modelName = 'user';
             const createStoreWithMiddleware = redux.applyMiddleware(
                 remoteActionMiddleware(modelName)
             )(redux.createStore);
@@ -30,21 +30,21 @@ var blog = module.exports = {
             if (window.__state__[key]) {
 
                 initialState = window.__state__[key];
-                // window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
-                window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
+                // window.__store__[key] = redux.createStore(usersReducer.reducer, initialState);
+                window.__store__[key] = createStoreWithMiddleware(usersReducer.reducer, initialState);
                 ctrl.state = window.__store__[key].getState();
                 window.__state__[key] = null;
 
             } else if (!window.__store__[key]) {
 
-                postsResource.then(function(posts) {
+                usersResource.then(function(users) {
 
                     initialState = {
                         key: key,
-                        posts: posts
+                        users: users
                     };
-                    // window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
-                    window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
+                    // window.__store__[key] = redux.createStore(usersReducer.reducer, initialState);
+                    window.__store__[key] = createStoreWithMiddleware(usersReducer.reducer, initialState);
                     ctrl.state = window.__store__[key].getState();
 
                 })
@@ -56,8 +56,8 @@ var blog = module.exports = {
 
 
             ctrl.cancel = function() {
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
                 ctrl.isEdit = false;
 
@@ -65,12 +65,12 @@ var blog = module.exports = {
 
             ctrl.create = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 ctrl.isEdit = true;
-                ctrl.post = {
+                ctrl.user = {
                     title: 'newTitle',
                     summary: 'newSummary',
                     content: 'newContent',
@@ -78,27 +78,27 @@ var blog = module.exports = {
                         userid: Auth.userid
                     }
                 }
-                ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));
+                ctrl.userCopied = JSON.parse(JSON.stringify(ctrl.user));
             }
 
             ctrl.save = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 ctrl.isEdit = false;
-                var post = ctrl.postCopied;
-                if (post.id) {
+                var user = ctrl.userCopied;
+                if (user.id) {
                     console.log('index67-update');
                     //update
-                    window.__store__[key].dispatch(postsReducer.updatePost(post))
+                    window.__store__[key].dispatch(usersReducer.updateUser(user))
 
                 } else {
                     console.log('index70-create');
                     //create
-                    post.id = uuid();
-                    window.__store__[key].dispatch(postsReducer.createPost(post))
+                    user.id = uuid();
+                    window.__store__[key].dispatch(usersReducer.createUser(user))
 
                 }
                 ctrl.state = window.__store__[key].getState();
@@ -106,17 +106,17 @@ var blog = module.exports = {
 
             ctrl.remove = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
-                if (confirm('Delete this post?')) {
+                if (confirm('Delete this user?')) {
 
                     ctrl.isEdit = false;
-                    var postId = ctrl.postCopied.id;
+                    var userId = ctrl.userCopied.userid;
 
-                    //remove post from state
-                    window.__store__[key].dispatch(postsReducer.removePost(postId))
+                    //remove user from state
+                    window.__store__[key].dispatch(usersReducer.removeUser(userId))
 
                     m.route(key);
                 }
@@ -130,38 +130,43 @@ var blog = module.exports = {
         return [
             m.component(Navbar),
             m('.container', m('.col-md-12', [
-                    m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?
+                    m('h1', ['Admin', m('.pull-right', !ctrl.isEdit ?
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
                         }, 'new') : null)]),
 
                     !ctrl.isEdit ?
-                    ctrl.state.posts.map(function(post) {
+                    [m('', [
+                        m("h4", [
+                            m("span.col-sm-4", m('strong', 'userid')),
+                            m("span.col-sm-4", m('strong', 'email')),
+                            m("span.col-sm-1", m('strong', 'verified')),
+                            m("span.col-sm-1", m('strong', 'role')),
+                        ]),
+                        m('p'),
+                        m('hr', {
+                            style: "width:100%"
+                        })
+                    ]),
+                    ctrl.state.users.map(function(user) {
                         return m('', [
+                            m("h4", [
+                                m("span.col-sm-4", user.userid),
+                                m("span.col-sm-4", user.email),
+                                m("span.col-sm-1", user.verified),
+                                m("span.col-sm-1", user.role),
 
-                            m('h1', m('a', {
-                                href: '/post/' + post.id,
-                                config: m.route
-                            }, post.title)),
-                            m('p', post.summary),
-                            // m('p', post.content),
-                            // m('p', 'Written by ' + post.author.userid),
-                            // m('', [
-                            //     m('span.badge', 'Posted ' + post.created),
-                            //     m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
-                            // ]),
-                            m("h5", [
-                                m("span", post.author? post.author.userid : 'unknown'),
-                                " - ",
-                                m("span", post.created),
-                                // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
+                                m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                             ]),
-                            m('hr')
+                            m('p'),
+                            m('hr', {
+                                style: "width:100%"
+                            })
                         ]);
-                    })
+                    })]
 
-                    : m.component(postForm, {
-                        postCopied: ctrl.postCopied,
+                    : m.component(userForm, {
+                        userCopied: ctrl.userCopied,
                         save: ctrl.save,
                         remove: ctrl.remove,
                         cancel: ctrl.cancel
