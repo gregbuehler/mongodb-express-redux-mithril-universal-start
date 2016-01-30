@@ -5,6 +5,7 @@ var userForm = {
     view: function(ctrl, arg) {
 
         var user = arg.userCopied;
+        console.log('userForm8-user',user);
 
         return m('',
 
@@ -42,7 +43,7 @@ var userForm = {
                             onclick: arg.cancel.bind(this)
                         }, 'cancel'),
                         m('span.label.label-danger', {
-                            onclick: arg.remove.bind(this)
+                            onclick: arg.remove.bind(this, user)
                         }, 'delete')
                     ])
                     // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])

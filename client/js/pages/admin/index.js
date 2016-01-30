@@ -114,7 +114,8 @@ var admin = module.exports = {
                 if (!Auth.authorized()) {
                     return;
                 };
-
+                console.log('index117-ctrl.user', ctrl.user);
+                
                 // reset the previous user
                 if (ctrl.user) {
                     ctrl.user.isEdit = false;
@@ -122,14 +123,16 @@ var admin = module.exports = {
 
                 // save the editted ctrl.userCopied to state
                 var user = ctrl.userCopied;
-                
+                //delete this temporary attribute ( isEdit )
+                delete user.isEdit;
+
                 if (user.id) {
-                    console.log('index67-update');
+                    console.log('index127-update');
                     //update
                     window.__store__[key].dispatch(usersReducer.updateUser(user))
 
                 } else {
-                    console.log('index70-create');
+                    console.log('index132-create');
                     //create
                     user.id = uuid();
                     window.__store__[key].dispatch(usersReducer.createUser(user))
