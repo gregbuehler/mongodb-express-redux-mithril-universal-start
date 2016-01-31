@@ -3,7 +3,7 @@ var Navbar = require('../../components/Navbar.js');
 var redux = require('redux');
 var postReducer = require('./postReducer');
 var postsReducer = require('./postsReducer');
-var postResource = !global.__server__ ? require('./postResource') : null;
+// var postResource = !global.__server__ ? require('./postResource') : null;
 var postForm = require('./postForm');
 var uuid = require('../../../../utils/uuid');
 var remoteActionMiddleware = require('./remoteActionMiddleware');
@@ -31,7 +31,6 @@ var post = {
 
             if (window.__state__[key]) {
 
-                console.log('from window');
                 // ctrl.state = window.__state__[key];
                 initialState = window.__state__[key];
                 // window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
@@ -41,9 +40,11 @@ var post = {
 
             } else if (!window.__store__[key]) {
 
-                console.log('from server', m.route.param('id'));
 
-                postResource(m.route.param('id')).then(function(post) {
+                m.request({
+                    method: 'GET',
+                    url: '/api/post/' + m.route.param('id')
+                }).then(function(post) {
 
                     initialState = {
                         key: key,
@@ -65,25 +66,25 @@ var post = {
 
             ctrl.edit = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
-                
+
                 ctrl.isEdit = true;
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.state.post));
             }
 
             ctrl.cancel = function() {
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
                 ctrl.isEdit = false;
             }
 
             ctrl.create = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 ctrl.isEdit = true;
@@ -100,8 +101,8 @@ var post = {
 
             ctrl.save = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 ctrl.isEdit = false;
@@ -133,8 +134,8 @@ var post = {
 
             ctrl.remove = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 if (confirm('Delete this post?')) {

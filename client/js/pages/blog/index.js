@@ -1,6 +1,6 @@
 var m = require('mithril');
 var Navbar = require('../../components/Navbar.js');
-var postsResource = !global.__server__ ? require('./postsResource') : null;
+// var postsResource = !global.__server__ ? require('./postsResource') : null;
 var redux = require('redux');
 var postsReducer = require('./postsReducer');
 var uuid = require('../../../../utils/uuid');
@@ -28,6 +28,7 @@ var blog = module.exports = {
             var initialState;
 
             if (window.__state__[key]) {
+                console.log('from window');
 
                 initialState = window.__state__[key];
                 // window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
@@ -36,8 +37,12 @@ var blog = module.exports = {
                 window.__state__[key] = null;
 
             } else if (!window.__store__[key]) {
+                console.log('from server');
 
-                postsResource.then(function(posts) {
+                m.request({
+                    method: 'GET',
+                    url: '/api/blog'
+                }).then(function(posts) {
 
                     initialState = {
                         key: key,
@@ -49,6 +54,8 @@ var blog = module.exports = {
 
                 })
             } else {
+                console.log('from store');
+
                 ctrl.state = window.__store__[key].getState();
             };
 
@@ -56,8 +63,8 @@ var blog = module.exports = {
 
 
             ctrl.cancel = function() {
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
                 ctrl.isEdit = false;
 
@@ -65,8 +72,8 @@ var blog = module.exports = {
 
             ctrl.create = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 ctrl.isEdit = true;
@@ -83,8 +90,8 @@ var blog = module.exports = {
 
             ctrl.save = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 ctrl.isEdit = false;
@@ -106,8 +113,8 @@ var blog = module.exports = {
 
             ctrl.remove = function() {
 
-                if(!Auth.authorized()){
-                     return;
+                if (!Auth.authorized()) {
+                    return;
                 };
 
                 if (confirm('Delete this post?')) {
@@ -122,13 +129,13 @@ var blog = module.exports = {
                 }
             }
 
-        }else{
+        } else {
             //Server-side empty functions.
             //If this is not defined, pending occurs on server-side.
-            ctrl.create = function(){};
-            ctrl.save = function(){};
-            ctrl.remove = function(){};
-            ctrl.cancel = function(){};
+            ctrl.create = function() {};
+            ctrl.save = function() {};
+            ctrl.remove = function() {};
+            ctrl.cancel = function() {};
         }
 
     },
@@ -158,7 +165,7 @@ var blog = module.exports = {
                             //     m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                             // ]),
                             m("h5", [
-                                m("span", post.author? post.author.userid : 'unknown'),
+                                m("span", post.author ? post.author.userid : 'unknown'),
                                 " - ",
                                 m("span", post.created),
                                 // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
