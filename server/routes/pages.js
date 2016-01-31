@@ -1,19 +1,19 @@
 var express = require('express'),
     render = require('mithril-node-render'),
-    home = require('../client/js/pages/Home'),
-    login = require('../client/js/pages/Login'),
-    logout = require('../client/js/pages/Logout'),
-    register = require('../client/js/pages/Register'),
-    profile = require('../client/js/pages/Profile'),
-    verify = require('../client/js/pages/Verify'),
-    blog = require('../client/js/pages/blog'),
-    blogResource = require('./pages/blog/blogResource'),
-    postPage = require('../client/js/pages/blog/post'),
-    postResource = require('./pages/blog/postResource'),
-    usersResource = require('./pages/user/usersResource'),
-    User = require('./models/User.js'),
-    userPage = require('../client/js/pages/user'),
-    auth = require('./auth.js');
+    home = require('../../client/js/pages/Home'),
+    login = require('../../client/js/pages/Login'),
+    logout = require('../../client/js/pages/Logout'),
+    register = require('../../client/js/pages/Register'),
+    profile = require('../../client/js/pages/Profile'),
+    verify = require('../../client/js/pages/Verify'),
+    blog = require('../../client/js/pages/blog'),
+    blogResource = require('../pages/blog/blogResource'),
+    postPage = require('../../client/js/pages/blog/post'),
+    postResource = require('../pages/blog/postResource'),
+    usersResource = require('../pages/user/usersResource'),
+    User = require('../models/User.js'),
+    userPage = require('../../client/js/pages/user'),
+    auth = require('./auth');
 
 var pages = module.exports = express();
 

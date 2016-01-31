@@ -19,8 +19,8 @@ global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
 
-var pages = require('./pages'),
-    api = require('./api');
+var pages = require('./routes/pages'),
+    api = require('./routes/api');
 
 // load up .env file
 if (fs.existsSync(envFile)) {
@@ -46,7 +46,7 @@ if (config.seedPost) {
     config.seedPost = false;
 }
 // use models after potential mockgoose
-var auth = require('./auth.js');
+var auth = require('./routes/auth');
 
 // serve up CSS from LESS. this is efficiently cached.
 app.use(lessMiddleware(pubDir, {

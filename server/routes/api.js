@@ -1,9 +1,9 @@
 var express = require('express'),
-    Post = require('./models/Post'),
-    User = require('./models/User'),
-    postReducer = require('../client/js/pages/blog/postReducer'),
-    userReducer = require('../client/js/pages/user/usersReducer'),
-    auth = require('./auth.js');
+    Post = require('../models/Post'),
+    User = require('../models/User'),
+    postReducer = require('../../client/js/pages/blog/postReducer'),
+    userReducer = require('../../client/js/pages/user/usersReducer'),
+    auth = require('./auth');
 
 var api = module.exports = express();
 
