@@ -181,7 +181,7 @@ var post = {
                     m('', [
                         m('h1', m('div', post.title)),
                         m("h3", [
-                            m("span", post.author.userid),
+                            m("span", post.author ? post.author.userid : null),
                             " - ",
                             m("span", post.created),
                             m('.pull-right', [m('span.label.label-default', {

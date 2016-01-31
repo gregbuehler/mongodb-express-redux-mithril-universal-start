@@ -6,7 +6,7 @@ var PostSchema = new mongoose.Schema({
     summary: {type: String},
     content: {type: String}, 
     created: {type: String},
-    author: {type: Object, required:true, ref: 'User'}
+    author: {type: mongoose.Schema.ObjectId, required:true, ref: 'User'}
 });
 
 var Post = module.exports = mongoose.model('Post', PostSchema);
