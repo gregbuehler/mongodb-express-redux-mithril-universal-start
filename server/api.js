@@ -60,6 +60,7 @@ api.post('/post', [auth.requireToken, auth.authorized], function(req, res) {
 
             case types.CREATE:
 
+                
                 action.post.author = req.user._id;
 
                 Post.create(action.post, function(err, result) {
