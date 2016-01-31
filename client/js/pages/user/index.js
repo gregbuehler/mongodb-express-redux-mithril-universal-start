@@ -4,8 +4,8 @@ var m = require('mithril'),
     usersReducer = require('./usersReducer'),
     uuid = require('../../../../utils/uuid'),
     userForm = require('./userForm'),
-    remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
-    Auth = require('../../models/Auth.js');
+    remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
+    Auth = require('../../utils/Auth.js');
 
 
 var users = module.exports = {

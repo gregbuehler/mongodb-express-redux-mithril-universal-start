@@ -1,6 +1,6 @@
 var m = require('mithril'),
     Navbar = require('../components/Navbar.js'),
-    Auth = require('../models/Auth.js'),
+    Auth = require('../utils/Auth.js'),
     userid_validation = require('../../../utils/userid_validation'),
     email_validation = require('../../../utils/email_validation'),
     password_validation = require('../../../utils/password_validation');

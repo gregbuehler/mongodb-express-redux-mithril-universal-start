@@ -5,8 +5,8 @@ var m = require('mithril'),
     postsReducer = require('./postsReducer'),
     postForm = require('./postForm'),
     uuid = require('../../../../utils/uuid'),
-    remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
-    Auth = require('../../models/Auth.js'),
+    remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
+    Auth = require('../../utils/Auth.js'),
     formatDate = require('../../../../utils/formatDate');
 
 

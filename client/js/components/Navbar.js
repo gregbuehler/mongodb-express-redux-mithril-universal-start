@@ -1,5 +1,5 @@
 var m = require('mithril');
-var Auth = require('../models/Auth.js');
+var Auth = require('../utils/Auth.js');
 
 var Navbar = module.exports = {
     controller: function() {
