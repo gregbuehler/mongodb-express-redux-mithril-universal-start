@@ -3,10 +3,10 @@ var Navbar = require('../../components/Navbar.js');
 var redux = require('redux');
 var postReducer = require('./postReducer');
 var postsReducer = require('./postsReducer');
-// var postResource = !global.__server__ ? require('./postResource') : null;
 var postForm = require('./postForm');
 var uuid = require('../../../../utils/uuid');
-var remoteActionMiddleware = require('./remoteActionMiddleware');
+var remoteActionMiddleware = require('../../models/remoteActionMiddleware');
+
 var Auth = require('../../models/Auth.js');
 
 

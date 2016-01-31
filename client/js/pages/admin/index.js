@@ -4,7 +4,7 @@ var redux = require('redux');
 var usersReducer = require('./usersReducer');
 var uuid = require('../../../../utils/uuid');
 var userForm = require('./userForm');
-var remoteActionMiddleware = require('./remoteActionMiddleware');
+var remoteActionMiddleware = require('../../models/remoteActionMiddleware');
 var Auth = require('../../models/Auth.js');
 
 

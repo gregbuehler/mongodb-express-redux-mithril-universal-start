@@ -1,5 +1,5 @@
 var m = require('mithril');
-var Auth = require('../../models/Auth.js');
+var Auth = require('./Auth.js');
 
 var middleware = function(modelName) {
     return function(store) {
@@ -16,16 +16,17 @@ var middleware = function(modelName) {
                         url: '/apiauth/' + modelName,
                         data: {
                             action: action
+                        },
+                        unwrapSuccess: function(result) {
+                            console.log('middleware21-result', result);
+                            return next(action);
+                        },
+                        unwrapError: function(err) {
+                            console.log('middleware25-err', err);
+                            return;
                         }
-                    }).then(function(result) {
-                        // console.log('middleware-result', result);
-                        return next(action);
-                    }, function(err) {
-                        // console.log('middleware-err', err);
-                        return;
                     });
                 }
-
             }
         }
     }
@@ -33,3 +34,4 @@ var middleware = function(modelName) {
 }
 
 module.exports = middleware;
+

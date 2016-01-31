@@ -1,11 +1,11 @@
 var m = require('mithril');
 var Navbar = require('../../components/Navbar.js');
-// var postsResource = !global.__server__ ? require('./postsResource') : null;
 var redux = require('redux');
 var postsReducer = require('./postsReducer');
 var uuid = require('../../../../utils/uuid');
 var postForm = require('./postForm');
-var remoteActionMiddleware = require('./remoteActionMiddleware');
+var remoteActionMiddleware = require('../../models/remoteActionMiddleware');
+
 var Auth = require('../../models/Auth.js');
 
 
