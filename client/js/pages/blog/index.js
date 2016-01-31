@@ -4,8 +4,8 @@ var m = require('mithril'),
     postsReducer = require('./postsReducer'),
     uuid = require('../../../../utils/uuid'),
     postForm = require('./postForm'),
-    remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
-    Auth = require('../../models/Auth.js'),
+    // remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
+    // Auth = require('../../models/Auth.js'),
     formatDate = require('../../../../utils/formatDate');
 
 
@@ -145,7 +145,7 @@ var blog = module.exports = {
     },
 
     view: function(ctrl) {
-        return [
+        return m('',[
             m.component(Navbar),
             m('.container', m('.col-md-12', [
                     m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?
@@ -182,6 +182,6 @@ var blog = module.exports = {
 
 
             )
-        ]
+        ])
     }
 };

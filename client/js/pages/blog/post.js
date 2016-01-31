@@ -155,6 +155,14 @@ var post = {
             }
 
 
+        } else {
+            //Server-side empty functions.
+            //If this is not defined, pending occurs on server-side.
+            ctrl.edit = function() {};
+            ctrl.create = function() {};
+            ctrl.save = function() {};
+            ctrl.remove = function() {};
+            ctrl.cancel = function() {};
         }
 
 

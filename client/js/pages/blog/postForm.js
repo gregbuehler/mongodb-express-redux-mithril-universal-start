@@ -1,4 +1,5 @@
-var m = require('mithril');
+var m = require('mithril'),
+    formatDate = require('../../../../utils/formatDate');
 
 var postForm = {
 
@@ -8,9 +9,9 @@ var postForm = {
 
         return m('', [
             m("h2", [
-                m("span", 'Author: '+post.author.userid),
+                m("span", 'Author: ' + post.author ? post.author.userid : null),
                 " - ",
-                m("span", post.created),
+                m("span", formatDate(post.created)),
                 m('.pull-right', [
                     m('span.label.label-default', {
                         onclick: arg.save.bind(this)

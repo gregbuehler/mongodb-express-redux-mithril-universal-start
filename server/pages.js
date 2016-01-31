@@ -150,7 +150,7 @@ function base(content, state) {
         '<div id = "root">',
         content,
         '</div>',
-        '<script src = "https://cdn.polyfill.io/v1/polyfill.min.js"></script>',
+        // '<script src = "https://cdn.polyfill.io/v1/polyfill.min.js"></script>',
         scriptToSend,
         '</body>',
         '</html>'
