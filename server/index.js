@@ -61,8 +61,6 @@ app.use(express.static(pubDir));
 // keep all auth-related routes at /auth/whatevs
 app.use('/auth', auth);
 
-
-
 app.use('/api', [urlParse, jsonParse], api);
 // app.use('/api', api);
 

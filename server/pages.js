@@ -134,6 +134,7 @@ function base(content, state) {
         null;
 
     var scriptToSend = (global.__client__ ? '<script src = "/app.js"></script>' : null);
+    
     return [
         '<!DOCTYPE html>',
         '<html lang = "en">',
