@@ -2,7 +2,7 @@ var express = require('express'),
     Post = require('./models/Post'),
     User = require('./models/User');
 var postReducer = require('../client/js/pages/blog/postReducer');
-var userReducer = require('../client/js/pages/admin/usersReducer');
+var userReducer = require('../client/js/pages/user/usersReducer');
 
 
 var api = module.exports = express();

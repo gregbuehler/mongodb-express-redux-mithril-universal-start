@@ -49,7 +49,7 @@ if (config.seedPost) {
 }
 // use models after potential mockgoose
 var auth = require('./auth.js');
-var admin = require('./admin');
+// var admin = require('./admin');
 
 // serve up CSS from LESS. this is efficiently cached.
 app.use(lessMiddleware(pubDir, {

@@ -10,11 +10,11 @@ var express = require('express'),
     blogResource = require('./pages/blog/blogResource'),
     postPage = require('../client/js/pages/blog/post'),
     postResource = require('./pages/blog/postResource'),
-    usersResource = require('./pages/admin/usersResource'),
+    usersResource = require('./pages/user/usersResource'),
     User = require('./models/User.js');
 var auth = require('./auth.js');
-var admin = require('./admin.js');
-var adminPage = require('../client/js/pages/admin');
+// var admin = require('./admin.js');
+var userPage = require('../client/js/pages/user');
 
 var pages = module.exports = express();
 console.log('pages20');
@@ -47,17 +47,17 @@ pages.get('/verify/:code', function(req, res) {
 //             key: req.path,
 //             users: users
 //         };
-//         var ctrl = new adminPage.controller();
+//         var ctrl = new userPage.controller();
 //         ctrl.state = state;
 
-//         sendPage(res, adminPage.view(ctrl), state);
+//         sendPage(res, userPage.view(ctrl), state);
 
 //     }, function(err) {
 //         res.status(500).send(err)
 //     });
 // });
 
-pages.get('/admin', function(req, res) {
+pages.get('/user', function(req, res) {
     console.log('pages61-req.path', req.path);
     usersResource.then(function(users) {
 
@@ -65,10 +65,10 @@ pages.get('/admin', function(req, res) {
             key: req.path,
             users: users
         };
-        var ctrl = new adminPage.controller();
+        var ctrl = new userPage.controller();
         ctrl.state = state;
 
-        sendPage(res, adminPage.view(ctrl), state);
+        sendPage(res, userPage.view(ctrl), state);
 
     }, function(err) {
         res.status(500).send(err)
