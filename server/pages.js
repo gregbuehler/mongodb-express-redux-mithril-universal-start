@@ -11,13 +11,12 @@ var express = require('express'),
     postPage = require('../client/js/pages/blog/post'),
     postResource = require('./pages/blog/postResource'),
     usersResource = require('./pages/user/usersResource'),
-    User = require('./models/User.js');
-var auth = require('./auth.js');
-// var admin = require('./admin.js');
-var userPage = require('../client/js/pages/user');
+    User = require('./models/User.js'),
+    auth = require('./auth.js'),
+    userPage = require('../client/js/pages/user');
 
 var pages = module.exports = express();
-console.log('pages20');
+
 //example of sync server-side rendering
 pages.get('/', function(req, res) {
     sendPage(res, home);
@@ -40,7 +39,7 @@ pages.get('/verify/:code', function(req, res) {
 });
 
 //example of async server-side rendering
-// pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
+// pages.get('/user', [auth.requireToken, auth.authorized], function(req, res) {
 //     usersResource.then(function(users) {
 
 //         var state = {
@@ -58,7 +57,7 @@ pages.get('/verify/:code', function(req, res) {
 // });
 
 pages.get('/user', function(req, res) {
-    console.log('pages61-req.path', req.path);
+
     usersResource.then(function(users) {
 
         var state = {
@@ -129,7 +128,7 @@ pages.get('/blog', function(req, res) {
 });
 
 pages.get('/post/:id', function(req, res) {
-    
+
     postResource(req.params.id).then(function(post) {
 
         var state = {

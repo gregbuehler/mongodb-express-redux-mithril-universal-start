@@ -49,7 +49,6 @@ if (config.seedPost) {
 }
 // use models after potential mockgoose
 var auth = require('./auth.js');
-// var admin = require('./admin');
 
 // serve up CSS from LESS. this is efficiently cached.
 app.use(lessMiddleware(pubDir, {
@@ -73,7 +72,6 @@ app.get('/api/profile', auth.requireToken, function(req, res) {
 // app.use('/api', [urlParse, jsonParse], api);
 app.use('/api', api);
 app.use('/apiauth', [auth.requireToken, auth.authorized, urlParse, jsonParse], apiAuth);
-// app.use('/admin', [auth.requireToken, auth.authorized, urlParse, jsonParse], admin);
 
 // TODO: implement server-side parsing for initial page-load
 // app.get('/*', function(req, res) {
