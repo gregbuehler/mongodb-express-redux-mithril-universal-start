@@ -10,9 +10,11 @@ var express = require('express'),
     blogResource = require('./pages/blog/blogResource'),
     postPage = require('../client/js/pages/blog/post'),
     postResource = require('./pages/blog/postResource'),
+    usersResource = require('./pages/admin/usersResource'),
     User = require('./models/User.js');
 var auth = require('./auth.js');
 var admin = require('./admin.js');
+var adminPage = require('../client/js/pages/admin');
 
 var pages = module.exports = express();
 
@@ -37,12 +39,28 @@ pages.get('/verify/:code', function(req, res) {
     sendPage(res, verify);
 });
 
-pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
-    sendPage(res, verify);
-});
-// pages.get('/admin', function(req, res) {
+// pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
 //     sendPage(res, verify);
 // });
+
+pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
+    usersResource.then(function(users) {
+
+        var state = {
+            key: req.path,
+            users: users
+        };
+        var ctrl = new adminPage.controller();
+        ctrl.state = state;
+
+        sendPage(res, adminPage.view(ctrl), state);
+
+    }, function(err) {
+        res.status(500).send(err)
+    });
+});
+
+
 
 //example of async server-side rendering
 pages.get('/profile', function(req, res) {
