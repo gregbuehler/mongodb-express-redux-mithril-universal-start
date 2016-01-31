@@ -12,8 +12,8 @@ var express = require('express'),
     postResource = require('./pages/blog/postResource'),
     usersResource = require('./pages/user/usersResource'),
     User = require('./models/User.js'),
-    auth = require('./auth.js'),
-    userPage = require('../client/js/pages/user');
+    userPage = require('../client/js/pages/user'),
+    auth = require('./auth.js');
 
 var pages = module.exports = express();
 
@@ -39,25 +39,7 @@ pages.get('/verify/:code', function(req, res) {
 });
 
 //example of async server-side rendering
-// pages.get('/user', [auth.requireToken, auth.authorized], function(req, res) {
-//     usersResource.then(function(users) {
-
-//         var state = {
-//             key: req.path,
-//             users: users
-//         };
-//         var ctrl = new userPage.controller();
-//         ctrl.state = state;
-
-//         sendPage(res, userPage.view(ctrl), state);
-
-//     }, function(err) {
-//         res.status(500).send(err)
-//     });
-// });
-
-pages.get('/user', function(req, res) {
-
+pages.get('/user', [auth.requireToken, auth.authorized], function(req, res) {
     usersResource.then(function(users) {
 
         var state = {
@@ -74,7 +56,7 @@ pages.get('/user', function(req, res) {
     });
 });
 
-pages.get('/profile', function(req, res) {
+pages.get('/profile', auth.requireToken, function(req, res) {
     User.findOne({}).exec()
         .then(function(user) {
             if (user) {

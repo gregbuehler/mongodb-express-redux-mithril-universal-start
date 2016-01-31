@@ -13,7 +13,7 @@ var middleware = function(modelName) {
 
                     Auth.req({
                         method: 'POST',
-                        url: '/apiauth/' + modelName,
+                        url: '/api/' + modelName,
                         data: {
                             action: action
                         },

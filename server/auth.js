@@ -34,9 +34,7 @@ var jwt = new JWT({
 
 // require an auth-token middleware
 auth.requireToken = function(req, res, next) {
-    console.log('auth37-requireToken-req.path', req.path);
-    // console.log('auth37-req.route', req.route);
-    // console.log('auth37-req', req);
+
     var token;
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         token = req.headers.authorization.split(' ')[1];
@@ -214,6 +212,7 @@ auth.post('/register', [urlParse, jsonParse], function(req, res) {
     });
 });
 
+//TODO: page to input the verify code.
 // verify a user
 // auth.post('/verify', [urlParse, jsonParse], function(req, res) {
 //     Verify.findOne({

@@ -39,7 +39,7 @@ var users = module.exports = {
 
                 Auth.req({
                     method: 'GET',
-                    url: '/apiauth/user'
+                    url: '/api/user'
                 }).then(function(users) {
 
                     initialState = {
@@ -48,7 +48,7 @@ var users = module.exports = {
                     };
 
                     window.__store__[key] = createStoreWithMiddleware(usersReducer.reducer, initialState);
-                    
+
                     ctrl.state = window.__store__[key].getState();
 
                 })

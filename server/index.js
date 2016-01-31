@@ -20,9 +20,7 @@ global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
 
 var pages = require('./pages'),
-    api = require('./api'),
-    apiAuth = require('./apiAuth');
-
+    api = require('./api');
 
 // load up .env file
 if (fs.existsSync(envFile)) {
@@ -63,20 +61,11 @@ app.use(express.static(pubDir));
 // keep all auth-related routes at /auth/whatevs
 app.use('/auth', auth);
 
-// DEMO: Lock API routes down, like this
-app.get('/api/profile', auth.requireToken, function(req, res) {
-    res.send(req.user);
-});
 
+
+app.use('/api', [urlParse, jsonParse], api);
 // app.use('/api', api);
-// app.use('/api', [urlParse, jsonParse], api);
-app.use('/api', api);
-app.use('/apiauth', [auth.requireToken, auth.authorized, urlParse, jsonParse], apiAuth);
 
-// TODO: implement server-side parsing for initial page-load
-// app.get('/*', function(req, res) {
-//     res.sendFile(path.join(pubDir, 'index.html'));
-// });
 if (global.__server__) {
     if (global.__client__) {
         // browserify the entry-point. this is efficiently cached if NODE_ENV=production
