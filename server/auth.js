@@ -34,6 +34,9 @@ var jwt = new JWT({
 
 // require an auth-token middleware
 auth.requireToken = function(req, res, next) {
+    console.log('auth37-requireToken-req.path', req.path);
+    // console.log('auth37-req.route', req.route);
+    // console.log('auth37-req', req);
     var token;
     if (req.headers.authorization && req.headers.authorization.split(' ')[0] === 'Bearer') {
         token = req.headers.authorization.split(' ')[1];
@@ -65,6 +68,7 @@ auth.requireToken = function(req, res, next) {
 
 //require 'admin' role
 auth.authorized = function(req, res, next) {
+    //TODO: allow member to post. owner can CRUD
     if (!(req.user && req.user.role === 'admin')) {
         console.log('auth69-Not admin');
         return res.status(401).send({

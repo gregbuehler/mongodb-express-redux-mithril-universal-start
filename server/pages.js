@@ -17,7 +17,7 @@ var admin = require('./admin.js');
 var adminPage = require('../client/js/pages/admin');
 
 var pages = module.exports = express();
-
+console.log('pages20');
 //example of sync server-side rendering
 pages.get('/', function(req, res) {
     sendPage(res, home);
@@ -39,11 +39,26 @@ pages.get('/verify/:code', function(req, res) {
     sendPage(res, verify);
 });
 
+//example of async server-side rendering
 // pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
-//     sendPage(res, verify);
+//     usersResource.then(function(users) {
+
+//         var state = {
+//             key: req.path,
+//             users: users
+//         };
+//         var ctrl = new adminPage.controller();
+//         ctrl.state = state;
+
+//         sendPage(res, adminPage.view(ctrl), state);
+
+//     }, function(err) {
+//         res.status(500).send(err)
+//     });
 // });
 
-pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
+pages.get('/admin', function(req, res) {
+    console.log('pages61-req.path', req.path);
     usersResource.then(function(users) {
 
         var state = {
@@ -60,9 +75,6 @@ pages.get('/admin', [auth.requireToken, auth.authorized], function(req, res) {
     });
 });
 
-
-
-//example of async server-side rendering
 pages.get('/profile', function(req, res) {
     User.findOne({}).exec()
         .then(function(user) {

@@ -16,7 +16,14 @@ var Navbar = module.exports = {
         } : null;
 
         if (global.__server__ && !global.__client__) {
+
+            adminLink = {
+                label: 'Admin',
+                href: '/admin'
+            };
+
             links = ([
+                    adminLink,
                     blogLink, {
                         label: 'profile',
                         href: '/profile'

@@ -1,6 +1,5 @@
 var m = require('mithril');
 var Navbar = require('../../components/Navbar.js');
-var usersResource = !global.__server__ ? require('./usersResource') : null;
 var redux = require('redux');
 var usersReducer = require('./usersReducer');
 var uuid = require('../../../../utils/uuid');
@@ -37,7 +36,7 @@ var admin = module.exports = {
 
             } else if (!window.__store__[key]) {
 
-                usersResource.then(function(users) {
+                 Auth.req({method: 'GET', url:'/apiauth/user'}).then(function(users) {
 
                     initialState = {
                         key: key,
@@ -167,14 +166,14 @@ var admin = module.exports = {
                 }
             }
 
-        }else{
+        } else {
             //Server-side empty function definition
             //If this is not defined, page-pending occurs on server-side.
-            ctrl.edit = function(){};
-            ctrl.create = function(){};
-            ctrl.save = function(){};
-            ctrl.remove = function(){};
-            ctrl.cancel = function(){};
+            ctrl.edit = function() {};
+            ctrl.create = function() {};
+            ctrl.save = function() {};
+            ctrl.remove = function() {};
+            ctrl.cancel = function() {};
         }
 
     },
