@@ -1,7 +1,6 @@
-var m = require('mithril');
-
-var Navbar = require('../components/Navbar.js');
-var Auth = require('../models/Auth.js');
+var m = require('mithril'),
+    Navbar = require('../components/Navbar.js'),
+    Auth = require('../models/Auth.js');
 
 var Verify = module.exports = {
     controller: function() {

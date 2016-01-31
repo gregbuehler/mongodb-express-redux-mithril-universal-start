@@ -11,5 +11,5 @@ m.route(document.getElementById('root'), "/", {
   "/profile": require('./pages/Profile.js'),
   "/blog": require('./pages/blog'),
   "/post/:id": require('./pages/blog/post'),
-  "/admin": require('./pages/admin')
+  "/user": require('./pages/user')
 });

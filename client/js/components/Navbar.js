@@ -10,20 +10,20 @@ var Navbar = module.exports = {
             href: '/blog'
         };
 
-        var adminLink = (Auth.role === 'admin') ? {
-            label: 'Admin',
-            href: '/admin'
+        var userLink = (Auth.role === 'admin') ? {
+            label: 'User',
+            href: '/user'
         } : null;
 
         if (global.__server__ && !global.__client__) {
 
-            adminLink = {
-                label: 'Admin',
-                href: '/admin'
+            userLink = {
+                label: 'User',
+                href: '/user'
             };
 
             links = ([
-                    adminLink,
+                    userLink,
                     blogLink, {
                         label: 'profile',
                         href: '/profile'
@@ -50,7 +50,7 @@ var Navbar = module.exports = {
 
         } else {
             links = (Auth.token ? [
-                    adminLink,
+                    userLink,
                     blogLink, {
                         label: Auth.userid,
                         href: '/profile'

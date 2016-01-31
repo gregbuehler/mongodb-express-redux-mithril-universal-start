@@ -43,7 +43,6 @@ var postForm = {
                     post.content = e.target.value;
                 }
             }, post.content)),
-            // m('p', 'Written by ' + post.author.userid),
             m('hr')
         ])
     }

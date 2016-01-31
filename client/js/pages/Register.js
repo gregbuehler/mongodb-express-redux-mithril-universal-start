@@ -1,7 +1,6 @@
-var m = require('mithril');
-
-var Navbar = require('../components/Navbar.js');
-var Auth = require('../models/Auth.js'),
+var m = require('mithril'),
+    Navbar = require('../components/Navbar.js'),
+    Auth = require('../models/Auth.js'),
     userid_validation = require('../../../utils/userid_validation'),
     email_validation = require('../../../utils/email_validation'),
     password_validation = require('../../../utils/password_validation');
@@ -33,14 +32,13 @@ var Register = module.exports = {
 
             Auth.register(e.target.userid.value, e.target.email.value, e.target.password.value, e.target.password2.value)
                 .then(function() {
-                    // ctrl.errmsg(m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
                     ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
                 }, function(err) {
                     var errmsg = err.errmsg;
 
-                    if(errmsg.indexOf(e.target.userid.value) > -1){
+                    if (errmsg.indexOf(e.target.userid.value) > -1) {
                         errmsg = 'There is already a user with that userid.';
-                    }else if(errmsg.indexOf(e.target.email.value) > -1){
+                    } else if (errmsg.indexOf(e.target.email.value) > -1) {
                         errmsg = 'There is already a user with that email address.';
                     }
 

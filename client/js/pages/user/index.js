@@ -1,25 +1,24 @@
-var m = require('mithril');
-var Navbar = require('../../components/Navbar.js');
-var redux = require('redux');
-var usersReducer = require('./usersReducer');
-var uuid = require('../../../../utils/uuid');
-var userForm = require('./userForm');
-var remoteActionMiddleware = require('../../models/remoteActionMiddleware');
-var Auth = require('../../models/Auth.js');
+var m = require('mithril'),
+    Navbar = require('../../components/Navbar.js'),
+    redux = require('redux'),
+    usersReducer = require('./usersReducer'),
+    uuid = require('../../../../utils/uuid'),
+    userForm = require('./userForm'),
+    remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
+    Auth = require('../../models/Auth.js');
 
 
-var admin = module.exports = {
+var users = module.exports = {
     controller: function() {
         var ctrl = this;
 
         if (!global.__server__) {
-            //-----------------------------
+
             var modelName = 'user';
             const createStoreWithMiddleware = redux.applyMiddleware(
                 remoteActionMiddleware(modelName)
             )(redux.createStore);
 
-            //=============================
             window.__state__ = window.__state__ || {};
             window.__store__ = window.__store__ || {};
 
@@ -29,29 +28,33 @@ var admin = module.exports = {
             if (window.__state__[key]) {
 
                 initialState = window.__state__[key];
-                // window.__store__[key] = redux.createStore(usersReducer.reducer, initialState);
+
                 window.__store__[key] = createStoreWithMiddleware(usersReducer.reducer, initialState);
+
                 ctrl.state = window.__store__[key].getState();
+
                 window.__state__[key] = null;
 
             } else if (!window.__store__[key]) {
 
-                 Auth.req({method: 'GET', url:'/apiauth/user'}).then(function(users) {
+                Auth.req({
+                    method: 'GET',
+                    url: '/apiauth/user'
+                }).then(function(users) {
 
                     initialState = {
                         key: key,
                         users: users
                     };
-                    // window.__store__[key] = redux.createStore(usersReducer.reducer, initialState);
+
                     window.__store__[key] = createStoreWithMiddleware(usersReducer.reducer, initialState);
+                    
                     ctrl.state = window.__store__[key].getState();
 
                 })
             } else {
                 ctrl.state = window.__store__[key].getState();
             };
-
-            // ctrl.isEdit = false;// not needed anymore
 
             ctrl.edit = function(user) {
 
@@ -182,7 +185,7 @@ var admin = module.exports = {
         return [
             m.component(Navbar),
             m('.container', m('.col-md-12', [
-                    m('h1', ['Admin', m('.pull-right',
+                    m('h1', ['User', m('.pull-right',
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
                         }, 'new'))]),
@@ -220,7 +223,6 @@ var admin = module.exports = {
                                     }, 'edit'), m('span.label.label-danger', {
                                         onclick: ctrl.remove.bind(this, user)
                                     }, 'delete')])
-                                    // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                                 ]),
                                 m('p'),
                                 m('br'),
@@ -235,12 +237,7 @@ var admin = module.exports = {
                             });
                         })
                     ]
-
-
-
                 ])
-
-
             )
         ]
     }

@@ -1,12 +1,11 @@
-var m = require('mithril');
-var Navbar = require('../../components/Navbar.js');
-var redux = require('redux');
-var postsReducer = require('./postsReducer');
-var uuid = require('../../../../utils/uuid');
-var postForm = require('./postForm');
-var remoteActionMiddleware = require('../../models/remoteActionMiddleware');
-
-var Auth = require('../../models/Auth.js');
+var m = require('mithril'),
+    Navbar = require('../../components/Navbar.js'),
+    redux = require('redux'),
+    postsReducer = require('./postsReducer'),
+    uuid = require('../../../../utils/uuid'),
+    postForm = require('./postForm'),
+    remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
+    Auth = require('../../models/Auth.js');
 
 
 var blog = module.exports = {
@@ -14,13 +13,12 @@ var blog = module.exports = {
         var ctrl = this;
 
         if (!global.__server__) {
-            //-----------------------------
+
             var modelName = 'post';
             const createStoreWithMiddleware = redux.applyMiddleware(
                 remoteActionMiddleware(modelName)
             )(redux.createStore);
 
-            //=============================
             window.__state__ = window.__state__ || {};
             window.__store__ = window.__store__ || {};
 
@@ -31,9 +29,11 @@ var blog = module.exports = {
                 console.log('from window');
 
                 initialState = window.__state__[key];
-                // window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
+
                 window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
+
                 ctrl.state = window.__store__[key].getState();
+
                 window.__state__[key] = null;
 
             } else if (!window.__store__[key]) {
@@ -48,8 +48,9 @@ var blog = module.exports = {
                         key: key,
                         posts: posts
                     };
-                    // window.__store__[key] = redux.createStore(postsReducer.reducer, initialState);
+
                     window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
+
                     ctrl.state = window.__store__[key].getState();
 
                 })
@@ -97,12 +98,12 @@ var blog = module.exports = {
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
                 if (post.id) {
-                    console.log('index67-update');
+
                     //update
                     window.__store__[key].dispatch(postsReducer.updatePost(post))
 
                 } else {
-                    console.log('index70-create');
+
                     //create
                     post.id = uuid();
                     window.__store__[key].dispatch(postsReducer.createPost(post))
@@ -158,17 +159,10 @@ var blog = module.exports = {
                                 config: m.route
                             }, post.title)),
                             m('p', post.summary),
-                            // m('p', post.content),
-                            // m('p', 'Written by ' + post.author.userid),
-                            // m('', [
-                            //     m('span.badge', 'Posted ' + post.created),
-                            //     m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
-                            // ]),
                             m("h5", [
                                 m("span", post.author ? post.author.userid : 'unknown'),
                                 " - ",
                                 m("span", post.created),
-                                // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                             ]),
                             m('hr')
                         ]);

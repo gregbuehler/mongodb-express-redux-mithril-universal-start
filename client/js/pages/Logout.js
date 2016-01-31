@@ -1,6 +1,5 @@
-var m = require('mithril');
-
-var Auth = require('../models/Auth.js');
+var m = require('mithril'),
+    Auth = require('../models/Auth.js');
 
 var Logout = module.exports = {
     controller: function() {

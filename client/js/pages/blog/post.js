@@ -1,13 +1,12 @@
-var m = require('mithril');
-var Navbar = require('../../components/Navbar.js');
-var redux = require('redux');
-var postReducer = require('./postReducer');
-var postsReducer = require('./postsReducer');
-var postForm = require('./postForm');
-var uuid = require('../../../../utils/uuid');
-var remoteActionMiddleware = require('../../models/remoteActionMiddleware');
-
-var Auth = require('../../models/Auth.js');
+var m = require('mithril'),
+    Navbar = require('../../components/Navbar.js'),
+    redux = require('redux'),
+    postReducer = require('./postReducer'),
+    postsReducer = require('./postsReducer'),
+    postForm = require('./postForm'),
+    uuid = require('../../../../utils/uuid'),
+    remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
+    Auth = require('../../models/Auth.js');
 
 
 var post = {
@@ -15,13 +14,11 @@ var post = {
         var ctrl = this;
 
         if (!global.__server__) {
-            //-----------------------------
+
             var modelName = 'post';
             const createStoreWithMiddleware = redux.applyMiddleware(
                 remoteActionMiddleware(modelName)
             )(redux.createStore);
-
-            //=============================
 
             window.__state__ = window.__state__ || {};
             window.__store__ = window.__store__ || {};
@@ -31,11 +28,12 @@ var post = {
 
             if (window.__state__[key]) {
 
-                // ctrl.state = window.__state__[key];
                 initialState = window.__state__[key];
-                // window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
+
                 window.__store__[key] = createStoreWithMiddleware(postReducer.reducer, initialState);
+
                 ctrl.state = window.__store__[key].getState();
+
                 window.__state__[key] = null;
 
             } else if (!window.__store__[key]) {
@@ -50,12 +48,12 @@ var post = {
                         key: key,
                         post: post
                     };
-                    // window.__store__[key] = redux.createStore(postReducer.reducer, initialState);
+
                     window.__store__[key] = createStoreWithMiddleware(postReducer.reducer, initialState);
+
                     ctrl.state = window.__store__[key].getState();
 
                 }, function(err) {
-                    console.log('post46-err', err);
                     ctrl.err = err;
                 })
             } else {
@@ -108,7 +106,7 @@ var post = {
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
                 if (post.id) {
-                    console.log('post104-update');
+
                     //update
                     window.__store__[key].dispatch(postReducer.updatePost(post));
 
@@ -118,7 +116,7 @@ var post = {
                         window.__store__['/blog'].dispatch(postsReducer.updatePost(post));
                     }
                 } else {
-                    console.log('post113-create');
+
                     //create
                     post.id = uuid();
                     window.__store__[key].dispatch(postReducer.createPost(post));
@@ -196,7 +194,6 @@ var post = {
                         ]),
                         m('p', post.summary),
                         m('p', post.content),
-                        // m('p', 'Written by ' + post.author.userid),
                         m('hr')
                     ]) :
                     m.component(postForm, {

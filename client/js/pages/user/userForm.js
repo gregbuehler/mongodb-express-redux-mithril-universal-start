@@ -53,14 +53,12 @@ var userForm = {
                             onclick: arg.remove.bind(this, user)
                         }, 'delete')
                     ])
-                    // m('.pull-right', [m('span.label.label-default', 'edit'), m('span.label.label-danger', 'delete')])
                 ]),
                 m('p'),
                 m('hr', {
                     style: "width:100%"
                 })
             ])]
-
         )
     }
 }
