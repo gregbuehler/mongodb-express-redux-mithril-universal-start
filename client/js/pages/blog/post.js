@@ -6,7 +6,8 @@ var m = require('mithril'),
     postForm = require('./postForm'),
     uuid = require('../../../../utils/uuid'),
     remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
-    Auth = require('../../models/Auth.js');
+    Auth = require('../../models/Auth.js'),
+    formatDate = require('../../../../utils/formatDate');
 
 
 var post = {
@@ -183,7 +184,7 @@ var post = {
                         m("h3", [
                             m("span", post.author ? post.author.userid : null),
                             " - ",
-                            m("span", post.created),
+                            m("span", formatDate(post.created)),
                             m('.pull-right', [m('span.label.label-default', {
                                 onclick: ctrl.edit.bind(this)
                             }, 'edit'), m('span.label.label-danger', {

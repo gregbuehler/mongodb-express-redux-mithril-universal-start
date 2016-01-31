@@ -62,7 +62,6 @@ api.post('/post', [auth.requireToken, auth.authorized], function(req, res) {
 
                 
                 action.post.author = req.user._id;
-                action.post.created = new Date();
 
                 Post.create(action.post, function(err, result) {
                     if (err) res.status(500).send(err);

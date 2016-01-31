@@ -5,7 +5,8 @@ var m = require('mithril'),
     uuid = require('../../../../utils/uuid'),
     postForm = require('./postForm'),
     remoteActionMiddleware = require('../../models/remoteActionMiddleware'),
-    Auth = require('../../models/Auth.js');
+    Auth = require('../../models/Auth.js'),
+    formatDate = require('../../../../utils/formatDate');
 
 
 var blog = module.exports = {
@@ -106,6 +107,8 @@ var blog = module.exports = {
 
                     //create
                     post.id = uuid();
+                    post.created = new Date().toISOString();
+                    console.log(post.created);
                     window.__store__[key].dispatch(postsReducer.createPost(post))
 
                 }
@@ -162,7 +165,7 @@ var blog = module.exports = {
                             m("h5", [
                                 m("span", post.author ? post.author.userid : 'unknown'),
                                 " - ",
-                                m("span", post.created),
+                                m("span", formatDate(post.created)),
                             ]),
                             m('hr')
                         ]);
