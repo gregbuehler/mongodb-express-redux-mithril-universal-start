@@ -68,7 +68,18 @@ app.use('/api', [urlParse, jsonParse], api);
 //experiment------------------------------------------------------
 var homePage = require('./pages/home');
 app.use('/', homePage);
-
+//-------------------------------------------------
+var loginPage = require('./pages/login');
+app.use('/login', loginPage)
+//-------------------------------------------------
+var logoutPage = require('./pages/logout');
+app.use('/logout', logoutPage)
+//-------------------------------------------------
+var registerPage = require('./pages/register');
+app.use('/register', registerPage)
+//-------------------------------------------------
+var verifyPage = require('./pages/verify');
+app.use('/verify', verifyPage)
 //-------------------------------------------------
 var blog = require('./pages/blog');
 var postPage = require('./pages/blog/post');

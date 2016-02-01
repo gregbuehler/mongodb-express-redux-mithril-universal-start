@@ -1,11 +1,11 @@
 var express = require('express'),
     render = require('mithril-node-render'),
     // home = require('../../client/js/pages/Home'),
-    login = require('../../client/js/pages/Login'),
-    logout = require('../../client/js/pages/Logout'),
-    register = require('../../client/js/pages/Register'),
+    // login = require('../../client/js/pages/Login'),
+    // logout = require('../../client/js/pages/Logout'),
+    // register = require('../../client/js/pages/Register'),
     profile = require('../../client/js/pages/Profile'),
-    verify = require('../../client/js/pages/Verify'),
+    // verify = require('../../client/js/pages/Verify'),
     blog = require('../../client/js/pages/blog'),
     blogResource = require('../resources/blog/blogResource'),
     postPage = require('../../client/js/pages/blog/post'),
@@ -22,21 +22,21 @@ var pages = module.exports = express();
 //     sendPage(res, home);
 // });
 
-pages.get('/login', function(req, res) {
-    sendPage(res, login);
-});
+// pages.get('/login', function(req, res) {
+//     sendPage(res, login);
+// });
 
-pages.get('/logout', function(req, res) {
-    sendPage(res, logout);
-});
+// pages.get('/logout', function(req, res) {
+//     sendPage(res, logout);
+// });
 
-pages.get('/register', function(req, res) {
-    sendPage(res, register);
-});
+// pages.get('/register', function(req, res) {
+//     sendPage(res, register);
+// });
 
-pages.get('/verify/:code', function(req, res) {
-    sendPage(res, verify);
-});
+// pages.get('/verify/:code', function(req, res) {
+//     sendPage(res, verify);
+// });
 
 //example of async server-side rendering
 pages.get('/user', [auth.requireToken, auth.authorized], function(req, res) {

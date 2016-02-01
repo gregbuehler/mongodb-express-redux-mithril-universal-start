@@ -1,10 +1,9 @@
 var express = require('express'),
-    home = require('../../client/js/pages/Home'),
+    logout = require('../../client/js/pages/Logout'),
     sendPage = require('../utils/sendPage');
 
-// var pages = module.exports = express();
 var router = module.exports = express.Router();
 
 router.get('/', function(req, res) {
-    sendPage(res, home);
+    sendPage(res, logout);
 });
