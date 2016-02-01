@@ -22,6 +22,7 @@ global.__useBlog__ = config.useBlog;
 var pages = require('./routes/pages'),
     api = require('./routes/api');
 
+
 // load up .env file
 if (fs.existsSync(envFile)) {
     dotenv.load();
@@ -63,6 +64,13 @@ app.use('/auth', auth);
 
 app.use('/api', [urlParse, jsonParse], api);
 // app.use('/api', api);
+
+//experiment------------------------------------------------------
+var blog = require('./pages/blog');
+var postPage = require('./pages/blog/post');
+app.use('/blog', blog);
+app.use('/post', postPage);
+//======================================================
 
 if (global.__server__) {
     if (global.__client__) {

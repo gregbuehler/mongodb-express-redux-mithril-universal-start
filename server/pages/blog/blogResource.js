@@ -1,5 +1,5 @@
 // var Post = require('../../models/Post');
-var Post = require('../../pages/blog/postModel');
+var Post = require('./postModel');
 
 var promise = Post.find().sort({
     created: -1

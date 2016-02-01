@@ -91,41 +91,41 @@ pages.get('/profile', auth.requireToken, function(req, res) {
         });
 });
 
-pages.get('/blog', function(req, res) {
+// pages.get('/blog', function(req, res) {
 
-    blogResource.then(function(posts) {
+//     blogResource.then(function(posts) {
 
-        var state = {
-            key: req.path,
-            posts: posts
-        };
-        var ctrl = new blog.controller();
-        ctrl.state = state;
+//         var state = {
+//             key: req.path,
+//             posts: posts
+//         };
+//         var ctrl = new blog.controller();
+//         ctrl.state = state;
 
-        sendPage(res, blog.view(ctrl), state);
+//         sendPage(res, blog.view(ctrl), state);
 
-    }, function(err) {
-        res.status(500).send(err)
-    });
-});
+//     }, function(err) {
+//         res.status(500).send(err)
+//     });
+// });
 
-pages.get('/post/:id', function(req, res) {
+// pages.get('/post/:id', function(req, res) {
 
-    postResource(req.params.id).then(function(post) {
+//     postResource(req.params.id).then(function(post) {
 
-        var state = {
-            key: req.path,
-            post: post
-        };
-        var ctrl = new postPage.controller();
-        ctrl.state = state;
+//         var state = {
+//             key: req.path,
+//             post: post
+//         };
+//         var ctrl = new postPage.controller();
+//         ctrl.state = state;
 
-        sendPage(res, postPage.view(ctrl), state);
+//         sendPage(res, postPage.view(ctrl), state);
 
-    }, function(err) {
-        res.status(500).send(err)
-    })
-})
+//     }, function(err) {
+//         res.status(500).send(err)
+//     })
+// })
 
 function base(content, state) {
     var stateToSend =
