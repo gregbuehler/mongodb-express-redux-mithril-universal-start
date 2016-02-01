@@ -4,10 +4,10 @@ var m = require('mithril'),
     postReducer = require('./postReducer'),
     postsReducer = require('./postsReducer'),
     postForm = require('./postForm'),
-    uuid = require('../../../../utils/uuid'),
+    uuid = require('../../../../shared/uuid'),
     remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
     Auth = require('../../utils/Auth.js'),
-    formatDate = require('../../../../utils/formatDate');
+    formatDate = require('../../../../shared/formatDate');
 
 
 var post = {

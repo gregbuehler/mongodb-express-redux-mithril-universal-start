@@ -2,11 +2,11 @@ var m = require('mithril'),
     Navbar = require('../../components/Navbar.js'),
     redux = require('redux'),
     postsReducer = require('./postsReducer'),
-    uuid = require('../../../../utils/uuid'),
+    uuid = require('../../../../shared/uuid'),
     postForm = require('./postForm'),
     remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
     Auth = require('../../utils/Auth.js'),
-    formatDate = require('../../../../utils/formatDate');
+    formatDate = require('../../../../shared/formatDate');
 
 
 var blog = module.exports = {

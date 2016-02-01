@@ -1,5 +1,5 @@
 var m = require('mithril'),
-    formatDate = require('../../../../utils/formatDate');
+    formatDate = require('../../../../shared/formatDate');
 
 var postForm = {
 
