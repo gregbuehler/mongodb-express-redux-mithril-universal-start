@@ -46,10 +46,10 @@ var api = module.exports = express();
 
 //-------------------------------------------------------
 
-// DEMO: Lock API routes down, like this
-api.get('/profile', auth.requireToken, function(req, res) {
-    res.send(req.user);
-});
+// // DEMO: Lock API routes down, like this
+// api.get('/profile', auth.requireToken, function(req, res) {
+//     res.send(req.user);
+// });
 
 // api.post('/post', [auth.requireToken, auth.authorized], function(req, res) {
 //     if (req.body.action) {

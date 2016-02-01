@@ -56,40 +56,40 @@ var pages = module.exports = express();
 //     });
 // });
 
-pages.get('/profile', auth.requireToken, function(req, res) {
-    User.findOne({}).exec()
-        .then(function(user) {
-            if (user) {
+// pages.get('/profile', auth.requireToken, function(req, res) {
+//     User.findOne({}).exec()
+//         .then(function(user) {
+//             if (user) {
 
-                user = user.toObject();
-                delete user.password;
+//                 user = user.toObject();
+//                 delete user.password;
 
-                if (!user.verified) {
-                    return res.status(401).send({
-                        status: 401,
-                        errmsg: 'User not verified.'
-                    });
-                } else {
+//                 if (!user.verified) {
+//                     return res.status(401).send({
+//                         status: 401,
+//                         errmsg: 'User not verified.'
+//                     });
+//                 } else {
 
-                    var state = {
-                        key: req.path,
-                        user: user
-                    }
-                    var ctrl = new profile.controller();
-                    ctrl.state = state;
-                    sendPage(res, profile.view(ctrl), state);
-                }
+//                     var state = {
+//                         key: req.path,
+//                         user: user
+//                     }
+//                     var ctrl = new profile.controller();
+//                     ctrl.state = state;
+//                     sendPage(res, profile.view(ctrl), state);
+//                 }
 
-            } else {
-                return res.status(401).send({
-                    status: 401,
-                    errmsg: 'User not found.'
-                });
-            }
-        }, function(err) {
-            return res.status(500).send(err);
-        });
-});
+//             } else {
+//                 return res.status(401).send({
+//                     status: 401,
+//                     errmsg: 'User not found.'
+//                 });
+//             }
+//         }, function(err) {
+//             return res.status(500).send(err);
+//         });
+// });
 
 // pages.get('/blog', function(req, res) {
 

@@ -4,6 +4,15 @@ var m = require('mithril'),
     userid_validation = require('../../../shared/userid_validation'),
     password_validation = require('../../../shared/password_validation');
 
+var storage;
+if (!storage) {
+    try {
+        storage = localStorage;
+    } catch (e) {
+        storage = {};
+    }
+}
+
 var Login = module.exports = {
     controller: function() {
         var ctrl = this;
@@ -12,21 +21,77 @@ var Login = module.exports = {
             e.preventDefault();
             ctrl.errmsg = '';
 
-            if (!userid_validation(e.target.userid.value)) {
+            var userid = e.target.userid.value;
+            var password = e.target.password.value;
+
+            if (!userid_validation(userid)) {
                 ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
                 return;
             };
-            if (!password_validation(e.target.password.value)) {
+            if (!password_validation(password)) {
                 ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Password should be any character 4 ~ 20 length.'));
                 return;
             };
 
-            Auth.login(e.target.userid.value, e.target.password.value)
-                .then(function() {
+            //------------------------------------
+            // Auth.login(e.target.userid.value, e.target.password.value)
+            //     .then(function() {
+            //         m.route(Auth.originalRoute || '/', null, true);
+            //     }, function(err) {
+            //         ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", err.errmsg));
+            //     });
+            //------------------------------------
+            // trade credentials for a token
+            m.request({
+                method: 'POST',
+                // url: '/auth/login',
+                url: '/login',
+                data: {
+                    userid: userid,
+                    password: password
+                },
+                unwrapSuccess: function(res) {
+                    Auth.token = storage.token = res.token;
+                    Auth.userid = storage.userid = res.userid;
+                    Auth.role = storage.role = res.role;
                     m.route(Auth.originalRoute || '/', null, true);
-                }, function(err) {
+                },
+                unwrapError: function(err) {
                     ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", err.errmsg));
-                });
+                    // return response.error;
+                }
+            })
+
+
+            //-----------------------------------
+            // trade credentials for a token
+            // login: function(userid, password) {
+            //         return m.request({
+            //                 method: 'POST',
+            //                 url: '/auth/login',
+            //                 data: {
+            //                     userid: userid,
+            //                     password: password
+            //                 },
+            //                 unwrapSuccess: function(res) {
+            //                     Auth.token = storage.token = res.token;
+            //                     Auth.userid = storage.userid = res.userid;
+            //                     Auth.role = storage.role = res.role;
+            //                     return {
+            //                         token: res.token,
+            //                         userid: res.userid,
+            //                         role: res.role
+            //                     };
+            //                 }
+            //             })
+            //             .then(function(data) {
+            //                 // Auth.token = storage.token = token;// duplicate as above
+            //                 // console.log('auth31-data', data);
+            //             });
+            //     },
+
+
+            //====================================
         };
     },
 

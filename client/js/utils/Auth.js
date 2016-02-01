@@ -34,31 +34,31 @@ var Auth = module.exports = {
         return true;
     },
 
-    // trade credentials for a token
-    login: function(userid, password) {
-        return m.request({
-                method: 'POST',
-                url: '/auth/login',
-                data: {
-                    userid: userid,
-                    password: password
-                },
-                unwrapSuccess: function(res) {
-                    Auth.token = storage.token = res.token;
-                    Auth.userid = storage.userid = res.userid;
-                    Auth.role = storage.role = res.role;
-                    return {
-                        token: res.token,
-                        userid: res.userid,
-                        role: res.role
-                    };
-                }
-            })
-            .then(function(data) {
-                // Auth.token = storage.token = token;// duplicate as above
-                // console.log('auth31-data', data);
-            });
-    },
+    // // trade credentials for a token
+    // login: function(userid, password) {
+    //     return m.request({
+    //             method: 'POST',
+    //             url: '/auth/login',
+    //             data: {
+    //                 userid: userid,
+    //                 password: password
+    //             },
+    //             unwrapSuccess: function(res) {
+    //                 Auth.token = storage.token = res.token;
+    //                 Auth.userid = storage.userid = res.userid;
+    //                 Auth.role = storage.role = res.role;
+    //                 return {
+    //                     token: res.token,
+    //                     userid: res.userid,
+    //                     role: res.role
+    //                 };
+    //             }
+    //         })
+    //         .then(function(data) {
+    //             // Auth.token = storage.token = token;// duplicate as above
+    //             // console.log('auth31-data', data);
+    //         });
+    // },
 
     // delete token and storage
     logout: function() {

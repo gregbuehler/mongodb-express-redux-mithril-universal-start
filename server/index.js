@@ -19,8 +19,8 @@ global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
 
-var pages = require('./routes/pages'),
-    api = require('./routes/api');
+// var pages = require('./routes/pages'),
+//     api = require('./routes/api');
 
 
 // load up .env file
@@ -47,7 +47,8 @@ if (config.seedPost) {
     config.seedPost = false;
 }
 // use models after potential mockgoose
-var auth = require('./routes/auth');
+// var auth = require('./routes/auth');
+var auth = require('./utils/auth');
 
 // serve up CSS from LESS. this is efficiently cached.
 app.use(lessMiddleware(pubDir, {
@@ -62,8 +63,7 @@ app.use(express.static(pubDir));
 // keep all auth-related routes at /auth/whatevs
 app.use('/auth', auth);
 
-app.use('/api', [urlParse, jsonParse], api);
-// app.use('/api', api);
+// app.use('/api', [urlParse, jsonParse], api);
 
 //experiment------------------------------------------------------
 var homePage = require('./pages/home');
@@ -88,6 +88,9 @@ app.use('/post', postPage);
 //-------------------------------------------------
 var userPage = require('./pages/user');
 app.use('/user', userPage);
+//-------------------------------------------------
+var profilePage = require('./pages/profile');
+app.use('/profile', profilePage);
 //======================================================
 
 if (global.__server__) {
@@ -96,7 +99,7 @@ if (global.__server__) {
         app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
     }
     //server-side render
-    app.use(pages);
+    // app.use(pages);
     app.get('/*', function(req, res) {
         res.redirect('/');
     });
