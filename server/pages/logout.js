@@ -4,6 +4,7 @@ var express = require('express'),
 
 var router = module.exports = express.Router();
 
+// base route '/logout'
 router.get('/', function(req, res) {
     sendPage(res, logout);
 });

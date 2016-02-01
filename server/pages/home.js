@@ -5,6 +5,7 @@ var express = require('express'),
 // var pages = module.exports = express();
 var router = module.exports = express.Router();
 
+// base route '/'
 router.get('/', function(req, res) {
     sendPage(res, home);
 });

@@ -4,9 +4,10 @@ var express = require('express'),
     blogResource = require('./blogResource'),
     sendPage = require('../../utils/sendPage');
 
-var pages = module.exports = express();
+var router = module.exports = express.Router();
 
-pages.get('/', function(req, res) {
+// base route '/blog'
+router.get('/', function(req, res) {
 
     blogResource.then(function(posts) {
 
@@ -24,7 +25,7 @@ pages.get('/', function(req, res) {
     });
 });
 
-pages.get('/api', function(req, res) {
+router.get('/api', function(req, res) {
 
     blogResource.then(function(posts) {
         if (posts) {

@@ -6,9 +6,10 @@ var express = require('express'),
     Post = require('./postModel'),
     auth = require('../../utils/auth');
 
-var postApp = module.exports = express();
+var router = module.exports = express.Router();
 
-postApp.get('/:id', function(req, res) {
+// base route '/post'
+router.get('/:id', function(req, res) {
 
     postResource(req.params.id).then(function(post) {
 
@@ -26,7 +27,7 @@ postApp.get('/:id', function(req, res) {
     })
 })
 
-postApp.get('/:id/api', function(req, res) {
+router.get('/:id/api', function(req, res) {
 
     postResource(req.params.id).then(function(post) {
         if (post) {
@@ -42,7 +43,7 @@ postApp.get('/:id/api', function(req, res) {
     });
 })
 
-postApp.post('/', [auth.requireToken, auth.authorized], function(req, res) {
+router.post('/', [auth.requireToken, auth.authorized], function(req, res) {
     if (req.body.action) {
 
         var action = req.body.action;
