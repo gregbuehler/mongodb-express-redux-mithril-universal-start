@@ -1,4 +1,5 @@
-var Post = require('../../models/Post');
+// var Post = require('../../models/Post');
+var Post = require('../../pages/blog/postModel');
 
 
 var resource = function(id) {
