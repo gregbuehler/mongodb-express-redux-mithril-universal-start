@@ -3,7 +3,8 @@ var m = require('mithril'),
     Auth = require('../utils/Auth.js'),
     userid_validation = require('../../../shared/userid_validation'),
     email_validation = require('../../../shared/email_validation'),
-    password_validation = require('../../../shared/password_validation');
+    password_validation = require('../../../shared/password_validation'),
+    uuid = require('../../../shared/uuid');
 
 var Register = module.exports = {
     controller: function() {
@@ -12,28 +13,57 @@ var Register = module.exports = {
         ctrl.register = function(e) {
             e.preventDefault();
             ctrl.errmsg = '';
+            var userid = e.target.userid.value;
+            var email = e.target.email.value;
+            var password = e.target.password.value;
+            var password2 = e.target.password2.value;
 
-            if (!userid_validation(e.target.userid.value)) {
+            if (!userid_validation(userid)) {
                 ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Userid should be alphanumeric 4 ~ 20 length.'));
                 return;
             };
-            if (!email_validation(e.target.email.value)) {
+            if (!email_validation(email)) {
                 ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Email is not valid.'));
                 return;
             };
-            if (!password_validation(e.target.password.value)) {
+            if (!password_validation(password)) {
                 ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Password should be any character 4 ~ 20 length.'));
                 return;
             };
-            if (e.target.password.value !== e.target.password2.value) {
+            if (password !== password2) {
                 ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", 'Passwords must match.'));
                 return;
             }
 
-            Auth.register(e.target.userid.value, e.target.email.value, e.target.password.value, e.target.password2.value)
-                .then(function() {
+            // Auth.register(e.target.userid.value, e.target.email.value, e.target.password.value, e.target.password2.value)
+            //     .then(function() {
+            //         ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
+            //     }, function(err) {
+            //         var errmsg = err.errmsg;
+
+            //         if (errmsg.indexOf(e.target.userid.value) > -1) {
+            //             errmsg = 'There is already a user with that userid.';
+            //         } else if (errmsg.indexOf(e.target.email.value) > -1) {
+            //             errmsg = 'There is already a user with that email address.';
+            //         }
+
+            //         ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
+            //     });
+            m.request({
+                method: 'POST',
+                // url: '/auth/register',
+                url: '/register',
+                data: {
+                    id: uuid(),
+                    userid: userid,
+                    email: email,
+                    password: password,
+                    password2: password2
+                },
+                unwrapSuccess: function(res) {
                     ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
-                }, function(err) {
+                },
+                unwrapError: function(err) {
                     var errmsg = err.errmsg;
 
                     if (errmsg.indexOf(e.target.userid.value) > -1) {
@@ -43,7 +73,22 @@ var Register = module.exports = {
                     }
 
                     ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
-                });
+                }
+            });
+
+            // signup on the server for new login credentials
+            // register: function(userid, email, password, password2) {
+            //     return m.request({
+            //         method: 'POST',
+            //         url: '/auth/register',
+            //         data: {
+            //             userid: userid,
+            //             email: email,
+            //             password: password,
+            //             password2: password2
+            //         }
+            //     });
+            // },
         };
     },
 

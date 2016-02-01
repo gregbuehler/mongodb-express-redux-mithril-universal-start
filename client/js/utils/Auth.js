@@ -68,19 +68,19 @@ var Auth = module.exports = {
         delete storage.userid;
     },
 
-    // signup on the server for new login credentials
-    register: function(userid, email, password, password2) {
-        return m.request({
-            method: 'POST',
-            url: '/auth/register',
-            data: {
-                userid: userid,
-                email: email,
-                password: password,
-                password2: password2
-            }
-        });
-    },
+    // // signup on the server for new login credentials
+    // register: function(userid, email, password, password2) {
+    //     return m.request({
+    //         method: 'POST',
+    //         url: '/auth/register',
+    //         data: {
+    //             userid: userid,
+    //             email: email,
+    //             password: password,
+    //             password2: password2
+    //         }
+    //     });
+    // },
 
     // ensure verify token is correct
     // verify: function(token){

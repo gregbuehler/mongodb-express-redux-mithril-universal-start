@@ -79,139 +79,139 @@ auth.authorized = function(req, res, next) {
 }
 
 // get JWT token for login credentials
-auth.post('/login', [urlParse, jsonParse], function(req, res) {
+// auth.post('/login', [urlParse, jsonParse], function(req, res) {
 
-    if (!userid_validation(req.body.userid)) {
-        var err = {
-            errmsg: 'Userid should be alphanumeric 4 ~ 20 length.'
-        };
-        return res.status(500).send(err);
-    };
-    if (!password_validation(req.body.password)) {
-        var err = {
-            errmsg: 'Password should be any character 4 ~ 20 length.'
-        };
-        return res.status(500).send(err);
-    };
+//     if (!userid_validation(req.body.userid)) {
+//         var err = {
+//             errmsg: 'Userid should be alphanumeric 4 ~ 20 length.'
+//         };
+//         return res.status(500).send(err);
+//     };
+//     if (!password_validation(req.body.password)) {
+//         var err = {
+//             errmsg: 'Password should be any character 4 ~ 20 length.'
+//         };
+//         return res.status(500).send(err);
+//     };
 
-    User.findOne({
-            userid: req.body.userid
-        }).exec()
-        .then(function(user) {
-            if (user) {
-                if (!user.verified) {
-                    return res.status(401).send({
-                        status: 401,
-                        errmsg: 'User not verified.'
-                    });
-                }
-                user.verifyPassword(req.body.password, function(err, isMatch) {
-                    if (err) {
-                        return res.status(500).send({
-                            status: 500,
-                            errmsg: 'Database error.'
-                        });
-                    }
-                    if (!isMatch) {
-                        return res.status(401).send({
-                            status: 401,
-                            errmsg: 'Bad password.'
-                        });
-                    }
+//     User.findOne({
+//             userid: req.body.userid
+//         }).exec()
+//         .then(function(user) {
+//             if (user) {
+//                 if (!user.verified) {
+//                     return res.status(401).send({
+//                         status: 401,
+//                         errmsg: 'User not verified.'
+//                     });
+//                 }
+//                 user.verifyPassword(req.body.password, function(err, isMatch) {
+//                     if (err) {
+//                         return res.status(500).send({
+//                             status: 500,
+//                             errmsg: 'Database error.'
+//                         });
+//                     }
+//                     if (!isMatch) {
+//                         return res.status(401).send({
+//                             status: 401,
+//                             errmsg: 'Bad password.'
+//                         });
+//                     }
 
-                    user = user.toObject();
-                    delete user.password;
+//                     user = user.toObject();
+//                     delete user.password;
 
-                    jwt.sign({
-                        user: user
-                    }, function(err, token) {
-                        if (err) {
-                            return res.status(500).send({
-                                status: 500,
-                                errmsg: err.errmsg
-                            });
-                        }
-                        return res.send({
-                            token: token,
-                            userid: user.userid,
-                            role: user.role
-                        });
-                    });
-                });
-            } else {
-                return res.status(401).send({
-                    status: 401,
-                    errmsg: 'User not found.'
-                });
-            }
-        }, function(err) {
-            return res.status(500).send(err);
-        });
-});
+//                     jwt.sign({
+//                         user: user
+//                     }, function(err, token) {
+//                         if (err) {
+//                             return res.status(500).send({
+//                                 status: 500,
+//                                 errmsg: err.errmsg
+//                             });
+//                         }
+//                         return res.send({
+//                             token: token,
+//                             userid: user.userid,
+//                             role: user.role
+//                         });
+//                     });
+//                 });
+//             } else {
+//                 return res.status(401).send({
+//                     status: 401,
+//                     errmsg: 'User not found.'
+//                 });
+//             }
+//         }, function(err) {
+//             return res.status(500).send(err);
+//         });
+// });
 
-// register new login credentials
-auth.post('/register', [urlParse, jsonParse], function(req, res) {
-    var err;
+// // register new login credentials
+// auth.post('/register', [urlParse, jsonParse], function(req, res) {
+//     var err;
 
-    if (!userid_validation(req.body.userid)) {
-        err = {
-            errmsg: 'Userid should be alphanumeric 4 ~ 20 length.'
-        };
-        return res.status(500).send(err);
-    };
-    if (!email_validation(req.body.email)) {
-        err = {
-            errmsg: 'Email is not valid.'
-        };
-        return res.status(500).send(err);
-    };
-    if (!password_validation(req.body.password)) {
-        err = {
-            errmsg: 'Password should be any character 4 ~ 20 length.'
-        };
-        return res.status(500).send(err);
-    };
-    if (req.body.password !== req.body.password2) {
-        err = {
-            errmsg: 'Password must match.'
-        };
-        return res.status(500).send(err);
-    }
-    var user = new User({
-        userid: req.body.userid,
-        email: req.body.email,
-        password: req.body.password
-    });
-    user.save(function(err, u) {
-        if (err) {
-            err.status = 500;
-            return res.status(500).send(err);
-        }
+//     if (!userid_validation(req.body.userid)) {
+//         err = {
+//             errmsg: 'Userid should be alphanumeric 4 ~ 20 length.'
+//         };
+//         return res.status(500).send(err);
+//     };
+//     if (!email_validation(req.body.email)) {
+//         err = {
+//             errmsg: 'Email is not valid.'
+//         };
+//         return res.status(500).send(err);
+//     };
+//     if (!password_validation(req.body.password)) {
+//         err = {
+//             errmsg: 'Password should be any character 4 ~ 20 length.'
+//         };
+//         return res.status(500).send(err);
+//     };
+//     if (req.body.password !== req.body.password2) {
+//         err = {
+//             errmsg: 'Password must match.'
+//         };
+//         return res.status(500).send(err);
+//     }
+//     var user = new User({
+//         userid: req.body.userid,
+//         email: req.body.email,
+//         password: req.body.password
+//     });
+//     user.save(function(err, u) {
+//         if (err) {
+//             err.status = 500;
+//             return res.status(500).send(err);
+//         }
 
-        var verify = new Verify({
-            user: user
-        });
-        verify.save();
+//         var verify = new Verify({
+//             user: user
+//         });
+//         verify.save();
 
-        // TODO: implement a user email here
-        if (config.useUserEmailVerify === true) {
+//         // TODO: implement a user email here
+//         if (config.useUserEmailVerify === true) {
 
-            transporter.sendMail({
-                from: config.siteEmail,
-                to: user.email,
-                subject: 'Verify your email',
-                text: 'Welcome! ' + user.userid + '. Copy and paste the following link into your browser to verify your email \n\r ' + config.baseUrl + '/auth/verify/' + verify.code
-            });
-        } else {
-            console.log('User ' + user.userid + ' signed up. Verify with /verify/' + verify.code);
-        }
+//             transporter.sendMail({
+//                 from: config.siteEmail,
+//                 to: user.email,
+//                 subject: 'Verify your email',
+//                 text: 'Welcome! ' + user.userid + '. Copy and paste the following link into your browser to verify your email \n\r ' + config.baseUrl + '/auth/verify/' + verify.code
+//             });
+//         } else {
+//             console.log('User ' + user.userid + ' signed up. Verify with /verify/' + verify.code);
+//         }
 
 
-        return res.send({
-            'msg': 'OK'
-        });
-    });
-});
+//         return res.send({
+//             'msg': 'OK'
+//         });
+//     });
+// });
 
 //TODO: page to input the verify code.
 // verify a user
