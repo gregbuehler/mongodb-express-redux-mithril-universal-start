@@ -42,7 +42,8 @@ var post = {
 
                 m.request({
                     method: 'GET',
-                    url: '/api/post/' + m.route.param('id')
+                    // url: '/api/post/' + m.route.param('id')
+                    url: '/post/' + m.route.param('id') + '/api'
                 }).then(function(post) {
 
                     initialState = {

@@ -42,7 +42,8 @@ var blog = module.exports = {
 
                 m.request({
                     method: 'GET',
-                    url: '/api/blog'
+                    // url: '/api/blog'
+                    url: '/blog/api'
                 }).then(function(posts) {
 
                     initialState = {
