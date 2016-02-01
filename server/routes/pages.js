@@ -1,6 +1,6 @@
 var express = require('express'),
     render = require('mithril-node-render'),
-    home = require('../../client/js/pages/Home'),
+    // home = require('../../client/js/pages/Home'),
     login = require('../../client/js/pages/Login'),
     logout = require('../../client/js/pages/Logout'),
     register = require('../../client/js/pages/Register'),
@@ -18,9 +18,9 @@ var express = require('express'),
 var pages = module.exports = express();
 
 //example of sync server-side rendering
-pages.get('/', function(req, res) {
-    sendPage(res, home);
-});
+// pages.get('/', function(req, res) {
+//     sendPage(res, home);
+// });
 
 pages.get('/login', function(req, res) {
     sendPage(res, login);

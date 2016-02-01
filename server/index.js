@@ -66,6 +66,10 @@ app.use('/api', [urlParse, jsonParse], api);
 // app.use('/api', api);
 
 //experiment------------------------------------------------------
+var homePage = require('./pages/home');
+app.use('/', homePage);
+
+//-------------------------------------------------
 var blog = require('./pages/blog');
 var postPage = require('./pages/blog/post');
 app.use('/blog', blog);
