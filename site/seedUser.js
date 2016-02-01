@@ -3,7 +3,8 @@
  * To disable, edit site/config/environment/development.js, and set `config.seedUser = false`
  */
 'use strict';
-var userModel = require('../server/models/User');
+// var userModel = require('../server/models/User');
+var userModel = require('../server/pages/user/userModel');
 
 var seed = function() {
 

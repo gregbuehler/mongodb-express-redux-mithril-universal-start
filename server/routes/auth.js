@@ -8,7 +8,8 @@ var express = require('express'),
     urlParse = bodyParser.urlencoded({
         extended: true
     }),
-    User = require('../models/User.js'),
+    // User = require('../models/User.js'),
+    User = require('../pages/user/userModel'),
     Verify = require('../models/Verify.js'),
     jsonParse = bodyParser.json(),
     config = require('../../site/config'),

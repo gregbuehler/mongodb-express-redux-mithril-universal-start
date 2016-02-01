@@ -85,6 +85,9 @@ var blog = require('./pages/blog');
 var postPage = require('./pages/blog/post');
 app.use('/blog', blog);
 app.use('/post', postPage);
+//-------------------------------------------------
+var userPage = require('./pages/user');
+app.use('/user', userPage);
 //======================================================
 
 if (global.__server__) {

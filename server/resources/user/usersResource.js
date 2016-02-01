@@ -1,4 +1,5 @@
-var User = require('../../models/User');
+// var User = require('../../models/User');
+var User = require('../../user/userModel');
 
 var promise = User.find().sort({
     userid: 1

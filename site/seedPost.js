@@ -6,7 +6,8 @@
 // var postModel = require('../server/models/Post');
 var postModel = require('../server/pages/blog/postModel');
 var mockaroo = require('./mockPost');
-var userModel = require('../server/models/User');
+// var userModel = require('../server/models/User');
+var userModel = require('../server/pages/user/userModel');
 
 var seed = function() {
     // console.log('seedPost10-mockaroo', mockaroo);

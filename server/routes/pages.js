@@ -6,13 +6,13 @@ var express = require('express'),
     // register = require('../../client/js/pages/Register'),
     profile = require('../../client/js/pages/Profile'),
     // verify = require('../../client/js/pages/Verify'),
-    blog = require('../../client/js/pages/blog'),
-    blogResource = require('../resources/blog/blogResource'),
-    postPage = require('../../client/js/pages/blog/post'),
-    postResource = require('../resources/blog/postResource'),
-    usersResource = require('../resources/user/usersResource'),
-    User = require('../models/User.js'),
-    userPage = require('../../client/js/pages/user'),
+    // blog = require('../../client/js/pages/blog'),
+    // blogResource = require('../resources/blog/blogResource'),
+    // postPage = require('../../client/js/pages/blog/post'),
+    // postResource = require('../resources/blog/postResource'),
+    // usersResource = require('../resources/user/usersResource'),
+    // User = require('../models/User.js'),
+    // userPage = require('../../client/js/pages/user'),
     auth = require('./auth');
 
 var pages = module.exports = express();
@@ -39,22 +39,22 @@ var pages = module.exports = express();
 // });
 
 //example of async server-side rendering
-pages.get('/user', [auth.requireToken, auth.authorized], function(req, res) {
-    usersResource.then(function(users) {
+// pages.get('/user', [auth.requireToken, auth.authorized], function(req, res) {
+//     usersResource.then(function(users) {
 
-        var state = {
-            key: req.path,
-            users: users
-        };
-        var ctrl = new userPage.controller();
-        ctrl.state = state;
+//         var state = {
+//             key: req.path,
+//             users: users
+//         };
+//         var ctrl = new userPage.controller();
+//         ctrl.state = state;
 
-        sendPage(res, userPage.view(ctrl), state);
+//         sendPage(res, userPage.view(ctrl), state);
 
-    }, function(err) {
-        res.status(500).send(err)
-    });
-});
+//     }, function(err) {
+//         res.status(500).send(err)
+//     });
+// });
 
 pages.get('/profile', auth.requireToken, function(req, res) {
     User.findOne({}).exec()
