@@ -22,7 +22,6 @@ router.get('/', function(req, res) {
 
 // get JWT token for login credentials
 router.post('/', [urlParse, jsonParse], function(req, res) {
-	console.log('login25-req.body', req.body);
 
     if (!userid_validation(req.body.userid)) {
         var err = {

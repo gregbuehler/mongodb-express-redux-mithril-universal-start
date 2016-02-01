@@ -39,6 +39,10 @@ if (!mongo_url) {
 mongoose.connect(mongo_url);
 
 if (config.seedUser) {
+    //Reset verify DB.
+    require('../site/seedVerify')();
+
+    //Create users.
     require('../site/seedUser')();
     config.seedUser = false;
 }

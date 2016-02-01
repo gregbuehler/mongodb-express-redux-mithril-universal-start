@@ -8,10 +8,11 @@ var express = require('express'),
     urlParse = bodyParser.urlencoded({
         extended: true
     }),
+    jsonParse = bodyParser.json(),
     // User = require('../models/User.js'),
     User = require('../pages/user/userModel'),
-    Verify = require('../models/Verify.js'),
-    jsonParse = bodyParser.json(),
+    // Verify = require('../models/Verify.js'),
+    Verify = require('../pages/verify/verifyModel'),
     config = require('../../site/config'),
     userid_validation = require('../../shared/userid_validation'),
     email_validation = require('../../shared/email_validation'),
@@ -245,38 +246,38 @@ auth.authorized = function(req, res, next) {
 //         });
 // });
 
-auth.get('/verify/:code', [urlParse, jsonParse], function(req, res) {
+// auth.get('/verify/:code', [urlParse, jsonParse], function(req, res) {
 
-    Verify.findOne({
-            code: req.params.code
-        })
-        .exec()
-        .then(function(verify) {
-            if (!verify) {
-                return res.status(500).send({
-                    status: 500,
-                    errmsg: 'Code not found.'
-                });
-            }
-            User.findOneAndUpdate({
-                    _id: verify.user
-                }, {
-                    verified: true
-                }).exec()
-                .then(function(user) {
-                    verify.remove();
-                    // return res.send({
-                    //     'msg': 'OK'
-                    // });
-                    // res.sendFile(path.join(buildDir, 'index.html'));
-                    res.redirect('/login');
-                }, function(err) {
-                    return res.status(500).send(err);
-                });
-        }, function(err) {
-            return res.status(500).send(err);
-        });
-});
+//     Verify.findOne({
+//             code: req.params.code
+//         })
+//         .exec()
+//         .then(function(verify) {
+//             if (!verify) {
+//                 return res.status(500).send({
+//                     status: 500,
+//                     errmsg: 'Code not found.'
+//                 });
+//             }
+//             User.findOneAndUpdate({
+//                     _id: verify.user
+//                 }, {
+//                     verified: true
+//                 }).exec()
+//                 .then(function(user) {
+//                     verify.remove();
+//                     // return res.send({
+//                     //     'msg': 'OK'
+//                     // });
+//                     // res.sendFile(path.join(buildDir, 'index.html'));
+//                     res.redirect('/login');
+//                 }, function(err) {
+//                     return res.status(500).send(err);
+//                 });
+//         }, function(err) {
+//             return res.status(500).send(err);
+//         });
+// });
 
 // get user info
 auth.get('/user', auth.requireToken, function(req, res) {

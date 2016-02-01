@@ -5,13 +5,14 @@ var express = require('express'),
     urlParse = bodyParser.urlencoded({
         extended: true
     }),
-    User = require('../pages/user/userModel'),
     jsonParse = bodyParser.json(),
+    User = require('../pages/user/userModel'),
     userid_validation = require('../../shared/userid_validation'),
     email_validation = require('../../shared/email_validation'),
     password_validation = require('../../shared/password_validation'),
     config = require('../../site/config'),
-    Verify = require('../models/Verify.js');
+    // Verify = require('../models/Verify.js');
+    Verify = require('../pages/verify/verifyModel');
 
 if (config.useUserEmailVerify === true) {
     var nodemailer = require('nodemailer');
@@ -82,7 +83,6 @@ router.post('/', [urlParse, jsonParse], function(req, res) {
         } else {
             console.log('User ' + user.userid + ' signed up. Verify with /verify/' + verify.code);
         }
-
 
         return res.send({
             'msg': 'OK'
