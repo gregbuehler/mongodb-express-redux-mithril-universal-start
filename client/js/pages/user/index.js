@@ -142,7 +142,7 @@ var users = module.exports = {
                     window.__store__[key].dispatch(usersReducer.updateUser(user))
 
                 } else {
-                    
+
                     //create
                     user.id = uuid();
                     window.__store__[key].dispatch(usersReducer.createUser(user))
@@ -183,60 +183,61 @@ var users = module.exports = {
         return [
             m.component(Navbar),
             m('.container', m('.col-md-12', [
-                    m('h1', ['User', m('.pull-right',
-                        m('button.btn.btn-success', {
-                            onclick: ctrl.create.bind(this)
-                        }, 'new'))]),
+                m('h1', ['User', m('.pull-right', !(ctrl.isCreateUser) ?
+                    m('button.btn.btn-success', {
+                        onclick: ctrl.create.bind(this)
+                    }, 'new') : m('button.btn.btn-default', {
+                        onclick: ctrl.cancel.bind(this)
+                    }, 'cancel'))]),
 
-                    [m('', [
+                [m('', [
+                        m("h4", [
+                            m("span.col-sm-2", m('strong', 'userid')),
+                            m("span.col-sm-2", m('strong', 'password')),
+                            m("span.col-sm-3", m('strong', 'email')),
+                            m("span.col-sm-1", m('strong', 'verified')),
+                            m("span.col-sm-2", m('strong', 'role')),
+                        ]),
+                        m('p'),
+                        m('hr', {
+                            style: "width:100%"
+                        })
+                    ]),
+                    ctrl.isCreateUser ?
+                    m.component(userForm, {
+                        userCopied: ctrl.userCopied,
+                        save: ctrl.save,
+                        remove: ctrl.remove,
+                        cancel: ctrl.cancel
+                    }) : null,
+                    ctrl.state.users.map(function(user) {
+                        return !user.isEdit ? m('', [
                             m("h4", [
-                                m("span.col-sm-2", m('strong', 'userid')),
-                                m("span.col-sm-2", m('strong', 'password')),
-                                m("span.col-sm-3", m('strong', 'email')),
-                                m("span.col-sm-1", m('strong', 'verified')),
-                                m("span.col-sm-2", m('strong', 'role')),
+                                m("span.col-sm-2", user.userid),
+                                m("span.col-sm-2", user.password || null),
+                                m("span.col-sm-3", user.email),
+                                m("span.col-sm-1", user.verified),
+                                m("span.col-sm-2", user.role),
+                                m('.pull-right', [m('span.label.label-default', {
+                                    onclick: ctrl.edit.bind(this, user)
+                                }, 'edit'), m('span.label.label-danger', {
+                                    onclick: ctrl.remove.bind(this, user)
+                                }, 'delete')])
                             ]),
                             m('p'),
+                            m('br'),
                             m('hr', {
-                                style: "width:100%"
+                                style: "width:100%;margin-top:10px"
                             })
-                        ]),
-                        ctrl.isCreateUser ?
-                        m.component(userForm, {
+                        ]) : m.component(userForm, {
                             userCopied: ctrl.userCopied,
                             save: ctrl.save,
                             remove: ctrl.remove,
                             cancel: ctrl.cancel
-                        }) : null,
-                        ctrl.state.users.map(function(user) {
-                            return !user.isEdit ? m('', [
-                                m("h4", [
-                                    m("span.col-sm-2", user.userid),
-                                    m("span.col-sm-2", user.password || null),
-                                    m("span.col-sm-3", user.email),
-                                    m("span.col-sm-1", user.verified),
-                                    m("span.col-sm-2", user.role),
-                                    m('.pull-right', [m('span.label.label-default', {
-                                        onclick: ctrl.edit.bind(this, user)
-                                    }, 'edit'), m('span.label.label-danger', {
-                                        onclick: ctrl.remove.bind(this, user)
-                                    }, 'delete')])
-                                ]),
-                                m('p'),
-                                m('br'),
-                                m('hr', {
-                                    style: "width:100%;margin-top:10px"
-                                })
-                            ]) : m.component(userForm, {
-                                userCopied: ctrl.userCopied,
-                                save: ctrl.save,
-                                remove: ctrl.remove,
-                                cancel: ctrl.cancel
-                            });
-                        })
-                    ]
-                ])
-            )
+                        });
+                    })
+                ]
+            ]))
         ]
     }
 };
