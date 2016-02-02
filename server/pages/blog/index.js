@@ -1,6 +1,5 @@
 var express = require('express'),
     blog = require('../../../client/js/pages/blog'),
-    // postsResource = require('../../resources/blog/postsResource'),
     postsResource = require('./postsResource'),
     sendPage = require('../../utils/sendPage');
 
@@ -9,7 +8,7 @@ var router = module.exports = express.Router();
 // base route '/blog'
 router.get('/', function(req, res) {
 
-    postsResource.then(function(posts) {
+    postsResource().then(function(posts) {
 
         var state = {
             key: req.path,
@@ -27,7 +26,7 @@ router.get('/', function(req, res) {
 
 router.get('/api', function(req, res) {
 
-    postsResource.then(function(posts) {
+    postsResource().then(function(posts) {
         if (posts) {
             res.json(posts);
         } else {
