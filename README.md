@@ -3,7 +3,7 @@
 ## Project
 - This project is to demonstrate the server-side rendering ( aka universal ) of Single Page Application using mithril.
 
-- Server-side rendering is done by mithril-node-render ( StephanHoyer, [https://github.com/StephanHoyer/mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ). 
+- Server-side rendering is done by mithril-node-render ( [StephanHoyer, mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ). 
 
 - Client-side controllers and views are directly used for Server-side rendering. 
 
@@ -68,3 +68,5 @@ If so, remove the comment line of the style you want to use.
 ## TODO
 1. blog and User pagination.
 2. markdown format for blog. 
+3. test
+4. build
