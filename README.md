@@ -34,20 +34,26 @@
 
 ## requirement
 -   MongoDB is required.
+-   Change site/config as required for your needs.
+-   ( site directory has seed data. Change these as you wish.)
 
 ## setup for production 
 -  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip) or
 -  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
 -  `npm install`
 -  `npm start`
--  `go to` [http://localhost:3000](http://localhost:3000)
+-  `go to` [http://localhost:3000/login](http://localhost:3000/login)
+-  login using id: 'admin' and password: 'admin'
+-  [change admin id and password](http://localhost:3000/user)  
 
 ## setup for development with browsersync and nodemon  
 -  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip) or
 -  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
 -  `npm install`
 -  `npm run dev`
--  `go to` [http://localhost:3001](http://localhost:3001)
+-  `go to` [http://localhost:3001/login](http://localhost:3001/login)
+-  login using id: 'admin' and password: 'admin'
+-  [change admin id and password](http://localhost:3001/user)  
 
 ## configuration
 
