@@ -1,9 +1,15 @@
 var express = require('express'),
-    userPage = require('../../../client/js/pages/user'),
+    User = require('./userModel'),
     usersResource = require('./usersResource'),
+    userPage = require('../../../client/js/pages/user'),
     usersReducer = require('../../../client/js/pages/user/usersReducer'),
     sendPage = require('../../utils/sendPage'),
-    auth = require('../../utils/auth');
+    auth = require('../../utils/auth'),
+    bodyParser = require('body-parser'),
+    urlParse = bodyParser.urlencoded({
+        extended: true
+    }),
+    jsonParse = bodyParser.json();
 
 var router = module.exports = express.Router();
 
@@ -41,11 +47,11 @@ router.get('/api', [auth.requireToken, auth.authorized], function(req, res) {
 })
 
 
-router.post('/', [auth.requireToken, auth.authorized], function(req, res) {
+router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse ], function(req, res) {
     if (req.body.action) {
 
         var action = req.body.action;
-        var types = userReducer.types;
+        var types = usersReducer.types;
 
         switch (action.type) {
 
@@ -109,4 +115,3 @@ router.post('/', [auth.requireToken, auth.authorized], function(req, res) {
         })
     }
 })
-

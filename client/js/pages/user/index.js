@@ -39,7 +39,8 @@ var users = module.exports = {
 
                 Auth.req({
                     method: 'GET',
-                    url: '/api/user'
+                    // url: '/api/user'
+                    url: '/user/api'
                 }).then(function(users) {
 
                     initialState = {
@@ -122,7 +123,6 @@ var users = module.exports = {
                 if (!Auth.authorized()) {
                     return;
                 };
-                console.log('index117-ctrl.user', ctrl.user);
 
                 // reset the previous user
                 if (ctrl.user) {
@@ -137,12 +137,12 @@ var users = module.exports = {
                 delete user.isEdit;
 
                 if (user.id) {
-                    console.log('index127-update');
+
                     //update
                     window.__store__[key].dispatch(usersReducer.updateUser(user))
 
                 } else {
-                    console.log('index132-create');
+                    
                     //create
                     user.id = uuid();
                     window.__store__[key].dispatch(usersReducer.createUser(user))
@@ -152,7 +152,6 @@ var users = module.exports = {
             }
 
             ctrl.remove = function(user) {
-                console.log('index122-user', user);
 
                 if (!Auth.authorized()) {
                     return;
@@ -164,7 +163,6 @@ var users = module.exports = {
 
                     //remove user from state
                     window.__store__[key].dispatch(usersReducer.removeUser(userId))
-                    console.log('index135-key', key);
                     m.route(key);
                 }
             }

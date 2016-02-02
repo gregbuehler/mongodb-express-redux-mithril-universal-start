@@ -9,14 +9,12 @@ var postForm = {
 
         return m('', [
             m("h2", [
-                // m("span", 'Author: ' + post.author ? post.author.userid : null),
-                m("span", 'Author: ' + post.author.userid),
+                m("span", 'Author: ' + post.author ? post.author.userid : null),
                 " - ",
                 m("span", formatDate(post.created)),
                 m('.pull-right', [
                     m('span.label.label-default', {
-                        // onclick: arg.save.bind(this)
-                        onclick: arg.save
+                        onclick: arg.save.bind(this)
                     }, 'save'),
                     m('span.label.label-default', {
                         onclick: arg.cancel.bind(this)
