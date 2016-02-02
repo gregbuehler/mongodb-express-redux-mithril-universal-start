@@ -18,7 +18,7 @@ var Profile = module.exports = {
 
             } else {
 
-                Auth.req('/api/profile').then(function(user) {
+                Auth.req('/profile/api').then(function(user) {
                     ctrl.state = {
                         key: key,
                         user: user
