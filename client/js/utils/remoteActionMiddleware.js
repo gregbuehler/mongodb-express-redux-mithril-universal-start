@@ -19,11 +19,11 @@ var middleware = function(modelName) {
                             action: action
                         },
                         unwrapSuccess: function(result) {
-                            console.log('middleware21-result', result);
+                            // console.log('middleware21-result', result);
                             return next(action);
                         },
                         unwrapError: function(err) {
-                            console.log('middleware25-err', err);
+                            // console.log('middleware25-err', err);
                             return;
                         }
                     });

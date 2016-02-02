@@ -160,8 +160,7 @@ var blog = module.exports = {
                             }, post.title)),
                             m('p', post.summary),
                             m("h5", [
-                                // m("span", post.author ? post.author.userid : 'unknown'),
-                                m("span", post.author.userid),
+                                m("span", post.author ? post.author.userid : 'unknown'),
                                 " - ",
                                 m("span", formatDate(post.created)),
                             ]),

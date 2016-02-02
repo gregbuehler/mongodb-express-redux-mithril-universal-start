@@ -109,7 +109,6 @@ var post = {
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
 
-                console.log('client/post106-post', post);
                 if (post.id) {
 
                     //update
@@ -202,8 +201,7 @@ var post = {
                     m('', [
                         m('h1', m('div', post.title)),
                         m("h3", [
-                            // m("span", post.author ? post.author.userid : null),
-                            m("span", post.author.userid),
+                            m("span", post.author ? post.author.userid : null),
                             " - ",
                             m("span", formatDate(post.created)),
                             m('.pull-right', [m('span.label.label-default', {
