@@ -31,15 +31,16 @@ config.mongo = {
 
 // config.seedUser = true;
 // config.seedPost = true;
+config.useOnlyAdminCanPost = true;
 config.useUserEmailVerify = true;
 config.useServerRender = true;
-config.useClientRender = true;
+config.useClientRender = true; //if commented out, only server-side rendering is used.
 // config.useBrowsersync = true; //for development purpose only
 config.useBlog = true;
-config.siteEmail = 'your-email@gmail.com';
-config.userid_regex = /^[a-z][a-z0-9]{3,19}$/i;
+config.siteEmail = 'sharelinky@gmail.com';
+config.userid_regex = /^[a-z][a-z0-9]{3,19}$/i;// 4~20 alphanumeric. Starting with alphabet. All lowercase.
 config.email_regex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-config.password_regex = /^[a-zA-Z0-9!@#\$%\^&\*\(\)_\+\|\{\}:"<>\?\-=\\\[\];',\.\/]{4,20}$/;
+config.password_regex = /^[a-zA-Z0-9!@#\$%\^&\*\(\)_\+\|\{\}:"<>\?\-=\\\[\];',\.\/]{4,20}$/;//4~20 any characters. Case-sensitive.
 
 
 

@@ -3,17 +3,9 @@
  */
 
 var express = require('express'),
-    JWT = require('jwt-async');
+    jwt = require('./jwt');
 
 var auth = module.exports = express();
-
-var jwt = new JWT({
-    crypto: {
-        algorithm: 'HS512',
-        secret: process.env.TOKEN_SECRET || "NOT A SECRET AT ALL, YOU SHOULD TOTES CHANGE IT"
-    }
-});
-
 
 // require an auth-token middleware
 auth.requireToken = function(req, res, next) {
