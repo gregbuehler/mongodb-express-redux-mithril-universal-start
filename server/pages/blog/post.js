@@ -1,10 +1,15 @@
 var express = require('express'),
     postPage = require('../../../client/js/pages/blog/post'),
-    // postResource = require('../../resources/blog/postResource'),
     postResource = require('./postResource'),
-    sendPage = require('../../utils/sendPage'),
+    postReducer = require('../../../client/js/pages/blog/postReducer'),
     Post = require('./postModel'),
-    auth = require('../../utils/auth');
+    sendPage = require('../../utils/sendPage'),
+    auth = require('../../utils/auth'),
+    bodyParser = require('body-parser'),
+    urlParse = bodyParser.urlencoded({
+        extended: true
+    }),
+    jsonParse = bodyParser.json();
 
 var router = module.exports = express.Router();
 
@@ -43,7 +48,8 @@ router.get('/:id/api', function(req, res) {
     });
 })
 
-router.post('/', [auth.requireToken, auth.authorized], function(req, res) {
+router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse], function(req, res) {
+
     if (req.body.action) {
 
         var action = req.body.action;
@@ -53,7 +59,6 @@ router.post('/', [auth.requireToken, auth.authorized], function(req, res) {
 
             case types.CREATE:
 
-                
                 action.post.author = req.user._id;
 
                 Post.create(action.post, function(err, result) {
@@ -61,6 +66,7 @@ router.post('/', [auth.requireToken, auth.authorized], function(req, res) {
                     res.status(200).send(result);
                 })
                 break;
+                
             case types.UPDATE:
                 Post.update({
                     id: action.post.id

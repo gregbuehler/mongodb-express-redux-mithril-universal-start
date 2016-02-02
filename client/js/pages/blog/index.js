@@ -27,7 +27,6 @@ var blog = module.exports = {
             var initialState;
 
             if (window.__state__[key]) {
-                console.log('from window');
 
                 initialState = window.__state__[key];
 
@@ -38,7 +37,6 @@ var blog = module.exports = {
                 window.__state__[key] = null;
 
             } else if (!window.__store__[key]) {
-                console.log('from server');
 
                 m.request({
                     method: 'GET',
@@ -57,8 +55,6 @@ var blog = module.exports = {
 
                 })
             } else {
-                console.log('from store');
-
                 ctrl.state = window.__store__[key].getState();
             };
 
@@ -102,15 +98,15 @@ var blog = module.exports = {
                 if (post.id) {
 
                     //update
-                    window.__store__[key].dispatch(postsReducer.updatePost(post))
+                    window.__store__[key].dispatch(postsReducer.updatePost(post));
 
                 } else {
 
                     //create
                     post.id = uuid();
-                    post.created = new Date().toISOString();
-                    console.log(post.created);
-                    window.__store__[key].dispatch(postsReducer.createPost(post))
+                    post.created = new Date();
+
+                    window.__store__[key].dispatch(postsReducer.createPost(post));
 
                 }
                 ctrl.state = window.__store__[key].getState();
@@ -146,7 +142,7 @@ var blog = module.exports = {
     },
 
     view: function(ctrl) {
-        return m('',[
+        return m('', [
             m.component(Navbar),
             m('.container', m('.col-md-12', [
                     m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?

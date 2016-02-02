@@ -13,7 +13,8 @@ var middleware = function(modelName) {
 
                     Auth.req({
                         method: 'POST',
-                        url: '/api/' + modelName,
+                        // url: '/api/' + modelName,
+                        url: '/' + modelName,
                         data: {
                             action: action
                         },
@@ -34,4 +35,3 @@ var middleware = function(modelName) {
 }
 
 module.exports = middleware;
-

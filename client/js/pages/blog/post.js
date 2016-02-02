@@ -75,6 +75,7 @@ var post = {
             }
 
             ctrl.cancel = function() {
+
                 if (!Auth.authorized()) {
                     return;
                 };
@@ -99,7 +100,7 @@ var post = {
                 ctrl.postCopied = JSON.parse(JSON.stringify(ctrl.post));
             }
 
-            ctrl.save = function() {
+            ctrl.save = function(e) {
 
                 if (!Auth.authorized()) {
                     return;
@@ -107,6 +108,8 @@ var post = {
 
                 ctrl.isEdit = false;
                 var post = ctrl.postCopied;
+
+                console.log('client/post106-post', post);
                 if (post.id) {
 
                     //update
@@ -114,20 +117,26 @@ var post = {
 
                     //also remove post from the post list state
                     // TODO: this should be blog key
-                    if (window.__store__['/blog']) {
-                        window.__store__['/blog'].dispatch(postsReducer.updatePost(post));
-                    }
+                    // if (window.__store__['/blog']) {
+                    //     window.__store__['/blog'].dispatch(postsReducer.updatePost(post));
+                    // }
+                    //Make the store invalid 
+                    window.__store__['/blog'] = null;
+
                 } else {
 
                     //create
                     post.id = uuid();
+                    post.created = new Date();
                     window.__store__[key].dispatch(postReducer.createPost(post));
 
                     //also remove post from the post list state
                     // TODO: this should be blog key
-                    if (window.__store__['/blog']) {
-                        window.__store__['/blog'].dispatch(postsReducer.createPost(post));
-                    }
+                    // if (window.__store__['/blog']) {
+                    //     window.__store__['/blog'].dispatch(postsReducer.createPost(post));
+                    // }
+                    //Make the store invalid 
+                    window.__store__['/blog'] = null;
                 }
                 ctrl.state = window.__store__[key].getState();
             }
@@ -148,9 +157,11 @@ var post = {
 
                     //also remove post from the post list state
                     // TODO: this should be blog key
-                    if (window.__store__['/blog']) {
-                        window.__store__['/blog'].dispatch(postsReducer.removePost(postId));
-                    }
+                    // if (window.__store__['/blog']) {
+                    //     window.__store__['/blog'].dispatch(postsReducer.removePost(postId));
+                    // }
+                    //Make the store invalid 
+                    window.__store__['/blog'] = null;
                     m.route('/blog')
                 }
             }

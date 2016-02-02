@@ -15,7 +15,8 @@ var postForm = {
                 m("span", formatDate(post.created)),
                 m('.pull-right', [
                     m('span.label.label-default', {
-                        onclick: arg.save.bind(this)
+                        // onclick: arg.save.bind(this)
+                        onclick: arg.save
                     }, 'save'),
                     m('span.label.label-default', {
                         onclick: arg.cancel.bind(this)
