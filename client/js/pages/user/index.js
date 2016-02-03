@@ -1,5 +1,7 @@
 var m = require('mithril'),
+    config = require('../../../../site/config'),
     Navbar = require('../../components/Navbar.js'),
+    Paginator = require('../../components/Paginator'),
     redux = require('redux'),
     usersReducer = require('./usersReducer'),
     uuid = require('../../../../shared/uuid'),
@@ -14,9 +16,9 @@ var users = module.exports = {
 
         if (!global.__server__) {
 
-            var baseRoute = 'users';
+            var actionRoute = '/users';
             const createStoreWithMiddleware = redux.applyMiddleware(
-                remoteActionMiddleware(baseRoute)
+                remoteActionMiddleware(actionRoute)
             )(redux.createStore);
 
             window.__state__ = window.__state__ || {};
@@ -232,6 +234,12 @@ var users = module.exports = {
                             remove: ctrl.remove,
                             cancel: ctrl.cancel
                         });
+                    }),
+                    m.component(Paginator, {
+                        count: ctrl.state.count,
+                        perPage: config.usersPerPage,
+                        page: ctrl.state.page,
+                        baseRoute: ctrl.state.baseRoute
                     })
                 ]
             ]))

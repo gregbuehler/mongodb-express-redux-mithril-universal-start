@@ -10,7 +10,8 @@ m.route(document.getElementById('root'), "/", {
   "/verify/:code": require('./pages/Verify.js'),
   "/profile": require('./pages/Profile.js'),
   "/blog": require('./pages/blog'),
-  "/blog/:pagenum": require('./pages/blog'),
+  "/blog/:page": require('./pages/blog'),
   "/post/:id": require('./pages/blog/post'),
-  "/users": require('./pages/user')
+  "/users": require('./pages/user'),
+  "/users/:page": require('./pages/user')
 });
