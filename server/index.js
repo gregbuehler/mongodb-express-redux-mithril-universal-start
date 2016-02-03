@@ -51,8 +51,7 @@ if (config.seedPost) {
     config.seedPost = false;
 }
 // use models after potential mockgoose
-// var auth = require('./routes/auth');
-var auth = require('./utils/auth');
+// var auth = require('./utils/auth');
 
 // serve up CSS from LESS. this is efficiently cached.
 app.use(lessMiddleware(pubDir, {
@@ -65,7 +64,7 @@ app.use(lessMiddleware(pubDir, {
 app.use(express.static(pubDir));
 
 // keep all auth-related routes at /auth/whatevs
-app.use('/auth', auth);
+// app.use('/auth', auth);
 
 // app.use('/api', [urlParse, jsonParse], api);
 

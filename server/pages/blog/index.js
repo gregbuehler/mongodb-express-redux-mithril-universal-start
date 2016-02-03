@@ -40,3 +40,38 @@ router.get('/api', function(req, res) {
     });
 });
 
+router.get('/:pagenum', function(req, res) {
+
+    postsResource(req.params.pagenum).then(function(posts) {
+
+        var state = {
+            key: req.path,
+            posts: posts,
+            pagenum: req.params.pagenum
+        };
+        var ctrl = new blog.controller();
+        ctrl.state = state;
+
+        sendPage(res, blog.view(ctrl), state);
+
+    }, function(err) {
+        res.status(500).send(err)
+    });
+});
+
+router.get('/:pagenum/api', function(req, res) {
+
+    postsResource(req.params.pagenum).then(function(posts) {
+        if (posts) {
+            res.json(posts);
+        } else {
+            return res.status(401).send({
+                status: 401,
+                errmsg: 'Post not found.'
+            });
+        }
+    }, function(err) {
+        return res.status(500).send(err);
+    });
+});
+

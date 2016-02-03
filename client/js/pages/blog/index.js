@@ -1,5 +1,6 @@
 var m = require('mithril'),
-    Navbar = require('../../components/Navbar.js'),
+    Navbar = require('../../components/Navbar'),
+    Pagination = require('../../components/Pagination'),
     redux = require('redux'),
     postsReducer = require('./postsReducer'),
     uuid = require('../../../../shared/uuid'),
@@ -40,7 +41,6 @@ var blog = module.exports = {
 
                 m.request({
                     method: 'GET',
-                    // url: '/api/blog'
                     url: '/blog/api'
                 }).then(function(posts) {
 
@@ -149,24 +149,25 @@ var blog = module.exports = {
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
                         }, 'new') : null)]),
+                    !ctrl.isEdit ? [
+                        ctrl.state.posts.map(function(post) {
+                            return m('', [
 
-                    !ctrl.isEdit ?
-                    ctrl.state.posts.map(function(post) {
-                        return m('', [
-
-                            m('h1', m('a', {
-                                href: '/post/' + post.id,
-                                config: m.route
-                            }, post.title)),
-                            m('p', post.summary),
-                            m("h5", [
-                                m("span", post.author ? post.author.userid : 'unknown'),
-                                " - ",
-                                m("span", formatDate(post.created)),
-                            ]),
-                            m('hr')
-                        ]);
-                    })
+                                m('h1', m('a', {
+                                    href: '/post/' + post.id,
+                                    config: m.route
+                                }, post.title)),
+                                m('p', post.summary),
+                                m("h5", [
+                                    m("span", post.author ? post.author.userid : 'unknown'),
+                                    " - ",
+                                    m("span", formatDate(post.created)),
+                                ]),
+                                m('hr')
+                            ]);
+                        }),
+                        m.component(Pagination)
+                    ]
 
                     : m.component(postForm, {
                         postCopied: ctrl.postCopied,

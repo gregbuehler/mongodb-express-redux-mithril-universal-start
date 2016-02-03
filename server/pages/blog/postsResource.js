@@ -1,29 +1,16 @@
 var Post = require('./postModel'),
     config = require('../../../site/config');
 
+var pageSize = config.blogPageSize;
+
 var resource = function(pageNum) {
 
-    var promise = Post.find().sort({
+    var promise = Post.find().select('-_id id title summary created author').limit(pageSize).skip(pageNum*pageSize).sort({
         created: -1
-    }).limit(10).select('-_id id title summary created author').populate('author', 'userid');
+    }).populate('author', 'userid');
 
     return promise;
 }
 
 module.exports = resource;
 
-
-//-------
-// var Post = require('./postModel');
-
-
-// var resource = function(id) {
-
-//     var promise = Post.findOne({
-//         id: id
-//     }).select('-_id id title summary content created author').populate('author', 'userid');
-
-//     return promise;
-
-// }
-// module.exports = resource;
