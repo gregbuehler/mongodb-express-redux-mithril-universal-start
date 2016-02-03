@@ -2,8 +2,18 @@ var m = require('mithril');
 
 /* Module */
 
+/**
+ *var defaultOptions = 
+ *{
+ *   perPage: 10,
+ *   page: 1,
+ *   data: Array,
+ *   limit: 10 // Page number limit when should ellipsis text be display
+ *   ellipsis: '&hellip;',
+ *   edges: 2 // Number of pages before and after the current page
+ *}
+ */
 var mpaginate = (function(app) {
-
     var defaultOptions = {
         perPage: 10,
         page: 1,
@@ -34,7 +44,6 @@ var mpaginate = (function(app) {
      */
     app.controller = function(options) {
 
-// console.log('paginate37-options', options);
 
         /* Extend options */
 
@@ -43,17 +52,12 @@ var mpaginate = (function(app) {
         this.perPage = (this.options.perPage)
 
         this.page = (this.options.page - 1);
-
-// console.log('paginate47-this.options', this.options);
-
-        /* Items */
-
-        // this.items = m.prop(this.options.data || []);
+        
+        this.baseRoute = this.options.baseRoute;
 
         /* Total pages */
 
-        this.totalPages = (Math.ceil(this.options.count/ this.perPage))
-// console.log('paginate55-this.totalPages', this.totalPages);
+        this.totalPages = (Math.ceil(this.options.count / this.perPage))
 
         /**
          * Page list
@@ -80,7 +84,6 @@ var mpaginate = (function(app) {
                     if (i <= right && i >= left) p.push(i)
                 }
             }
-// console.log('84-p', p);
             return p;
 
         }.bind(this)
@@ -101,7 +104,9 @@ var mpaginate = (function(app) {
                 current = (this.totalPages - 1);
             }
 
-            this.page = (current)
+            this.page = current;
+
+            m.route(this.options.baseRoute + '/' + (current + 1));
 
         }.bind(this)
 
@@ -119,8 +124,9 @@ var mpaginate = (function(app) {
                 current = 0;
             }
 
-            this.page = (current)
+            this.page = current
 
+            m.route(this.options.baseRoute + (current === 0 ? '' : '/' + (current + 1)));
 
         }.bind(this)
 
@@ -129,29 +135,20 @@ var mpaginate = (function(app) {
          * Change perPage
          */
 
-        this.changePerPage = function(value) {
+        // this.changePerPage = function(value) {
+        //     console.log('change');
+        //     this.perPage = (value)
 
-            this.perPage = (value)
+        //     /* Recalculate total pages */
 
-            /* Recalculate total pages */
+        //     this.totalPages = (Math.ceil(this.options.count / this.perPage))
 
-            this.totalPages = (Math.ceil(this.options.count / this.perPage))
+        //     /* Jump to page 1 */
 
-            /* Jump to page 1 */
+        //     this.page = 0;
+        //     m.route(this.options.baseRoute);
 
-            this.page = (0);
-
-        }.bind(this)
-
-        //phs
-        this.setPage = function(value){
-        	console.log('paginate148-value', value);
-        	this.page = value;
-        }
-
-        this.changePage = function(e){
-        	console.log('pagenate153-e', e);
-        }
+        // }.bind(this)
     }
 
     /**
@@ -160,18 +157,12 @@ var mpaginate = (function(app) {
      */
     app.view = function(ctrl) {
         return [
-            // m('ul.items', [
-            //     ctrl.items()
-            //     .slice(ctrl.page() * ctrl.perPage(), (parseInt(ctrl.page()) + 1) * ctrl.perPage())
-            //     .map(function(item) {
-            //         return m('li', item.name)
-            //     })
-            // ]),
 
             m('nav.text-center', m('ul.pagination', [
-                m('li', m('a', {
+                m('li', {
+                    className: ctrl.page == 0 ? 'disabled' : ''
+                }, m('a', {
                     onclick: ctrl.prevPage,
-                    class: ctrl.page == 0 ? 'disabled' : ''
                 }, '<<')),
                 ctrl.pageList().map(function(page) {
 
@@ -182,39 +173,36 @@ var mpaginate = (function(app) {
                             break;
 
                         default:
-                            return m('li', m('a', {
-                                // onclick: m.withAttr('data-page', ctrl.page),
-                                // onclick: function(){ m.withAttr('data-page', ctrl.setPage)},
-                                // href: '/blog/' + (page +1) + '/api',
-                                href: '/blog/' + (page +1),
+                            return m('li', {
+                                className: page === (ctrl.page) ? 'active' : ''
+                            }, m('a', {
+                                href: page === 0 ? ctrl.baseRoute : ctrl.baseRoute + '/' + (page + 1),
                                 config: m.route,
-                                // onclick: ctrl.changePage,
-                                'data-page': page,
-                                className: page == ctrl.page ? 'page-current' : ''
-                            }, parseInt(page) + 1));
+                            }, page + 1));
                             break;
 
                     }
 
                 }),
-                m('li', m('a', {
+                m('li', {
+                    className: ctrl.page == (ctrl.totalPages - 1) ? 'disabled' : ''
+                }, m('a', {
                     onclick: ctrl.nextPage,
-                    class: ctrl.page == (ctrl.totalPages - 1) ? 'disabled' : ''
                 }, '>>')),
             ])),
-            m('.text-center',
-                m('label.label-success', {
-                    style: 'padding:1px 4px 1px 4px;color:white'
-                }, 'Per page: '),
-                m('select', {
-                    onchange: function(e){ctrl.changePerPage = e.target.value;}
-                }, [
-                    m('option', 5),
-                    m('option', 10),
-                    m('option', 15)
-                ])),
-            m('br'),
-            m('br'),
+            // m('.text-center',
+            //     m('label.label-success', {
+            //         style: 'padding:1px 4px 1px 4px;color:white'
+            //     }, 'Per page: '),
+            //     m('select', {
+            //         onchange: ctrl.changePerPage
+            //     }, [
+            //         m('option', 5),
+            //         m('option', 10),
+            //         m('option', 15)
+            //     ])),
+            // m('br'),
+            // m('br'),
         ]
 
     }

@@ -1,4 +1,5 @@
 var m = require('mithril'),
+    config = require('../../../../site/config'),
     Navbar = require('../../components/Navbar'),
     Paginator = require('../../components/Paginator'),
     redux = require('redux'),
@@ -25,7 +26,6 @@ var blog = module.exports = {
             window.__store__ = window.__store__ || {};
 
             var key = m.route();
-            console.log('index28-key', key);
             var initialState;
 
             if (window.__state__[key]) {
@@ -46,11 +46,6 @@ var blog = module.exports = {
                     url: key + '/api'
                 }).then(function(result) {
 
-                    // initialState = {
-                    //     key: key,
-                    //     posts: posts
-                    // };
-                    console.log('index51-result', result);
                     initialState = result;
 
                     window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
@@ -171,7 +166,9 @@ var blog = module.exports = {
                         }),
                         m.component(Paginator, {
                             count: ctrl.state.count,
-                            pagenum: ctrl.state.pagenum
+                            perPage: config.blogPerPage,
+                            page: ctrl.state.page,
+                            baseRoute: ctrl.state.baseRoute
                         })
                     ]
 

@@ -1,28 +1,31 @@
 var m = require('mithril');
 var mpaginate = require('../../../shared/mithril.paginate.modified');
 
-// Mock some data
-// var items = [];
-// for (var i = 0; i < 105; i++) {
-//     items.push({
-//         'name': 'Item #' + i
-//     })
-// }
 
 /**
- * Your Module
+ *var defaultOptions = 
+ *{
+ *   perPage: 10,
+ *   page: 1,
+ *   data: Array,
+ *   limit: 10 // Page number limit when should ellipsis text be display
+ *   ellipsis: '&hellip;',
+ *   edges: 2 // Number of pages before and after the current page
+ *}
  */
 
-var app = {},
-    options = {
-        perPage: 3,
-        // data: items
-    };
+// var app = {},
+//     options = {};
+
+var app = {};
+
 /* Controller */
 app.controller = function(arg) {
-        // console.log('Paginator24', arg);
-        options.count = arg.count;
-        options.pagenum = arg.pagenum;
+        // options.count = arg.count;
+        // options.page = arg.page;
+        // options.perPage = arg.perPage;
+        // options.baseRoute = arg.baseRoute;
+        var options = arg;
 
         this.paginate = new mpaginate.controller(options)
 
@@ -35,10 +38,4 @@ app.view = function(ctrl, arg) {
 }
 module.exports = app;
 
-    // var defaultOptions = {
-    //     perPage: 10,
-    //     page: 1,
-    //     limit: 10,
-    //     ellipsis: '&hellip;',
-    //     edges: 2
-    // }
+
