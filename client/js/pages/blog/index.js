@@ -1,6 +1,6 @@
 var m = require('mithril'),
     Navbar = require('../../components/Navbar'),
-    Pagination = require('../../components/Pagination'),
+    Paginator = require('../../components/Paginator'),
     redux = require('redux'),
     postsReducer = require('./postsReducer'),
     uuid = require('../../../../shared/uuid'),
@@ -166,7 +166,7 @@ var blog = module.exports = {
                                 m('hr')
                             ]);
                         }),
-                        m.component(Pagination)
+                        m.component(Paginator)
                     ]
 
                     : m.component(postForm, {
