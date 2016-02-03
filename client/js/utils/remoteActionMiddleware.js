@@ -1,7 +1,7 @@
 var m = require('mithril');
 var Auth = require('./Auth.js');
 
-var middleware = function(modelName) {
+var middleware = function(baseRoute) {
     return function(store) {
         return function(next) {
             return function(action) {
@@ -13,8 +13,8 @@ var middleware = function(modelName) {
 
                     Auth.req({
                         method: 'POST',
-                        // url: '/api/' + modelName,
-                        url: '/' + modelName,
+                        // url: '/api/' + baseRoute,
+                        url: '/' + baseRoute,
                         data: {
                             action: action
                         },

@@ -12,14 +12,14 @@ var Navbar = module.exports = {
 
         var userLink = (Auth.role === 'admin') ? {
             label: 'User',
-            href: '/user'
+            href: '/users'
         } : null;
 
         if (global.__server__ && !global.__client__) {
 
             userLink = {
                 label: 'User',
-                href: '/user'
+                href: '/users'
             };
 
             links = ([

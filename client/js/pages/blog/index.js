@@ -17,9 +17,9 @@ var blog = module.exports = {
 
         if (!global.__server__) {
 
-            var modelName = 'post';
+            var baseRoute = 'post';
             const createStoreWithMiddleware = redux.applyMiddleware(
-                remoteActionMiddleware(modelName)
+                remoteActionMiddleware(baseRoute)
             )(redux.createStore);
 
             window.__state__ = window.__state__ || {};

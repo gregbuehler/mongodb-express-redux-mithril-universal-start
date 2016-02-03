@@ -14,9 +14,9 @@ var users = module.exports = {
 
         if (!global.__server__) {
 
-            var modelName = 'user';
+            var baseRoute = 'users';
             const createStoreWithMiddleware = redux.applyMiddleware(
-                remoteActionMiddleware(modelName)
+                remoteActionMiddleware(baseRoute)
             )(redux.createStore);
 
             window.__state__ = window.__state__ || {};
@@ -39,14 +39,11 @@ var users = module.exports = {
 
                 Auth.req({
                     method: 'GET',
-                    // url: '/api/user'
-                    url: '/user/api'
-                }).then(function(users) {
+                    // url: '/user/api'
+                    url: key + '/api'
+                }).then(function(result) {
 
-                    initialState = {
-                        key: key,
-                        users: users
-                    };
+                    initialState = result;
 
                     window.__store__[key] = createStoreWithMiddleware(usersReducer.reducer, initialState);
 

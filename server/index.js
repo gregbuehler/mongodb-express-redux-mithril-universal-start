@@ -89,8 +89,8 @@ var postPage = require('./pages/blog/post');
 app.use('/blog', blog);
 app.use('/post', postPage);
 //-------------------------------------------------
-var userPage = require('./pages/user');
-app.use('/user', userPage);
+var usersPage = require('./pages/user');
+app.use('/users', usersPage);
 //-------------------------------------------------
 var profilePage = require('./pages/profile');
 app.use('/profile', profilePage);

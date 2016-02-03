@@ -12,5 +12,5 @@ m.route(document.getElementById('root'), "/", {
   "/blog": require('./pages/blog'),
   "/blog/:pagenum": require('./pages/blog'),
   "/post/:id": require('./pages/blog/post'),
-  "/user": require('./pages/user')
+  "/users": require('./pages/user')
 });

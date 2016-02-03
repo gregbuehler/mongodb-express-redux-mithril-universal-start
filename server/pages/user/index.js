@@ -13,13 +13,21 @@ var express = require('express'),
 
 var router = module.exports = express.Router();
 
-// base route '/user'
+// base route '/users'
+var baseRoute = '/users';
+
 router.get('/', [auth.requireToken, auth.authorized], function(req, res) {
-    usersResource.then(function(users) {
+   
+    var resource = usersResource(1);
+    
+    Promise.all([resource.promiseUsers, resource.promiseCount]).then(function(result) {
 
         var state = {
-            key: req.path,
-            users: users
+            key: baseRoute,
+            users: result[0],
+            count: result[1],
+            page: 1,
+            baseRoute: baseRoute
         };
         var ctrl = new userPage.controller();
         ctrl.state = state;
@@ -32,13 +40,25 @@ router.get('/', [auth.requireToken, auth.authorized], function(req, res) {
 });
 
 router.get('/api', [auth.requireToken, auth.authorized], function(req, res) {
-    usersResource.then(function(users) {
-        if (users) {
-            res.json(users);
+    
+    var resource = usersResource(1);
+    
+    Promise.all([resource.promiseUsers, resource.promiseCount]).then(function(result) {
+
+        if (result) {
+            var state = {
+                key: baseRoute,
+                users: result[0],
+                count: result[1],
+                page: 1,
+                baseRoute: baseRoute
+            };
+
+            res.json(state);
         } else {
             return res.status(401).send({
                 status: 401,
-                errmsg: 'Post not found.'
+                errmsg: 'Users not found.'
             });
         }
     }, function(err) {
@@ -46,8 +66,56 @@ router.get('/api', [auth.requireToken, auth.authorized], function(req, res) {
     });
 })
 
+router.get('/:page', [auth.requireToken, auth.authorized], function(req, res) {
+   
+    var resource = usersResource(req.params.page);
+    
+    Promise.all([resource.promiseUsers, resource.promiseCount]).then(function(result) {
 
-router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse ], function(req, res) {
+        var state = {
+            key: baseRoute,
+            users: result[0],
+            count: result[1],
+            page: req.params.page,
+            baseRoute: baseRoute
+        };
+        var ctrl = new userPage.controller();
+        ctrl.state = state;
+
+        sendPage(res, userPage.view(ctrl), state);
+
+    }, function(err) {
+        res.status(500).send(err)
+    });
+});
+
+router.get('/:page/api', [auth.requireToken, auth.authorized], function(req, res) {
+    
+    var resource = usersResource(req.params.page);
+    
+    Promise.all([resource.promiseUsers, resource.promiseCount]).then(function(result) {
+
+        if (result) {
+            var state = {
+                key: baseRoute,
+                users: result[0],
+                count: result[1],
+                page: req.params.page,
+                baseRoute: baseRoute
+            };
+
+            res.json(state);
+        } else {
+            return res.status(401).send({
+                status: 401,
+                errmsg: 'Users not found.'
+            });
+        }
+    }, function(err) {
+        return res.status(500).send(err);
+    });
+})
+router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse], function(req, res) {
     if (req.body.action) {
 
         var action = req.body.action;
