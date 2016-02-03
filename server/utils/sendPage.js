@@ -2,8 +2,9 @@ var render = require('mithril-node-render');
 
 
 function base(content, state) {
+    // console.log('sendPage5-global.__server__, state', global.__server__, state);
     var stateToSend =
-        state ?
+        (global.__server__ && state)?
         '<script>window.__state__ = window.__state__ || {}; window.__state__[\"' + state.key + '\"] = ' + JSON.stringify(state) + ';</script>' :
         null;
 

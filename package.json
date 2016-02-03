@@ -5,7 +5,7 @@
   "main": "./server",
   "scripts": {
     "start": "node ./server",
-    "dev": "nodemon --watch ./client --watch ./server --watch ./site --watch ./utils ./server"
+    "dev": "nodemon --watch ./client --watch ./server --watch ./shared --watch ./site --watch ./utils ./server"
   },
   "repository": {
     "type": "git",

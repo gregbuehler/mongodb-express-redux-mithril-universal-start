@@ -25,6 +25,7 @@ var blog = module.exports = {
             window.__store__ = window.__store__ || {};
 
             var key = m.route();
+            console.log('index28-key', key);
             var initialState;
 
             if (window.__state__[key]) {
@@ -41,13 +42,16 @@ var blog = module.exports = {
 
                 m.request({
                     method: 'GET',
-                    url: '/blog/api'
-                }).then(function(posts) {
+                    // url: '/blog/api'
+                    url: key + '/api'
+                }).then(function(result) {
 
-                    initialState = {
-                        key: key,
-                        posts: posts
-                    };
+                    // initialState = {
+                    //     key: key,
+                    //     posts: posts
+                    // };
+                    console.log('index51-result', result);
+                    initialState = result;
 
                     window.__store__[key] = createStoreWithMiddleware(postsReducer.reducer, initialState);
 
@@ -148,8 +152,7 @@ var blog = module.exports = {
                     m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
-                        }, 'new') : null)]),
-                    !ctrl.isEdit ? [
+                        }, 'new') : null)]), !ctrl.isEdit ? [
                         ctrl.state.posts.map(function(post) {
                             return m('', [
 
@@ -166,7 +169,10 @@ var blog = module.exports = {
                                 m('hr')
                             ]);
                         }),
-                        m.component(Paginator)
+                        m.component(Paginator, {
+                            count: ctrl.state.count,
+                            pagenum: ctrl.state.pagenum
+                        })
                     ]
 
                     : m.component(postForm, {
