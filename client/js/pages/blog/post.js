@@ -7,8 +7,8 @@ var m = require('mithril'),
     uuid = require('../../../../shared/uuid'),
     remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
     Auth = require('../../utils/Auth.js'),
-    formatDate = require('../../../../shared/formatDate');
-var marked = require('marked');
+    formatDate = require('../../../../shared/formatDate'),
+    marked = require('marked');
 
 var post = {
     controller: function() {

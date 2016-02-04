@@ -39,14 +39,14 @@ router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse], func
             case types.CREATE:
 
                 action.post.author = req.user._id;
-                action.post.id = action.post.title.replace(/\s/g,'_');
+                action.post.id = action.post.title.replace(/\s/g, '_');
 
                 Post.create(action.post, function(err, result) {
                     if (err) res.status(500).send(err);
                     res.status(200).send(result);
                 })
                 break;
-                
+
             case types.UPDATE:
                 Post.update({
                     id: action.post.id
@@ -78,3 +78,20 @@ router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse], func
         })
     }
 })
+
+
+router.post('/duplicate', function(req, res) {
+    console.log('apiPost84-req.body', req.body);
+    // postResource(req.params.id).then(function(post) {
+    //     if (post) {
+    //         res.json(post);
+    //     } else {
+    //         return res.status(401).send({
+    //             status: 401,
+    //             errmsg: 'Post not found.'
+    //         });
+    //     }
+    // }, function(err) {
+    //     return res.status(500).send(err);
+    // });
+});

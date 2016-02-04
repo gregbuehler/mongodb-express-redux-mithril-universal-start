@@ -8,8 +8,8 @@ var m = require('mithril'),
     postForm = require('./postForm'),
     remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
     Auth = require('../../utils/Auth.js'),
-    formatDate = require('../../../../shared/formatDate');
-var marked = require('marked');
+    formatDate = require('../../../../shared/formatDate'),
+    marked = require('marked');
 
 var blog = module.exports = {
     controller: function() {
