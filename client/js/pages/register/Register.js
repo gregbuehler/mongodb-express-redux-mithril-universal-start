@@ -52,7 +52,8 @@ var Register = module.exports = {
             m.request({
                 method: 'POST',
                 // url: '/auth/register',
-                url: '/register',
+                // url: '/register',
+                url: '/api/register',
                 data: {
                     id: uuid(),
                     userid: userid,

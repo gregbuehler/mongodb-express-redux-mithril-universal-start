@@ -104,6 +104,10 @@ if (global.__server__) {
     }
     //server-side render
     // app.use(pages);
+
+    var verify = require('./pages/verify');
+    app.use('/verify/:code', verify);
+
     app.get('/*', function(req, res) {
         res.redirect('/');
     });
@@ -111,8 +115,27 @@ if (global.__server__) {
 } else {
     // browserify the entry-point. this is efficiently cached if NODE_ENV=production
     app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
-    var authLogin = require('./pages/login/authLogin');
-    app.use('/auth/login', authLogin);
+    
+    var apiLogin = require('./pages/login/apiLogin');
+    app.use('/api/login', apiLogin);
+
+    var apiBlog = require('./pages/blog/apiBlog');
+    app.use('/api/blog', apiBlog);
+
+    var apiProfile = require('./pages/profile/apiProfile');
+    app.use('/api/profile', apiProfile);
+
+    var apiUsers = require('./pages/user/apiUsers');
+    app.use('/api/users', apiUsers);
+
+
+    var apiRegister = require('./pages/register/apiRegister');
+    app.use('/api/register', apiRegister);
+
+    var apiVerify = require('./pages/verify/apiVerify');
+    app.use('/api/verify', apiVerify);
+
+
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname,'..','client', 'index.client.html'));
     });

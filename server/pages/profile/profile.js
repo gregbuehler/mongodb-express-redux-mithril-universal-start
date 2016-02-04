@@ -1,8 +1,8 @@
 var express = require('express'),
-    profilePage = require('../../client/js/pages/Profile'),
-    User = require('./user/userModel'),
-    sendPage = require('../utils/sendPage'),
-    auth = require('../utils/auth');
+    profilePage = require('../../../client/js/pages/Profile'),
+    User = require('../user/userModel'),
+    sendPage = require('../../utils/sendPage'),
+    auth = require('../../utils/auth');
 
 var router = module.exports = express.Router();
 
@@ -57,7 +57,7 @@ router.get('/', auth.requireToken, function(req, res) {
 
 });
 
-// DEMO: Lock API routes down, like this
-router.get('/api', auth.requireToken, function(req, res) {
-    res.send(req.user);
-});
+// // DEMO: Lock API routes down, like this
+// router.get('/api', auth.requireToken, function(req, res) {
+//     res.send(req.user);
+// });

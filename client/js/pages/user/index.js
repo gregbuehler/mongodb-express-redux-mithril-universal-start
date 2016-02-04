@@ -42,7 +42,8 @@ var users = module.exports = {
                 Auth.req({
                     method: 'GET',
                     // url: '/user/api'
-                    url: key + '/api'
+                    // url: key + '/api'
+                    url: '/api' + key
                 }).then(function(result) {
 
                     initialState = result;

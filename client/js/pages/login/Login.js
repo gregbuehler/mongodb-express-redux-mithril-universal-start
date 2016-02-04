@@ -44,8 +44,7 @@ var Login = module.exports = {
             // trade credentials for a token
             m.request({
                 method: 'POST',
-                url: '/auth/login',
-                // url: '/login',
+                url: '/api/login',
                 data: {
                     userid: userid,
                     password: password
