@@ -39,6 +39,7 @@ router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse], func
             case types.CREATE:
 
                 action.post.author = req.user._id;
+                action.post.id = action.post.title.replace(/\s/g,'_');
 
                 Post.create(action.post, function(err, result) {
                     if (err) res.status(500).send(err);

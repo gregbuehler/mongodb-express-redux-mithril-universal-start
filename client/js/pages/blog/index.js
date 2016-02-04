@@ -9,7 +9,7 @@ var m = require('mithril'),
     remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
     Auth = require('../../utils/Auth.js'),
     formatDate = require('../../../../shared/formatDate');
-
+var marked = require('marked');
 
 var blog = module.exports = {
     controller: function() {
@@ -101,7 +101,8 @@ var blog = module.exports = {
                 } else {
 
                     //create
-                    post.id = uuid();
+                    // post.id = uuid();
+                    post.id = post.title.replace(/\s/g,'_');
                     post.created = new Date();
 
                     window.__store__[key].dispatch(postsReducer.createPost(post));
@@ -153,8 +154,8 @@ var blog = module.exports = {
                                 m('h1', m('a', {
                                     href: '/post/' + post.id,
                                     config: m.route
-                                }, post.title)),
-                                m('p', post.summary),
+                                }, m.trust(marked(post.title)))),
+                                m('p', m.trust(marked(post.summary))),
                                 m("h5", [
                                     m("span", post.author ? post.author.userid : 'unknown'),
                                     " - ",

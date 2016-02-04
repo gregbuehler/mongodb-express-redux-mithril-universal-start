@@ -8,7 +8,7 @@ var m = require('mithril'),
     remoteActionMiddleware = require('../../utils/remoteActionMiddleware'),
     Auth = require('../../utils/Auth.js'),
     formatDate = require('../../../../shared/formatDate');
-
+var marked = require('marked');
 
 var post = {
     controller: function() {
@@ -124,7 +124,8 @@ var post = {
                 } else {
 
                     //create
-                    post.id = uuid();
+                    // post.id = uuid();
+                    post.id = post.title.replace(/\s/g,'_');
                     post.created = new Date();
                     window.__store__[key].dispatch(postReducer.createPost(post));
 
@@ -198,7 +199,7 @@ var post = {
             m('.container',
                 m('.col-md-12', (!ctrl.isEdit ?
                     m('', [
-                        m('h1', m('div', post.title)),
+                        m('h1', m('div', m.trust(marked(post.title)))),
                         m("h3", [
                             m("span", post.author ? post.author.userid : null),
                             " - ",
@@ -211,8 +212,8 @@ var post = {
                                 onclick: ctrl.create.bind(this)
                             }, 'new')])
                         ]),
-                        m('p', post.summary),
-                        m('p', post.content),
+                        m('p', m.trust(marked(post.summary))),
+                        m('p', m.trust(marked(post.content))),
                         m('hr')
                     ]) :
                     m.component(postForm, {

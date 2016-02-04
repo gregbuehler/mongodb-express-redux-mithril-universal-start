@@ -24,20 +24,23 @@ var postForm = {
                     }, 'delete')
                 ])
             ]),
-            m('h1', m('input', {
+            m('h4', '*markdown can be used*' ),
+            m('h3', 'Title   (title should be unique)'),
+            m('h1',{id:'title'}, m('input', {
                 style: 'width: 100%',
                 value: post.title,
                 onchange: function(e) {
                     post.title = e.target.value;
                 }
             })),
-
+            m('h3', 'Summary  (optional)'),
             m('p', m('textarea', {
                 style: 'width: 100%; min-height: 200px',
                 onchange: function(e) {
                     post.summary = e.target.value;
                 }
             }, post.summary)),
+            m('h3', 'Content'),
             m('p', m('textarea', {
                 style: 'width: 100%; min-height: 500px',
                 onchange: function(e) {
