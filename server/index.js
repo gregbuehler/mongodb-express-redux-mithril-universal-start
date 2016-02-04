@@ -95,8 +95,8 @@ app.use(express.static(pubDir));
 // var profilePage = require('./pages/profile');
 // app.use('/profile', profilePage);
 // //======================================================
-console.log('server/index98-index.html',path.join(__dirname, 'index.html'));
-console.log('server/index98-index.html',path.join(__dirname,'..','client', 'index.template.html'));
+console.log('server/index98-index.html', path.join(__dirname, 'index.html'));
+console.log('server/index98-index.html', path.join(__dirname, '..', 'client', 'index.template.html'));
 if (global.__server__) {
     if (global.__client__) {
         // browserify the entry-point. this is efficiently cached if NODE_ENV=production
@@ -115,12 +115,15 @@ if (global.__server__) {
 } else {
     // browserify the entry-point. this is efficiently cached if NODE_ENV=production
     app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
-    
+
     var apiLogin = require('./pages/login/apiLogin');
     app.use('/api/login', apiLogin);
 
     var apiBlog = require('./pages/blog/apiBlog');
     app.use('/api/blog', apiBlog);
+
+    var apiPost = require('./pages/blog/apiPost');
+    app.use('/api/post', apiPost);
 
     var apiProfile = require('./pages/profile/apiProfile');
     app.use('/api/profile', apiProfile);
@@ -137,7 +140,7 @@ if (global.__server__) {
 
 
     app.get('/*', function(req, res) {
-        res.sendFile(path.join(__dirname,'..','client', 'index.client.html'));
+        res.sendFile(path.join(__dirname, '..', 'client', 'index.client.html'));
     });
 }
 

@@ -41,7 +41,7 @@ router.get('/', [auth.requireToken, auth.authorized], function(req, res) {
     });
 })
 
-router.get('/:page/api', [auth.requireToken, auth.authorized], function(req, res) {
+router.get('/:page', [auth.requireToken, auth.authorized], function(req, res) {
     
     var resource = usersResource(req.params.page);
     

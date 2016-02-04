@@ -1,15 +1,15 @@
 var express = require('express'),
-    User = require('./userModel'),
+    // User = require('./userModel'),
     usersResource = require('./usersResource'),
     userPage = require('../../../client/js/pages/user'),
-    usersReducer = require('../../../client/js/pages/user/usersReducer'),
+    // usersReducer = require('../../../client/js/pages/user/usersReducer'),
     sendPage = require('../../utils/sendPage'),
-    auth = require('../../utils/auth'),
-    bodyParser = require('body-parser'),
-    urlParse = bodyParser.urlencoded({
-        extended: true
-    }),
-    jsonParse = bodyParser.json();
+    auth = require('../../utils/auth');
+    // bodyParser = require('body-parser'),
+    // urlParse = bodyParser.urlencoded({
+    //     extended: true
+    // }),
+    // jsonParse = bodyParser.json();
 
 var router = module.exports = express.Router();
 
