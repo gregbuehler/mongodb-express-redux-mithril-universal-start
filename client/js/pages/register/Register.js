@@ -1,10 +1,10 @@
 var m = require('mithril'),
-    Navbar = require('../components/Navbar.js'),
-    Auth = require('../utils/Auth.js'),
-    userid_validation = require('../../../shared/userid_validation'),
-    email_validation = require('../../../shared/email_validation'),
-    password_validation = require('../../../shared/password_validation'),
-    uuid = require('../../../shared/uuid');
+    Navbar = require('../../components/navbar/Navbar.js'),
+    Auth = require('../../utils/Auth.js'),
+    userid_validation = require('../../../../shared/userid_validation'),
+    email_validation = require('../../../../shared/email_validation'),
+    password_validation = require('../../../../shared/password_validation'),
+    uuid = require('../../../../shared/uuid');
 
 var Register = module.exports = {
     controller: function() {

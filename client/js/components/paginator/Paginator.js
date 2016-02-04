@@ -1,5 +1,5 @@
 var m = require('mithril');
-var mpaginate = require('../../../shared/mithril.paginate.modified');
+var mpaginate = require('../../../../shared/mithril.paginate.modified');
 
 
 /**

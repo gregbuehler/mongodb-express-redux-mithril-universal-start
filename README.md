@@ -1,18 +1,19 @@
 # mongodb-express-redux-mithril-universal-start
 
 ## Project
-- This project is to demonstrate the server-side rendering ( aka universal ) of Single Page Application using mithril.
 
-- Server-side rendering is done by mithril-node-render ( [StephanHoyer, mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ). 
+- This project is to provide a new project starter using MongoDB, Expressjs, Reduxjs and Mithriljs.
 
-- Client-side controllers and views are directly used for Server-side rendering. 
+- This project also demonstrate the server-side rendering ( aka universal ) of Single Page Application using mithril.
 
-- Client and Server directory structures are kept as same as possible for easy development and maintenance.
+- Client-side views are used as it is for Server-side rendering. 
 
-- By using Redux, page-caching are automatically achieved.  
+- Client and Server folder structures are kept as same for easy development and maintenance.
+
+- Each page is made to exist in each folder for consistency and future expansion.
+
+- Site folder is separately provided for customization and easy upgrade of this project.
 	
-- New project can be quickly set up using this project as starter.
-
 
 ## features
 
@@ -31,6 +32,8 @@
 -  pages are cached automatically by Redux. 
 -  ES5 is used. ( No ES6 and ES7, hence no need of Babel )
 -  Browserify and LessMiddleware are used for client-side processing.
+-  By using Redux, page-caching are automatically achieved. 
+-  Server-side rendering is done by mithril-node-render ( [StephanHoyer, mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ). 
 
 ## requirement
 -   MongoDB is required.

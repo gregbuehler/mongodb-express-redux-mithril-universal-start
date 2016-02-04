@@ -1,5 +1,5 @@
 var m = require('mithril'),
-    Auth = require('../utils/Auth.js');
+    Auth = require('../../utils/Auth.js');
 
 var Logout = module.exports = {
     controller: function() {

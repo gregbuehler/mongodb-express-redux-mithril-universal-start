@@ -1,6 +1,6 @@
 var m = require('mithril'),
-    Navbar = require('../components/Navbar.js'),
-    Auth = require('../utils/Auth.js');
+    Navbar = require('../../components/navbar/Navbar.js'),
+    Auth = require('../../utils/Auth.js');
 
 var Profile = module.exports = {
     controller: function() {

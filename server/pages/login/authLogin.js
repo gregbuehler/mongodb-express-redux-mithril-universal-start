@@ -1,24 +1,16 @@
 var express = require('express'),
-    login = require('../../client/js/pages/Login'),
-    sendPage = require('../utils/sendPage'),
     bodyParser = require('body-parser'),
     urlParse = bodyParser.urlencoded({
         extended: true
     }),
-    User = require('../pages/user/userModel'),
+    User = require('../user/userModel'),
     jsonParse = bodyParser.json(),
-    userid_validation = require('../../shared/userid_validation'),
-    email_validation = require('../../shared/email_validation'),
-    password_validation = require('../../shared/password_validation'),
-    jwt = require('../utils/jwt');
+    userid_validation = require('../../../shared/userid_validation'),
+    email_validation = require('../../../shared/email_validation'),
+    password_validation = require('../../../shared/password_validation'),
+    jwt = require('../../utils/jwt');
 
-// var pages = module.exports = express();
 var router = module.exports = express.Router();
-
-// base route '/login'
-router.get('/', function(req, res) {
-    sendPage(res, login);
-});
 
 // get JWT token for login credentials
 router.post('/', [urlParse, jsonParse], function(req, res) {

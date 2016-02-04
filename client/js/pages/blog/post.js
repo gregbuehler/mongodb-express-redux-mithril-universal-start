@@ -1,5 +1,5 @@
 var m = require('mithril'),
-    Navbar = require('../../components/Navbar.js'),
+    Navbar = require('../../components/navbar/Navbar.js'),
     redux = require('redux'),
     postReducer = require('./postReducer'),
     postsReducer = require('./postsReducer'),
