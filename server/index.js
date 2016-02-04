@@ -10,6 +10,8 @@ var path = require('path'),
     browserify = require('browserify-middleware'),
     config = require('../site/config');
 
+var api = require('./api');
+
 global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
@@ -19,12 +21,12 @@ if (fs.existsSync(envFile)) {
     dotenv.load();
 }
 
-var mongo_url = process.env.MONGO_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || process.env.MONGOSOUP_URL;
+var mongo_url = process.env.MONGO_URI || process.env.MONGOHQ_URL || process.env.MONGOLAB_URI || process.env.MONGOSOUP_URL || config.mongo.uri;
 if (!mongo_url) {
-    // var mockgoose = require('mockgoose');
-    // mockgoose(mongoose);
-    // mockgoose.reset();
-    mongo_url = config.mongo.uri;
+    var mockgoose = require('mockgoose');
+    mockgoose(mongoose);
+    mockgoose.reset();
+    mongo_url = 'mongodb://localhost/merm';
 }
 
 mongoose.connect(mongo_url);
@@ -42,7 +44,6 @@ if (config.seedPost) {
     config.seedPost = false;
 }
 // use models after potential mockgoose
-// var auth = require('./utils/auth');
 
 // serve up CSS from LESS. this is efficiently cached.
 app.use(lessMiddleware(pubDir, {
@@ -51,41 +52,21 @@ app.use(lessMiddleware(pubDir, {
     }
 }));
 
-// // static server
+// static server
 app.use(express.static(pubDir));
 
 if (global.__server__) {
     if (global.__client__) {
         // browserify the entry-point. this is efficiently cached if NODE_ENV=production
         app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+
     }
+    //server-side data
+    app.use('/api', api);
+
     //server-side render
-    var homePage = require('./pages/home/home');
-    app.use('/', homePage);
-
-    var loginPage = require('./pages/login/login');
-    app.use('/login', loginPage);
-
-    var logoutPage = require('./pages/logout/logout');
-    app.use('/logout', logoutPage);
-
-    var registerPage = require('./pages/register/register');
-    app.use('/register', registerPage);
-
-    var verifyPage = require('./pages/verify');
-    app.use('/verify', verifyPage);
-    app.use('/verify/:code', verifyPage);
-
-    var blog = require('./pages/blog');
-    var postPage = require('./pages/blog/post');
-    app.use('/blog', blog);
-    app.use('/post', postPage);
-
-    var usersPage = require('./pages/user');
-    app.use('/users', usersPage);
-
-    var profilePage = require('./pages/profile/profile');
-    app.use('/profile', profilePage);
+    var pages = require('./pages');
+    app.use(pages);
 
     app.get('/*', function(req, res) {
         res.redirect('/');
@@ -95,30 +76,10 @@ if (global.__server__) {
     if (global.__client__) {
         // browserify the entry-point. this is efficiently cached if NODE_ENV=production
         app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+
+        //server-side data
+        app.use('/api', api)
     }
-
-    var apiLogin = require('./pages/login/apiLogin');
-    app.use('/api/login', apiLogin);
-
-    var apiBlog = require('./pages/blog/apiBlog');
-    app.use('/api/blog', apiBlog);
-
-    var apiPost = require('./pages/blog/apiPost');
-    app.use('/api/post', apiPost);
-
-    var apiProfile = require('./pages/profile/apiProfile');
-    app.use('/api/profile', apiProfile);
-
-    var apiUsers = require('./pages/user/apiUsers');
-    app.use('/api/users', apiUsers);
-
-
-    var apiRegister = require('./pages/register/apiRegister');
-    app.use('/api/register', apiRegister);
-
-    var apiVerify = require('./pages/verify/apiVerify');
-    app.use('/api/verify', apiVerify);
-
 
     app.get('/*', function(req, res) {
         res.sendFile(path.join(__dirname, '..', 'client', 'index.client.html'));

@@ -17,12 +17,5 @@ var resource = function(pageNum) {
 }
 
 module.exports = resource;
-//----------------------------
-// var User = require('./userModel');
 
-// var promise = User.find().sort({
-//     userid: 1
-// }).limit(10).select('-_id id userid email verified role');
-
-// module.exports = promise;
 

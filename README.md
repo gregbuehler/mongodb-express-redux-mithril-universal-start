@@ -14,6 +14,7 @@
 
 - Site folder is separately provided for customization and easy upgrade of this project.
 	
+- This project is forked from [mithril-quickstart by konsumer](https://github.com/konsumer/mithril-quickstart)
 
 ## features
 

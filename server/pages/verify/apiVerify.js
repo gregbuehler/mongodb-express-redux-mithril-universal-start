@@ -44,35 +44,3 @@ router.get('/:code', [urlParse, jsonParse], function(req, res) {
             return res.status(500).send(err);
         });
 });
-
-//TODO: page to input the verify code.
-// verify a user
-// router.post('/verify', [urlParse, jsonParse], function(req, res) {
-//     Verify.findOne({
-//             code: req.body.token
-//         })
-//         .exec()
-//         .then(function(verify) {
-//             if (!verify) {
-//                 return res.status(500).send({
-//                     status: 500,
-//                     errmsg: 'Code not found.'
-//                 });
-//             }
-//             User.findOneAndUpdate({
-//                     _id: verify.user
-//                 }, {
-//                     verified: true
-//                 }).exec()
-//                 .then(function() {
-//                     verify.remove();
-//                     return res.send({
-//                         'msg': 'OK'
-//                     });
-//                 }, function(err) {
-//                     return res.status(500).send(err);
-//                 });
-//         }, function(err) {
-//             return res.status(500).send(err);
-//         });
-// });

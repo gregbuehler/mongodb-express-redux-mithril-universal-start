@@ -53,7 +53,8 @@
     "webpack": "^1.12.12"
   },
   "devDependencies": {
-    "browser-sync": "^2.11.1"
+    "browser-sync": "^2.11.1",
+    "mockgoose": "^5.2.4"
   },
   "engines": {
     "node": "5.4.1"
