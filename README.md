@@ -30,10 +30,9 @@
 -  Userid is used to login instead of email.
 -  Browser-sync and nodemon are used for live reloading the browser in development.
 -  Blog and User administration are included.
--  pages are cached automatically by Redux. 
+-  Pages are cached automatically by Redux. 
 -  ES5 is used. ( No ES6 and ES7, hence no need of Babel )
 -  Browserify and LessMiddleware are used for client-side processing.
--  By using Redux, page-caching are automatically achieved. 
 -  Server-side rendering is done by mithril-node-render ( [StephanHoyer, mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ). 
 
 ## requirement
