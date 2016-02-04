@@ -4,13 +4,11 @@
 
 - This project is to provide a new project starter using MongoDB, Expressjs, Reduxjs and Mithriljs.
 
-- This project also demonstrate the server-side rendering ( aka universal ) of Single Page Application using mithril.
-
-- Client-side views are used as it is for Server-side rendering. 
+- This project is also to demonstrate the server-side rendering ( aka universal ) of Single Page Application using mithril.
 
 - Client and Server folder structures are kept as same for easy development and maintenance.
 
-- Each page is made to exist in each folder for consistency and future expansion.
+- Each related files contains in each folder for easy maintenance and future expansion.
 
 - Site folder is separately provided for customization and easy upgrade of this project.
 	
@@ -33,7 +31,8 @@
 -  Pages are cached automatically by Redux. 
 -  ES5 is used. ( No ES6 and ES7, hence no need of Babel )
 -  Browserify and LessMiddleware are used for client-side processing.
--  Server-side rendering is done by mithril-node-render ( [StephanHoyer, mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ). 
+-  Server-side rendering is done by mithril-node-render ( [StephanHoyer, mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ).
+-  Markdown format can be used for Blog. 
 
 ## requirement
 -   MongoDB is required.
@@ -75,7 +74,5 @@ check if the style is not commented out in style/bootstrap.less.
 If so, remove the comment line of the style you want to use.
 
 ## TODO
-1. blog and User pagination.
-2. markdown format for blog. 
-3. test
-4. build
+1. test
+2. build

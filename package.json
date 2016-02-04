@@ -24,7 +24,10 @@
     "jwt",
     "email verification",
     "browser-sync",
-    "nodemon"
+    "nodemon",
+    "blog",
+    "user",
+    "markdown"
   ],
   "author": "whatifif <whatifif@yahoo.com>",
   "license": "MIT",

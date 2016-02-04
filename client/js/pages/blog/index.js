@@ -75,9 +75,9 @@ var blog = module.exports = {
 
                 ctrl.isEdit = true;
                 ctrl.post = {
-                    title: 'newTitle',
-                    summary: 'newSummary',
-                    content: 'newContent',
+                    title: 'new title',
+                    summary: 'new summary',
+                    content: 'new content',
                     author: {
                         userid: Auth.userid
                     }
