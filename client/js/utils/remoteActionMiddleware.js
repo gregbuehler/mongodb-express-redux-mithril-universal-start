@@ -13,9 +13,7 @@ var middleware = function(actionRoute) {
 
                     Auth.req({
                         method: 'POST',
-                        url: '/api/' + actionRoute,
-                        // url: '/' + actionRoute,
-                        // url: actionRoute,
+                        url: '/api' + actionRoute,
                         data: {
                             action: action
                         },

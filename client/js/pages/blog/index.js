@@ -42,8 +42,6 @@ var blog = module.exports = {
 
                 m.request({
                     method: 'GET',
-                    // url: '/blog/api'
-                    // url: key + '/api'
                     url: '/api' + key
                 }).then(function(result) {
 

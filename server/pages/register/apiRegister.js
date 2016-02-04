@@ -19,9 +19,6 @@ if (config.useUserEmailVerify === true) {
 var router = module.exports = express.Router();
 
 // base route '/register'
-// router.get('/', function(req, res) {
-//     sendPage(res, register);
-// });
 
 // register new login credentials
 router.post('/', [urlParse, jsonParse], function(req, res) {

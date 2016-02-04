@@ -16,9 +16,9 @@ var post = {
 
         if (!global.__server__) {
 
-            var modelName = 'post';
+            var actionRoute = '/post';
             const createStoreWithMiddleware = redux.applyMiddleware(
-                remoteActionMiddleware(modelName)
+                remoteActionMiddleware(actionRoute)
             )(redux.createStore);
 
             window.__state__ = window.__state__ || {};
@@ -43,7 +43,6 @@ var post = {
                 m.request({
                     method: 'GET',
                     url: '/api/post/' + m.route.param('id')
-                    // url: '/post/' + m.route.param('id') + '/api'
                 }).then(function(post) {
 
                     initialState = {

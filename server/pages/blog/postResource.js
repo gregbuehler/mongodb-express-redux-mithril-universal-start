@@ -1,6 +1,5 @@
 var Post = require('./postModel');
 
-
 var resource = function(id) {
 
     var promise = Post.findOne({

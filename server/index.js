@@ -9,19 +9,10 @@ var path = require('path'),
     mongoose = require('mongoose'),
     browserify = require('browserify-middleware'),
     config = require('../site/config');
-    // bodyParser = require('body-parser'),
-    // urlParse = bodyParser.urlencoded({
-    //     extended: true
-    // }),
-    // jsonParse = bodyParser.json();
 
 global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
 global.__useBlog__ = config.useBlog;
-
-// var pages = require('./routes/pages'),
-//     api = require('./routes/api');
-
 
 // load up .env file
 if (fs.existsSync(envFile)) {
@@ -101,8 +92,10 @@ if (global.__server__) {
     });
 
 } else {
-    // browserify the entry-point. this is efficiently cached if NODE_ENV=production
-    app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+    if (global.__client__) {
+        // browserify the entry-point. this is efficiently cached if NODE_ENV=production
+        app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+    }
 
     var apiLogin = require('./pages/login/apiLogin');
     app.use('/api/login', apiLogin);

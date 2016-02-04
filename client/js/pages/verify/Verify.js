@@ -21,8 +21,6 @@ var Verify = module.exports = {
                 ctrl.msg = ('Hmm, there was something wrong with that code. Check your email again.');
             });
         }
-
-
     },
 
     view: function(ctrl) {

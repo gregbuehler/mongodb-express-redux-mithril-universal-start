@@ -106,33 +106,6 @@ var Auth = module.exports = {
     },
 
     // make an authenticated request
-    //------------------------------------------
-    // req: function(options) {
-    //     if (typeof options == 'string') {
-    //         options = {
-    //             method: 'GET',
-    //             url: options
-    //         };
-    //     }
-    //     var oldConfig = options.config || function() {};
-    //     options.config = function(xhr) {
-    //         xhr.setRequestHeader("Authorization", "Bearer " + Auth.token);
-    //         oldConfig(xhr);
-    //     };
-
-    //     // try request, if auth error, redirect
-    //     // TODO: remember where the user was, originally
-    //     var deferred = m.deferred();
-    //     m.request(options).then(deferred.resolve, function(err) {
-    //         if (err.status === 401) {
-    //             Auth.originalRoute = m.route();
-    //             m.route('/login');
-    //         }
-    //     });
-
-    //     return deferred.promise;
-    // }
-    //--------------------------------------------
     req: function(options) {
         if (typeof options == 'string') {
             options = {
