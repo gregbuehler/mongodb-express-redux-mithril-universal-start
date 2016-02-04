@@ -48,6 +48,8 @@ router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse], func
                 break;
 
             case types.UPDATE:
+
+                //TODO: action.post.id should be action.post.title
                 Post.update({
                     id: action.post.id
                 }, action.post, function(err, result) {
@@ -80,18 +82,42 @@ router.post('/', [auth.requireToken, auth.authorized, urlParse, jsonParse], func
 })
 
 
-router.post('/duplicate', function(req, res) {
-    console.log('apiPost84-req.body', req.body);
-    // postResource(req.params.id).then(function(post) {
-    //     if (post) {
-    //         res.json(post);
-    //     } else {
-    //         return res.status(401).send({
-    //             status: 401,
-    //             errmsg: 'Post not found.'
-    //         });
-    //     }
-    // }, function(err) {
-    //     return res.status(500).send(err);
-    // });
+router.post('/duplicate', [urlParse, jsonParse], function(req, res) {
+
+    if (req.body.action && req.body.action.type === 'CHECK_DUPLICATE') {
+
+        var idOwner = req.body.action.id ? req.body.action.id.replace(/\s/g, '_') : null;
+        var idToCheck = req.body.action.title.replace(/\s/g, '_');
+
+        postResource(idToCheck).then(function(post) {
+            if (post) {
+                if (post.id === idOwner) {
+                    //update ok
+                    return res.status(200).send({
+                        status: 200,
+                        msg: 'Title update valid.'
+                    });
+                } else {
+                    //duplicate
+                    return res.status(401).send({
+                        status: 401,
+                        errmsg: 'Title duplicate.'
+                    });
+                }
+
+            } else {
+                return res.status(200).send({
+                    status: 200,
+                    msg: 'Title valid.'
+                });
+            }
+        }, function(err) {
+            return res.status(500).send(err);
+        });
+
+    } else {
+        res.status(500).send({
+            errmsg: 'Action not found.'
+        })
+    }
 });

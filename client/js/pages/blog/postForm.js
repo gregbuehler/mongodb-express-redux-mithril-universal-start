@@ -8,6 +8,8 @@ var postForm = {
         var ctrl = this;
 
         ctrl.isPreview = false;
+        ctrl.isChecked = false;
+
 
         ctrl.preview = function() {
             ctrl.isPreview = true;
@@ -17,32 +19,41 @@ var postForm = {
             ctrl.isPreview = false;
         }
 
-        // ctrl.checkDuplicate = function() {
-        //     var actionRoute = '/post/duplicate';
+        ctrl.checkDuplicate = function() {
+            ctrl.isChecked = true;
+            var actionRoute = '/post/duplicate';
 
-        //     var action = {
-        //         type: 'CHECK_DUPLICATE',
-        //         title: arg.postCopied.title;
-        //     }
+            var action = {
+                type: 'CHECK_DUPLICATE',
+                title: arg.postCopied.title,
+                id: arg.postCopied.id
+            }
+            ctrl.msg = null;
+            ctrl.errmsg = null;
+            Auth.req({
+                method: 'POST',
+                url: '/api' + actionRoute,
+                data: {
+                    action: action
+                },
+                unwrapSuccess: function(result) {
+                    console.log('middleware21-result', result);
+                    ctrl.msg = result.msg;
+                    // return next(action);
+                },
+                unwrapError: function(err) {
+                    console.log('middleware25-err', err);
+                    ctrl.errmsg = err.errmsg;
+                    // return;
+                }
+            });
+        }
 
-        //     Auth.req({
-        //         method: 'POST',
-        //         url: '/api' + actionRoute,
-        //         data: {
-        //             action: action
-        //         },
-        //         unwrapSuccess: function(result) {
-        //             console.log('middleware21-result', result);
-        //             ctrl.msg = result;
-        //             // return next(action);
-        //         },
-        //         unwrapError: function(err) {
-        //             console.log('middleware25-err', err);
-        //             ctrl.errmsg = err;
-        //             // return;
-        //         }
-        //     });
-        // }
+        ctrl.cancelMsg = function() {
+            ctrl.isChecked = false;
+            ctrl.msg = null;
+            ctrl.errmsg = null;
+        }
     },
 
     view: function(ctrl, arg) {
@@ -67,18 +78,30 @@ var postForm = {
                 ])
             ]),
             m('h4', '*markdown can be used*'),
-            m('h3', ['Title   (title should be unique)', m('button.btn.btn-info.pull-right', {
-                onclick: ctrl.preview
-            }, 'Preview')]),
+            m('h3', ['Title   (title should be unique)', 
+                !ctrl.isChecked ? m('button.btn.btn-default', {
+                    onclick: ctrl.checkDuplicate
+                }, 'Check Duplicate') : m('button.btn.btn-success', {
+                    onclick: ctrl.cancelMsg
+                }, 'Reset'),
+                m('label.label-success', ctrl.msg),
+                m('label.label-warning', ctrl.errmsg),
+                m('button.btn.btn-info.pull-right', {
+                    onclick: ctrl.preview
+                }, 'Preview')
+            ]),
+
             m('h1', {
                 id: 'title'
-            }, m('input', {
-                style: 'width: 100%',
-                value: post.title,
-                onchange: function(e) {
-                    post.title = e.target.value;
-                }
-            })),
+            }, [m('input', {
+                    style: 'width: 100%',
+                    value: post.title,
+                    onchange: function(e) {
+                        post.title = e.target.value;
+                    }
+                }),
+
+            ]),
             m('h3', 'Summary  (optional)'),
             m('p', m('textarea', {
                 style: 'width: 100%; min-height: 200px',
