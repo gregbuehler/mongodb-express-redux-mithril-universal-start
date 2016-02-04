@@ -1,6 +1,6 @@
 var express = require('express'),
-    register = require('../../../client/js/pages/Register'),
-    sendPage = require('../utils/sendPage');
+    register = require('../../../client/js/pages/register/Register'),
+    sendPage = require('../../utils/sendPage');
 
 
 var router = module.exports = express.Router();

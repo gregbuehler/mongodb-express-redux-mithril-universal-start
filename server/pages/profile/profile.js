@@ -1,5 +1,5 @@
 var express = require('express'),
-    profilePage = require('../../../client/js/pages/Profile'),
+    profilePage = require('../../../client/js/pages/profile/Profile'),
     User = require('../user/userModel'),
     sendPage = require('../../utils/sendPage'),
     auth = require('../../utils/auth');

@@ -1,6 +1,6 @@
 var express = require('express'),
-    logout = require('../../client/js/pages/Logout'),
-    sendPage = require('../utils/sendPage');
+    logout = require('../../../client/js/pages/logout/Logout'),
+    sendPage = require('../../utils/sendPage');
 
 var router = module.exports = express.Router();
 

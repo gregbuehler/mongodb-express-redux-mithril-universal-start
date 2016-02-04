@@ -7,7 +7,6 @@ var express = require('express'),
     }),
     jsonParse = bodyParser.json(),
     User = require('../user/userModel'),
-    // Verify = require('../models/Verify.js');
     Verify = require('./verifyModel');
 
 var router = module.exports = express.Router();

@@ -1,6 +1,6 @@
 var express = require('express'),
-    login = require('../../client/js/pages/Login'),
-    sendPage = require('../utils/sendPage');
+    login = require('../../../client/js/pages/login/Login'),
+    sendPage = require('../../utils/sendPage');
 // bodyParser = require('body-parser'),
 // urlParse = bodyParser.urlencoded({
 //     extended: true
