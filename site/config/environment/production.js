@@ -21,7 +21,8 @@ config.mongo = {
     uri: process.env.MONGOLAB_URI ||
         process.env.MONGOHQ_URL ||
         process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME ||
-        'mongodb://merm-prod:1234@ds037185.mongolab.com:37185/merm-prod',
+        // 'mongodb://merm-prod:1234@ds037185.mongolab.com:37185/merm-prod',
+        'mongodb://merm:neo4321!#@ds059205.mongolab.com:59205/merm',
     options: {
         db: {
             safe: true
@@ -29,18 +30,20 @@ config.mongo = {
     }
 };
 
-// config.seedUser = true;
-// config.seedPost = true;
+config.seedUser = true;
+config.seedPost = true;
 config.useOnlyAdminCanPost = true;
 config.useUserEmailVerify = true;
 config.useServerRender = true;
 config.useClientRender = true; //if commented out, only server-side rendering is used.
 // config.useBrowsersync = true; //for development purpose only
 config.useBlog = true;
+config.blogPerPage = 5;// posts per page of blog page
+config.usersPerPage = 2;// users per page of users page
 config.siteEmail = 'sharelinky@gmail.com';
-config.userid_regex = /^[a-z][a-z0-9]{3,19}$/i;// 4~20 alphanumeric. Starting with alphabet. All lowercase.
+config.userid_regex = /^[a-z][a-z0-9]{3,19}$/i;
 config.email_regex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
-config.password_regex = /^[a-zA-Z0-9!@#\$%\^&\*\(\)_\+\|\{\}:"<>\?\-=\\\[\];',\.\/]{4,20}$/;//4~20 any characters. Case-sensitive.
+config.password_regex = /^[a-zA-Z0-9!@#\$%\^&\*\(\)_\+\|\{\}:"<>\?\-=\\\[\];',\.\/]{4,20}$/;
 
 
 
