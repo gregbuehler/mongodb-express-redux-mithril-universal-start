@@ -43,7 +43,7 @@ auth.requireToken = function(req, res, next) {
 auth.authorized = function(req, res, next) {
     //TODO: allow member to post. owner can CRUD
     if (!(req.user && req.user.role === 'admin')) {
-        console.log('auth69-Not admin');
+
         return res.status(401).send({
             status: 401,
             errmsg: 'You are not admin.'
