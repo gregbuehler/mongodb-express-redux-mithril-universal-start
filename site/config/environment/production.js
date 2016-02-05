@@ -21,8 +21,7 @@ config.mongo = {
     uri: process.env.MONGOLAB_URI ||
         process.env.MONGOHQ_URL ||
         process.env.OPENSHIFT_MONGODB_DB_URL + process.env.OPENSHIFT_APP_NAME ||
-        // 'mongodb://merm-prod:1234@ds037185.mongolab.com:37185/merm-prod',
-        'mongodb://merm:neo4321!#@ds059205.mongolab.com:59205/merm',
+        'mongodb://merm-prod:1234@ds037185.mongolab.com:37185/merm-prod',
     options: {
         db: {
             safe: true
