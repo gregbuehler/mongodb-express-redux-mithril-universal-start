@@ -19,7 +19,7 @@
 -  MongoDB, Expressjs, Reduxjs, Mithriljs
 -  Universal ( Server-side rendering )
 -  Quick & easy to get started
--  Mithril rocks. Faster to load & render than react. It's clean & small, and does it's job well.
+-  Mithril is easy to learn and use. Faster to load & render than react. It's clean & small, and does it's job well.
 -  Express middleware efficiently handles building CSS & javascript, so no grunt/gulp!
 -  Comment widgets/animations you don't need from bootstrap and [animation.less](https://github.com/machito/animate.less)
 -  Easily themable using [bootswatch](http://bootswatch.com/)
