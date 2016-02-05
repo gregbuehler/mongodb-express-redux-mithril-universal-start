@@ -37,14 +37,12 @@ var postForm = {
                     action: action
                 },
                 unwrapSuccess: function(result) {
-                    console.log('middleware21-result', result);
+                    // console.log('middleware21-result', result);
                     ctrl.msg = result.msg;
-                    // return next(action);
                 },
                 unwrapError: function(err) {
-                    console.log('middleware25-err', err);
+                    // console.log('middleware25-err', err);
                     ctrl.errmsg = err.errmsg;
-                    // return;
                 }
             });
         }
@@ -66,7 +64,7 @@ var postForm = {
                 " - ",
                 m("span", formatDate(post.created)),
                 m('.pull-right', [
-                    m('span.label.label-default', {
+                    m('span.label.label-primary', {
                         onclick: arg.save.bind(this)
                     }, 'save'),
                     m('span.label.label-default', {

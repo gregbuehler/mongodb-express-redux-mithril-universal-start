@@ -43,7 +43,7 @@ var userForm = {
                         }
                     }, user.role),
                     m('.pull-right', [
-                        m('span.label.label-default', {
+                        m('span.label.label-primary', {
                             onclick: arg.save.bind(this)
                         }, 'save'),
                         m('span.label.label-default', {

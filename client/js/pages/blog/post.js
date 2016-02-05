@@ -118,15 +118,19 @@ var post = {
                     // if (window.__store__['/blog']) {
                     //     window.__store__['/blog'].dispatch(postsReducer.updatePost(post));
                     // }
+
+                    // console.log('post122-Auth.blogKey', Auth.blogKey);
                     //Make the store invalid 
-                    window.__store__['/blog'] = null;
+                    // if (window.__store__[Auth.blogKey]) {
+                    //     window.__store__[Auth.blogKey] = null;
+                    // }
 
                 } else {
 
                     //create
-                    // post.id = uuid();
-                    post.id = post.title.replace(/\s/g,'_');
+                    post.id = uuid();
                     post.created = new Date();
+
                     window.__store__[key].dispatch(postReducer.createPost(post));
 
                     //also remove post from the post list state
@@ -135,7 +139,10 @@ var post = {
                     //     window.__store__['/blog'].dispatch(postsReducer.createPost(post));
                     // }
                     //Make the store invalid 
-                    window.__store__['/blog'] = null;
+
+                    if (window.__store__[Auth.blogKey]) {
+                        window.__store__[Auth.blogKey] = null;
+                    }
                 }
                 ctrl.state = window.__store__[key].getState();
             }

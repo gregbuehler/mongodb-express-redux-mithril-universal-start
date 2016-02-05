@@ -129,6 +129,12 @@ var blog = module.exports = {
                 }
             }
 
+            ctrl.setBlogKey = function(){
+                //keep the blog key to be used in case of editing post
+                Auth.blogKey = key;
+                console.log('index135-Auth.blogKey', Auth.blogKey);
+            }
+
         } else {
             //Server-side empty functions.
             //If this is not defined, pending occurs on server-side.
@@ -136,6 +142,7 @@ var blog = module.exports = {
             ctrl.save = function() {};
             ctrl.remove = function() {};
             ctrl.cancel = function() {};
+            ctrl.setBlogKey = function(){};
         }
 
     },
@@ -152,7 +159,8 @@ var blog = module.exports = {
                             return m('', [
 
                                 m('h1', m('a', {
-                                    href: '/post/' + post.id,
+                                    href: '/post/' + post.title.replace(/\s/g,'_'),
+                                    onclick: ctrl.setBlogKey,
                                     config: m.route
                                 }, m.trust(marked(post.title)))),
                                 m('p', m.trust(marked(post.summary))),

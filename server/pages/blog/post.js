@@ -6,9 +6,30 @@ var express = require('express'),
 var router = module.exports = express.Router();
 
 // base route '/post'
-router.get('/:id', function(req, res) {
+// router.get('/:id', function(req, res) {
 
-    postResource(req.params.id).then(function(post) {
+//     postResource(req.params.id).then(function(post) {
+
+//         var state = {
+//             key: req.path,
+//             post: post
+//         };
+//         var ctrl = new postPage.controller();
+//         ctrl.state = state;
+
+//         sendPage(res, postPage.view(ctrl), state);
+
+//     }, function(err) {
+//         res.status(500).send(err)
+//     })
+// })
+
+//Fetch the post with that title
+router.get('/:title', function(req, res) {
+
+    var titleToCheck = req.params.title.replace(/_/g, ' ');
+
+    postResource(null, titleToCheck).then(function(post) {
 
         var state = {
             key: req.path,
