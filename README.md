@@ -15,7 +15,7 @@
 - This project is forked from [mithril-quickstart by konsumer](https://github.com/konsumer/mithril-quickstart)
 
 ## Demo
-	See the demo: [https://merm.herokuapp.com/] 
+	See the demo: [https://merm.herokuapp.com/](https://merm.herokuapp.com/) 
 
 ## features
 
