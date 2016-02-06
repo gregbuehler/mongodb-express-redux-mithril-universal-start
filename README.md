@@ -63,7 +63,8 @@
 
 ## Test
 -   Unit test uses [Mocha](https://www.npmjs.com/package/mocha) and [Expect](https://www.npmjs.com/package/expect).
--	E2e test uses [selenium-standalone server](https://www.npmjs.com/package/selenium-standalone) and [WebDriverIO](https://www.npmjs.com/package/webdriverio). ( !! important: WebDriverIO 3.3.0 version should be used. WebDriverIO 4 causes a test error.)
+-	E2e test uses [selenium-standalone server](https://www.npmjs.com/package/selenium-standalone) and [WebDriverIO](https://www.npmjs.com/package/webdriverio). 
+	( !! important: WebDriverIO 3.3.0 version should be used. WebDriverIO 4 does not do test correctly.)
 
 -   [WebDriverIO API is here](http://webdriver.io/api.html)
 
