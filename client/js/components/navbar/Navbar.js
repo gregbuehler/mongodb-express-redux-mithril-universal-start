@@ -95,7 +95,7 @@ var Navbar = module.exports = {
                     }, m('.glyphicon.glyphicon-chevron-' + ctrl.iconDirection)),
                     m("a.navbar-brand[href='/']", {
                         config: m.route
-                    }, "Your sweet app")
+                    }, "Home")
                 ),
                 m(".navbar-collapse." + ctrl.iconDirection,
                     m("ul.nav.navbar-nav.navbar-right", ctrl.links)

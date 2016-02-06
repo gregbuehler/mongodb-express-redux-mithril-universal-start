@@ -151,7 +151,7 @@ var blog = module.exports = {
         return m('', [
             m.component(Navbar),
             m('.container', m('.col-md-12', [
-                    m('h1', ['Blog', m('.pull-right', !ctrl.isEdit ?
+                    m('h1', [m('span', 'Blog'), m('.pull-right', !ctrl.isEdit ?
                         m('button.btn.btn-success', {
                             onclick: ctrl.create.bind(this)
                         }, 'new') : null)]), !ctrl.isEdit ? [

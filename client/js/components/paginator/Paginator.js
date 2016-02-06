@@ -14,17 +14,11 @@ var mpaginate = require('../../../../shared/mithril.paginate.modified');
  *}
  */
 
-// var app = {},
-//     options = {};
-
 var app = {};
 
 /* Controller */
 app.controller = function(arg) {
-        // options.count = arg.count;
-        // options.page = arg.page;
-        // options.perPage = arg.perPage;
-        // options.baseRoute = arg.baseRoute;
+
         var options = arg;
 
         this.paginate = new mpaginate.controller(options)
