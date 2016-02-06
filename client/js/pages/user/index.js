@@ -182,7 +182,7 @@ var users = module.exports = {
         return [
             m.component(Navbar),
             m('.container', m('.col-md-12', [
-                m('h1', ['User', m('.pull-right', !(ctrl.isCreateUser) ?
+                m('h1', [m('span', 'Users'), m('.pull-right', !(ctrl.isCreateUser) ?
                     m('button.btn.btn-success', {
                         onclick: ctrl.create.bind(this)
                     }, 'new') : m('button.btn.btn-default', {

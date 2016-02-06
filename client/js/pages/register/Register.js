@@ -12,6 +12,7 @@ var Register = module.exports = {
 
         ctrl.register = function(e) {
             e.preventDefault();
+            ctrl.msg = '';
             ctrl.errmsg = '';
             var userid = e.target.userid.value;
             var email = e.target.email.value;
@@ -49,31 +50,35 @@ var Register = module.exports = {
 
             //         ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
             //     });
-            m.request({
-                method: 'POST',
-                url: '/api/register',
-                data: {
-                    id: uuid(),
-                    userid: userid,
-                    email: email,
-                    password: password,
-                    password2: password2
-                },
-                unwrapSuccess: function(res) {
-                    ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
-                },
-                unwrapError: function(err) {
-                    var errmsg = err.errmsg;
 
-                    if (errmsg.indexOf(e.target.userid.value) > -1) {
-                        errmsg = 'There is already a user with that userid.';
-                    } else if (errmsg.indexOf(e.target.email.value) > -1) {
-                        errmsg = 'There is already a user with that email address.';
+            //e.target.isTest is intentionally set up for register spec test purpose
+            if (!e.target.isTest) {
+                m.request({
+                    method: 'POST',
+                    url: '/api/register',
+                    data: {
+                        id: uuid(),
+                        userid: userid,
+                        email: email,
+                        password: password,
+                        password2: password2
+                    },
+                    unwrapSuccess: function(res) {
+                        ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
+                    },
+                    unwrapError: function(err) {
+                        var errmsg = err.errmsg;
+
+                        if (errmsg.indexOf(e.target.userid.value) > -1) {
+                            errmsg = 'There is already a user with that userid.';
+                        } else if (errmsg.indexOf(e.target.email.value) > -1) {
+                            errmsg = 'There is already a user with that email address.';
+                        }
+
+                        ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
                     }
-
-                    ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
-                }
-            });
+                });
+            }
         };
     },
 

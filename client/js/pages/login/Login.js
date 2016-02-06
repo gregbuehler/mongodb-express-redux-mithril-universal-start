@@ -84,7 +84,7 @@ var Login = module.exports = {
                         m("input.form-control[name='password'][autocomplete='off'][id='inputPassword'][placeholder='Password'][required][type='password']"),
                     ]),
                     m('.form-group',
-                        m("button.btn.btn-lg.btn-primary.btn-block[type='submit']", "Sign in")
+                        m("button.btn.btn-lg.btn-primary.btn-block[type='submit']",{id: 'loginSubmit'}, "Sign in")
                     )
                 ])
             )

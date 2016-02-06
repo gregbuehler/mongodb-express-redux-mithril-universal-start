@@ -6,7 +6,7 @@ beforeEach(function() {
 });
 
 describe('register', function() {
-    it('should have "register" text', function(done) {
+    it('should have text "register"', function(done) {
         browser
             .url(config.baseUrl + '/register')
             .getText('.form-signin h1')

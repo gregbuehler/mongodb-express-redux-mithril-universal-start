@@ -6,7 +6,7 @@ beforeEach(function() {
 });
 
 describe('blog', function() {
-    it('should have "Blog" text', function(done) {
+    it('should have text "Blog"', function(done) {
         browser
             .url(config.baseUrl + '/blog')
             .getText('.col-md-12 h1 span')

@@ -8,7 +8,7 @@
     "dev": "nodemon --watch client --watch server --watch shared --watch site ./server",
     "testselenium": "selenium-standalone start",
     "testserver": "NODE_ENV=test nodemon --watch client --watch server --watch shared --watch site --watch test ./server",
-    "testspec": "NODE_ENV=test mocha ./test/**/*.spec.js",
+    "testspec": "NODE_ENV=test mocha  ./test/**/**/*.spec.js",
     "teste2e": "NODE_ENV=test node_modules/webdriverio/bin/wdio wdio.conf.js",
     "test": "npm run testspec && npm run teste2e"
   },
