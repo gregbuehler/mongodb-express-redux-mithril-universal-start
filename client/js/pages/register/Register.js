@@ -52,8 +52,8 @@ var Register = module.exports = {
             //         ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
             //     });
 
-            //e.target.isTest is intentionally set up for register spec test purpose
-            if (config.env !== 'test') {
+            //e.isMock is intentionally set up to not call m.request to avoid error in register spec test.
+            if (!e.isMock) {
                 m.request({
                     method: 'POST',
                     url: '/api/register',

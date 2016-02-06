@@ -5,6 +5,7 @@ var ctrl;
 
 beforeEach(function() {
     mockEvent = {
+        isMock: true,
         preventDefault: function() {},
         target: {
             userid: {
