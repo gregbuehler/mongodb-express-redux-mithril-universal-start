@@ -69,21 +69,26 @@
 
 -	For unit test,
 	
-	1. Run the following command. ( There is no need to run the application. ) 
+	1. Run the following command. ( There is no need to run the application. )
+
 		`npm run testspec`
 
 - 	For e2e test, follow the 3 steps.
 
 	1. Run the selenium-standalone server
+
 		`npm run testselenium`
 
 	2. Run the application in test mode
+
 		`npm run testserver`
 
 	3. Run the e2e test
+
 		`npm run teste2e`
 
 -  To run unit test and e2e test together
+
 		`npm test`
 
 
