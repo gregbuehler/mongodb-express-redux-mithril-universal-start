@@ -7,7 +7,6 @@ beforeEach(function() {
     mockEvent = {
         preventDefault: function() {},
         target: {
-            isTest: true,
             userid: {
                 value: 'test'
             },

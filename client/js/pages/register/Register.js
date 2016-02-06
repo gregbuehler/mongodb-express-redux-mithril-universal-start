@@ -4,7 +4,8 @@ var m = require('mithril'),
     userid_validation = require('../../../../shared/userid_validation'),
     email_validation = require('../../../../shared/email_validation'),
     password_validation = require('../../../../shared/password_validation'),
-    uuid = require('../../../../shared/uuid');
+    uuid = require('../../../../shared/uuid'),
+    config = require('../../../../site/config');
 
 var Register = module.exports = {
     controller: function() {
@@ -52,7 +53,7 @@ var Register = module.exports = {
             //     });
 
             //e.target.isTest is intentionally set up for register spec test purpose
-            if (!e.target.isTest) {
+            if (config.env !== 'test') {
                 m.request({
                     method: 'POST',
                     url: '/api/register',
