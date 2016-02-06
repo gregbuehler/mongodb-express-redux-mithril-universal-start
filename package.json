@@ -5,8 +5,12 @@
   "main": "./server",
   "scripts": {
     "start": "node ./server",
-    "dev": "nodemon --watch ./client --watch ./server --watch ./shared --watch ./site --watch ./utils ./server",
-    "testspec": "NODE_ENV=test mocha ./test/**/*.spec.js"
+    "dev": "nodemon --watch client --watch server --watch shared --watch site ./server",
+    "testselenium": "selenium-standalone start",
+    "testserver": "NODE_ENV=test nodemon --watch client --watch server --watch shared --watch site --watch test ./server",
+    "testspec": "NODE_ENV=test mocha ./test/**/*.spec.js",
+    "teste2e": "NODE_ENV=test node_modules/webdriverio/bin/wdio wdio.conf.js",
+    "test": "npm run testspec && npm run teste2e"
   },
   "repository": {
     "type": "git",
@@ -61,7 +65,8 @@
     "browser-sync": "^2.11.1",
     "expect": "^1.14.0",
     "mocha": "^2.4.5",
-    "mockgoose": "^5.2.4"
+    "mockgoose": "^5.2.4",
+    "webdriverio": "^3.3.0"
   },
   "engines": {
     "node": "5.4.1"

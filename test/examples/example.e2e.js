@@ -1,16 +1,17 @@
-// var expect = require('expect');
+var expect = require('expect');
 
-// beforeEach(function() {
+beforeEach(function() {
 
-// });
+});
 
-// describe('done: Google website', function() {
-//     it('should have title "Google"', function(done) {
-//         browser
-//              .url('http://google.com')
-//              .getTitle().then(function(title) {
-//                  expect(title).toBe('Google');
-//                  done();
-//               });
-//     });
-// });
+describe('done: Google website', function() {
+    it('should have title "Google"', function(done) {
+        browser
+             .url('http://google.com')
+             .getTitle()
+             .then(function(title) {
+                 expect(title).toBe('Google');
+                 done();
+              });
+    });
+});

@@ -18,7 +18,7 @@
 
    See the demo: [https://merm.herokuapp.com/](https://merm.herokuapp.com/) 
 
-## features
+## Features
 
 -  MongoDB, Expressjs, Reduxjs, Mithriljs
 -  Universal ( Server-side rendering )
@@ -38,12 +38,12 @@
 -  Server-side rendering is done by mithril-node-render ( [StephanHoyer, mithril-node-render](https://github.com/StephanHoyer/mithril-node-render) ).
 -  Markdown format can be used for Blog. 
 
-## requirement
+## Requirement
 -   MongoDB is required.
 -   Change site/config as required for your needs.
 -   ( site directory has seed data. Change these as you wish.)
 
-## setup for production 
+## Setup for production 
 -  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip) or
 -  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
 -  `npm install`
@@ -52,16 +52,40 @@
 -  login using id: 'admin' and password: 'admin'
 -  [change admin id and password](http://localhost:3000/user)  
 
-## setup for development with browsersync and nodemon  
+## Setup for development with browsersync and nodemon  
 -  [download](https://github.com/whatifif/mongodb-express-redux-mithril-universal-start/archive/master.zip) or
 -  `git clone https://github.com/whatifif/mongodb-express-redux-mithril-universal-start.git`
 -  `npm install`
 -  `npm run dev`
 -  `go to` [http://localhost:3001/login](http://localhost:3001/login)
 -  login using id: 'admin' and password: 'admin'
--  [change admin id and password](http://localhost:3001/user)  
+-  [change admin id and password](http://localhost:3001/user) 
 
-## configuration
+## Test
+-   Unit test uses [Mocha](https://www.npmjs.com/package/mocha) and [Expect](https://www.npmjs.com/package/expect).
+-	E2e test uses [selenium-standalone server](https://www.npmjs.com/package/selenium-standalone) and [WebDriverIO](https://www.npmjs.com/package/webdriverio). ( !! important: WebDriverIO 3.3.0 version should be used. WebDriverIO 4 causes a test error.)
+
+-	For unit test,
+	
+	1. Run the following command. ( There is no need to run the application. ) 
+		`npm run testspec`
+
+- 	For e2e test, follow the 3 steps.
+
+	1. Run the selenium-standalone server
+		`npm run testselenium`
+
+	2. Run the application in test mode
+		`npm run testserver`
+
+	3. Run the e2e test
+		`npm run teste2e`
+
+-  To run unit test and e2e test together
+		`npm test`
+
+
+## Configuration
 
 Use `.env` to set environment variables. Here are some good ones:
 
