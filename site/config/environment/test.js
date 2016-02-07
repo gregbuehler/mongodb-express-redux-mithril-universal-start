@@ -23,11 +23,16 @@ config.mongo = {
 
 config.seedUser = true;
 config.seedPost = true;
+
 config.useOnlyAdminCanPost = true;
 config.useUserEmailVerify = true;
+
 config.useServerRender = true;
 config.useClientRender = true; //if commented out, only server-side rendering is used.
+
+config.useWebpack = true; // If true, browserify will be turn off and webpack should be used.
 config.useBrowsersync = true; //for development purpose only
+
 config.useBlog = true;
 config.blogPerPage = 5;// posts per page of blog page
 config.usersPerPage = 2;// users per page of users page

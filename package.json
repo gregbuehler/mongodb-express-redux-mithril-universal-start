@@ -4,6 +4,8 @@
   "description": "Project template for mithril, with JWT auth, themed bootstrap & easy animations",
   "main": "./server",
   "scripts": {
+    "build": "webpack",
+    "postinstall": "NODE_ENV=production webpack",
     "start": "node ./server",
     "dev": "nodemon --watch client --watch server --watch shared --watch site ./server",
     "testselenium": "selenium-standalone start",
@@ -46,6 +48,7 @@
     "bootstrap": "^3.3.2",
     "bootswatch": "^3.3.2",
     "browserify-middleware": "^4.1.0",
+    "copy-webpack-plugin": "^1.1.1",
     "dotenv": "^0.5.1",
     "express": "^4.11.2",
     "jwt-async": "^1.0.1",

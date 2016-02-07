@@ -3,12 +3,12 @@ var path = require('path'),
     dotenv = require('dotenv'),
     express = require('express'),
     app = express(),
-    pubDir = path.join(__dirname, '..', 'client'),
     envFile = path.join(__dirname, '..', '.env'),
     lessMiddleware = require('less-middleware'),
     mongoose = require('mongoose'),
     browserify = require('browserify-middleware'),
-    config = require('../site/config');
+    config = require('../site/config'),
+    pubDir = config.useWebpack ? path.join(__dirname, '..', 'build') : path.join(__dirname, '..', 'client');
 
 var api = require('./api');
 
@@ -57,10 +57,14 @@ app.use(express.static(pubDir));
 
 if (global.__server__) {
     if (global.__client__) {
-        // browserify the entry-point. this is efficiently cached if NODE_ENV=production
-        app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+
+        if (!config.useWebpack) {
+            // browserify the entry-point. this is efficiently cached if NODE_ENV=production
+            app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+        }
 
     }
+    
     //server-side data
     app.use('/api', api);
 
@@ -74,8 +78,11 @@ if (global.__server__) {
 
 } else {
     if (global.__client__) {
-        // browserify the entry-point. this is efficiently cached if NODE_ENV=production
-        app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+
+        if (!config.useWebpack) {
+            // browserify the entry-point. this is efficiently cached if NODE_ENV=production
+            app.get('/app.js', browserify(path.join(pubDir, 'js', 'app.js'), {}));
+        }
 
         //server-side data
         app.use('/api', api)

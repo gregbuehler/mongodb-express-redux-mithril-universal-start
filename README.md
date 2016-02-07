@@ -96,17 +96,32 @@
 
 ## Configuration
 
-Use `.env` to set environment variables. Here are some good ones:
+1. Site folder is for the customization and configuration.
+   Change the variables as you wish.
+
+2. Or Use `.env` to set environment variables. Here are some good ones:
 
 ```
 MONGO_URI=mongodb://localhost/myfarkensweetapp
 TOKEN_SECRET=kittyonth4keyb04rdME0W!ksjdhfwpeoir
 PORT=3000
 ```
+
+## Choose between browserify or webpack
+
+   site/config/environment has config.useWebpack option.
+   
+   If true, webpack is used. You should run `npm run build` to build using webpack
+   
+   If false, browserify is used instead. You don't need to run `npm run build`
+
+
 ## To change the bootstrap theme:
+
 Open style/bootstap.less. Change the theme name 'paper' to others.
 
 ## When the bootstap style is not applied:
+
 check if the style is not commented out in style/bootstrap.less.
 If so, remove the comment line of the style you want to use.
 
