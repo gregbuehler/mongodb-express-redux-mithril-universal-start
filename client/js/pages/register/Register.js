@@ -52,34 +52,31 @@ var Register = module.exports = {
             //         ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
             //     });
 
-            //e.isMock is intentionally set up to not call m.request to avoid error in register spec test.
-            if (!e.isMock) {
-                m.request({
-                    method: 'POST',
-                    url: '/api/register',
-                    data: {
-                        id: uuid(),
-                        userid: userid,
-                        email: email,
-                        password: password,
-                        password2: password2
-                    },
-                    unwrapSuccess: function(res) {
-                        ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
-                    },
-                    unwrapError: function(err) {
-                        var errmsg = err.errmsg;
+            m.request({
+                method: 'POST',
+                url: '/api/register',
+                data: {
+                    id: uuid(),
+                    userid: userid,
+                    email: email,
+                    password: password,
+                    password2: password2
+                },
+                unwrapSuccess: function(res) {
+                    ctrl.msg = (m(".alert.alert-success.animated.fadeInUp", 'Cool. Go check your email (or the console) for your verify link.'));
+                },
+                unwrapError: function(err) {
+                    var errmsg = err.errmsg;
 
-                        if (errmsg.indexOf(e.target.userid.value) > -1) {
-                            errmsg = 'There is already a user with that userid.';
-                        } else if (errmsg.indexOf(e.target.email.value) > -1) {
-                            errmsg = 'There is already a user with that email address.';
-                        }
-
-                        ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
+                    if (errmsg.indexOf(e.target.userid.value) > -1) {
+                        errmsg = 'There is already a user with that userid.';
+                    } else if (errmsg.indexOf(e.target.email.value) > -1) {
+                        errmsg = 'There is already a user with that email address.';
                     }
-                });
-            }
+
+                    ctrl.errmsg = (m(".alert.alert-danger.animated.fadeInUp", errmsg));
+                }
+            });
         };
     },
 

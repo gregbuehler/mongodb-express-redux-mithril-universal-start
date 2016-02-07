@@ -1,11 +1,12 @@
+var m = require('mithril');
 var expect = require('expect');
 var register = require('../../../../client/js/pages/register/Register.js');
 var mockEvent;
-var ctrl;
+var ctrl, spy;
 
 beforeEach(function() {
+
     mockEvent = {
-        isMock: true,
         preventDefault: function() {},
         target: {
             userid: {
@@ -26,6 +27,8 @@ beforeEach(function() {
 
     ctrl = new register.controller;
 
+    spy = expect.spyOn(m, 'request');
+
 });
 
 describe('register', function() {
@@ -33,7 +36,13 @@ describe('register', function() {
         it('default user has no error', function() {
 
             ctrl.register(mockEvent);
-            expect(ctrl.errmsg).toBe('');
+
+            expect(spy.calls.length).toEqual(1);
+            expect(spy.calls[0].context).toBe(m);
+            expect(spy).toHaveBeenCalled();
+
+            spy.restore();
+            expect.restoreSpies();
         });
 
         it('userid cannot start number', function() {
@@ -49,8 +58,16 @@ describe('register', function() {
             mockEvent.target.userid.value = 't1234567890123456789';
 
             ctrl.register(mockEvent);
-            expect(ctrl.errmsg).toBe('');
+
+            expect(spy.calls.length).toEqual(1);
+            expect(spy.calls[0].context).toBe(m);
+            expect(spy).toHaveBeenCalled();
+            
+            spy.restore();
+            expect.restoreSpies();
+
         });
+
 
         it('userid cannot be longer than 20 chars', function() {
 
@@ -89,7 +106,13 @@ describe('register', function() {
         it('default password has no error', function() {
 
             ctrl.register(mockEvent);
-            expect(ctrl.errmsg).toBe('');
+
+            expect(spy.calls.length).toEqual(1);
+            expect(spy.calls[0].context).toBe(m);
+            expect(spy).toHaveBeenCalled();
+            
+            spy.restore();
+            expect.restoreSpies();
         });
 
         it('password can start number', function() {
@@ -98,7 +121,13 @@ describe('register', function() {
             mockEvent.target.password2.value = '1test';
 
             ctrl.register(mockEvent);
-            expect(ctrl.errmsg).toBe('');
+
+            expect(spy.calls.length).toEqual(1);
+            expect(spy.calls[0].context).toBe(m);
+            expect(spy).toHaveBeenCalled();
+            
+            spy.restore();
+            expect.restoreSpies();
         });
 
         it('password can be as long as 20 chars', function() {
@@ -107,7 +136,13 @@ describe('register', function() {
             mockEvent.target.password2.value = '12345678901234567890';
 
             ctrl.register(mockEvent);
-            expect(ctrl.errmsg).toBe('');
+
+            expect(spy.calls.length).toEqual(1);
+            expect(spy.calls[0].context).toBe(m);
+            expect(spy).toHaveBeenCalled();
+            
+            spy.restore();
+            expect.restoreSpies();
         });
 
         it('password cannot be longer than 20 chars', function() {
@@ -125,7 +160,13 @@ describe('register', function() {
             mockEvent.target.password2.value = 't1234567890$';
 
             ctrl.register(mockEvent);
-            expect(ctrl.errmsg).toBe('');
+
+            expect(spy.calls.length).toEqual(1);
+            expect(spy.calls[0].context).toBe(m);
+            expect(spy).toHaveBeenCalled();
+            
+            spy.restore();
+            expect.restoreSpies();
         });
 
         it('password cannot be shorter than 4 char', function() {
@@ -160,7 +201,13 @@ describe('register', function() {
         it('default email has no error', function() {
 
             ctrl.register(mockEvent);
-            expect(ctrl.errmsg).toBe('');
+
+            expect(spy.calls.length).toEqual(1);
+            expect(spy.calls[0].context).toBe(m);
+            expect(spy).toHaveBeenCalled();
+            
+            spy.restore();
+            expect.restoreSpies();
         });
 
         it('email should have id', function() {
@@ -208,3 +255,4 @@ describe('register', function() {
 
     });
 });
+
