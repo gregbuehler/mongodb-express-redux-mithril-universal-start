@@ -5,6 +5,7 @@
   "main": "./server",
   "scripts": {
     "build": "webpack",
+    "buildwatch": "webpack --watch",
     "postinstall": "NODE_ENV=production webpack",
     "start": "node ./server",
     "dev": "nodemon --watch client --watch server --watch shared --watch site ./server",

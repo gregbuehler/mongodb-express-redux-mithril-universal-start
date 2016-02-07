@@ -38,7 +38,7 @@ config.useUserEmailVerify = true;
 config.useServerRender = true;
 config.useClientRender = true; //if commented out, only server-side rendering is used.
 
-config.useWebpack = true; // If true, browserify will be turn off and webpack should be used.
+config.useWebpack = true; // If true, browserify will be turn off and webpack should be used. Run `npm run build`
 config.useBrowsersync = true; //for development purpose only
 
 config.useBlog = true;
