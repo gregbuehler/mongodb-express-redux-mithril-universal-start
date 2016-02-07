@@ -30,18 +30,32 @@ var userForm = {
                             user.email = e.target.value
                         }
                     }, user.email),
-                    m("input.col-sm-1", {
+                    // m("input.col-sm-1", {
+                    //     value: user.verified,
+                    //     onchange: function(e) {
+                    //         user.verified = e.target.value
+                    //     }
+                    // }, user.verified),
+                    m('.col-sm-1', m("select.form-control", {
+                        style: 'padding: 2px;height:25px;',
                         value: user.verified,
                         onchange: function(e) {
-                            user.verified = e.target.value
+                            user.verified = e.target.value;
                         }
-                    }, user.verified),
-                    m("input.col-sm-2", {
+                    }, [m('option', 'true'), m('option', 'false')])),
+                    // m("input.col-sm-2", {
+                    //     value: user.role,
+                    //     onchange: function(e) {
+                    //         user.role = e.target.value
+                    //     }
+                    // }, user.role),
+                    m('.col-sm-2',m("select.form-control", {
+                        style: 'padding: 2px;height:25px;',
                         value: user.role,
                         onchange: function(e) {
                             user.role = e.target.value
                         }
-                    }, user.role),
+                    }, [m('option', 'member'), m('option', 'author'), m('option', 'admin')])),
                     m('.pull-right', [
                         m('span.label.label-primary', {
                             onclick: arg.save.bind(this)
