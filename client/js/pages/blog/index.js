@@ -176,7 +176,8 @@ var blog = module.exports = {
                             count: ctrl.state.count,
                             perPage: config.blogPerPage,
                             page: ctrl.state.page,
-                            baseRoute: ctrl.state.baseRoute
+                            baseRoute: ctrl.state.baseRoute,
+                            cancel: ctrl.cancel
                         })
                     ]
 

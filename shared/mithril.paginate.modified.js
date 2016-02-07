@@ -52,7 +52,7 @@ var mpaginate = (function(app) {
         this.perPage = (this.options.perPage)
 
         this.page = (this.options.page - 1);
-        
+
         this.baseRoute = this.options.baseRoute;
 
         /* Total pages */
@@ -88,13 +88,24 @@ var mpaginate = (function(app) {
 
         }.bind(this)
 
+        this.showPage = function(page) {
 
+            //Reset edit mode before routing.
+            this.options.cancel();
+
+            var current = this.page = page;
+
+            m.route(this.options.baseRoute + (current === 0 ? '' : '/' + (current + 1)));
+        }.bind(this)
 
         /**
          * Next page
          */
 
         this.nextPage = function() {
+
+            //Reset edit mode before routing.
+            this.options.cancel();
 
             var current = this.page;
 
@@ -115,6 +126,9 @@ var mpaginate = (function(app) {
          */
 
         this.prevPage = function() {
+
+            //Reset edit mode before routing.
+            this.options.cancel();
 
             var current = this.page;
 
@@ -173,11 +187,18 @@ var mpaginate = (function(app) {
                             break;
 
                         default:
+                            // return m('li', {
+                            //     className: page === (ctrl.page) ? 'active' : ''
+                            // }, m('a', {
+                            //     href: page === 0 ? ctrl.baseRoute : ctrl.baseRoute + '/' + (page + 1),
+                            //     config: m.route,
+                            // }, page + 1));
+                            // break;
+                            //--------------
                             return m('li', {
                                 className: page === (ctrl.page) ? 'active' : ''
                             }, m('a', {
-                                href: page === 0 ? ctrl.baseRoute : ctrl.baseRoute + '/' + (page + 1),
-                                config: m.route,
+                                onclick: ctrl.showPage.bind(this, page)
                             }, page + 1));
                             break;
 

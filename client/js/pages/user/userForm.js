@@ -5,7 +5,6 @@ var userForm = {
     view: function(ctrl, arg) {
 
         var user = arg.userCopied;
-        console.log('userForm8-user', user);
 
         return m('',
 

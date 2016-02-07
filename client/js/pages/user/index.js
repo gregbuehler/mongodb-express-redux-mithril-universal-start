@@ -25,7 +25,6 @@ var users = module.exports = {
             window.__store__ = window.__store__ || {};
 
             var key = m.route();
-            console.log('user/index28-key', key);
             var initialState;
 
             if (window.__state__[key]) {
@@ -239,7 +238,8 @@ var users = module.exports = {
                         count: ctrl.state.count,
                         perPage: config.usersPerPage,
                         page: ctrl.state.page,
-                        baseRoute: ctrl.state.baseRoute
+                        baseRoute: ctrl.state.baseRoute,
+                        cancel: ctrl.cancel
                     })
                 ]
             ]))
