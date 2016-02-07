@@ -110,6 +110,7 @@ PORT=3000
 ## Choose between browserify or webpack
 
    site/config/environment has config.useWebpack option.
+   Default is using browserify. To use webpack, uncomment this. 
    
    If true, webpack is used. You should run `npm run build` to build using webpack
    
@@ -126,5 +127,3 @@ check if the style is not commented out in style/bootstrap.less.
 If so, remove the comment line of the style you want to use.
 
 ## TODO
-1. test
-2. build
