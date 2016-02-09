@@ -17,6 +17,12 @@ var Auth = module.exports = {
 
     //Place this inside of function which requires authorization.
     authorized: function() {
+
+        // Allowed route for pagination
+        if (m.route().indexOf('/blog') === 0) {
+            return true;
+        };
+
         if (!Auth.token) {
             if (confirm('You need to login')) {
                 Auth.originalRoute = m.route();
