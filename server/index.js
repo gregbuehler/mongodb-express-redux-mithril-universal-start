@@ -8,9 +8,11 @@ var path = require('path'),
     mongoose = require('mongoose'),
     browserify = require('browserify-middleware'),
     config = require('../site/config'),
-    pubDir = config.useWebpack ? path.join(__dirname, '..', 'build') : path.join(__dirname, '..', 'client');
+    pubDir = config.useWebpack ? path.join(__dirname, '..', 'build') : path.join(__dirname, '..', 'client'),
+    favicon = require('serve-favicon');
 
 var api = require('./api');
+app.use(favicon(__dirname + '/../site/favicon.ico'));
 
 global.__server__ = config.useServerRender;
 global.__client__ = config.useClientRender;
