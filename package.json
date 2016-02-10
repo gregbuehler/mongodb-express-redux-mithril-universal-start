@@ -63,6 +63,7 @@
     "nodemon": "^1.8.1",
     "pagination": "^0.4.4",
     "redux": "^3.0.6",
+    "serve-favicon": "^2.3.0",
     "webpack": "^1.12.12"
   },
   "devDependencies": {
