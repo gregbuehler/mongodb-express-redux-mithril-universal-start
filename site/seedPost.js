@@ -22,16 +22,17 @@ var seed = function() {
 
     author.save();
 
-    mockaroo.forEach(function(post){
+    mockaroo.forEach(function(post) {
         post.id = post.title.replace(/\s/g, '_');
         post.author = author._id;
     })
 
     postModel.find({}).remove(function() {
         // console.log('this callback is needed for proper remove operation.')
+        postModel.create(mockaroo);
     });
 
-    postModel.create(mockaroo);
+
 }
 
 module.exports = seed;
