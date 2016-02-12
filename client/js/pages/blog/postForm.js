@@ -65,13 +65,13 @@ var postForm = {
                 m("span", formatDate(post.created)),
                 m('.pull-right', [
                     m('span.label.label-primary', {
-                        onclick: arg.save.bind(this)
+                        onclick: arg.save
                     }, 'save'),
                     m('span.label.label-default', {
-                        onclick: arg.cancel.bind(this)
+                        onclick: arg.cancel
                     }, 'cancel'),
                     m('span.label.label-danger', {
-                        onclick: arg.remove.bind(this)
+                        onclick: arg.remove
                     }, 'delete')
                 ])
             ]),

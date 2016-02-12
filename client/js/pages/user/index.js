@@ -183,9 +183,9 @@ var users = module.exports = {
             m('.container', m('.col-md-12', [
                 m('h1', [m('span', 'Users'), m('.pull-right', !(ctrl.isCreateUser) ?
                     m('button.btn.btn-success', {
-                        onclick: ctrl.create.bind(this)
+                        onclick: ctrl.create
                     }, 'new') : m('button.btn.btn-default', {
-                        onclick: ctrl.cancel.bind(this)
+                        onclick: ctrl.cancel
                     }, 'cancel'))]),
 
                 [m('', [

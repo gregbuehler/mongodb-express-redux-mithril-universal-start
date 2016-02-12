@@ -212,11 +212,11 @@ var post = {
                             " - ",
                             m("span", formatDate(post.created)),
                             m('.pull-right', [m('span.label.label-default', {
-                                onclick: ctrl.edit.bind(this)
+                                onclick: ctrl.edit
                             }, 'edit'), m('span.label.label-danger', {
-                                onclick: ctrl.remove.bind(this)
+                                onclick: ctrl.remove
                             }, 'delete'), m('span.label.label-success', {
-                                onclick: ctrl.create.bind(this)
+                                onclick: ctrl.create
                             }, 'new')])
                         ]),
                         m('p', m.trust(marked(post.summary))),
